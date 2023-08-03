@@ -3,9 +3,10 @@
 
 class Mainframe : public wxFrame 
 {
-	//void OnClick(wxMouseEvent&);
 public:
 	Mainframe(const wxString& title);
 	void Initialize();
+	void ChangePage();
+	void ShowSidebar();
 };
 

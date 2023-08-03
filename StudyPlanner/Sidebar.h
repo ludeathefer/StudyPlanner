@@ -3,9 +3,9 @@
 
 class Sidebar : public wxPanel
 {
-	bool minimized;
+	void OnClick(wxMouseEvent& evt);
 public:
-	Sidebar(wxWindow* parent, wxSize size);
+	Sidebar(wxWindow* parent);
 	void Initialize();
 };
 

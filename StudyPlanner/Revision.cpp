@@ -16,5 +16,6 @@ void Revision::Initialize()
 	wxBoxSizer* tempSizer = new wxBoxSizer(wxHORIZONTAL);
 	tempSizer->Add(revisionText, 0, wxALIGN_CENTER);
 	revisionSizer->Add(tempSizer, 1, wxALIGN_CENTER);
-	this->SetSizer(revisionSizer);
+	SetSizer(revisionSizer);
+	Hide();
 }

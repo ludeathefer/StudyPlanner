@@ -16,5 +16,6 @@ void Calendar::Initialize()
 	wxBoxSizer* tempSizer = new wxBoxSizer(wxHORIZONTAL);
 	tempSizer->Add(calendarText, 0, wxALIGN_CENTER);
 	calendarSizer->Add(tempSizer, 1, wxALIGN_CENTER);
-	this->SetSizer(calendarSizer);
+	SetSizer(calendarSizer);
+	Hide();
 }

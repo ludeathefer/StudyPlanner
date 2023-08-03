@@ -16,5 +16,6 @@ void Settings::Initialize()
 	wxBoxSizer* tempSizer = new wxBoxSizer(wxHORIZONTAL);
 	tempSizer->Add(settingsText, 0, wxALIGN_CENTER);
 	settingsSizer->Add(tempSizer, 1, wxALIGN_CENTER);
-	this->SetSizer(settingsSizer);
+	SetSizer(settingsSizer);
+	Hide();
 }

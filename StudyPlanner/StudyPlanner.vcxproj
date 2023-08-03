@@ -30,6 +30,7 @@
     <ClInclude Include="Sidebar.h" />
     <ClInclude Include="SidebarMenu.h" />
     <ClInclude Include="SidebarMenuItem.h" />
+    <ClInclude Include="States.h" />
     <ClInclude Include="Syllabus.h" />
   </ItemGroup>
   <ItemGroup>
@@ -44,6 +45,7 @@
     <ClCompile Include="Sidebar.cpp" />
     <ClCompile Include="SidebarMenu.cpp" />
     <ClCompile Include="SidebarMenuItem.cpp" />
+    <ClCompile Include="States.cpp" />
     <ClCompile Include="Syllabus.cpp" />
   </ItemGroup>
   <ItemGroup>

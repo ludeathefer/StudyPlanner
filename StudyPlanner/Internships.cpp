@@ -16,5 +16,6 @@ void Internships::Initialize()
 	wxBoxSizer* tempSizer = new wxBoxSizer(wxHORIZONTAL);
 	tempSizer->Add(internshipsText, 0, wxALIGN_CENTER);
 	internshipsSizer->Add(tempSizer, 1, wxALIGN_CENTER);
-	this->SetSizer(internshipsSizer);
+	SetSizer(internshipsSizer);
+	Hide();
 }

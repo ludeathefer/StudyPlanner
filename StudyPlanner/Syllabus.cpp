@@ -16,5 +16,6 @@ void Syllabus::Initialize()
 	wxBoxSizer* tempSizer = new wxBoxSizer(wxHORIZONTAL);
 	tempSizer->Add(syllabusText, 0, wxALIGN_CENTER);
 	syllabusSizer->Add(tempSizer, 1, wxALIGN_CENTER);
-	this->SetSizer(syllabusSizer);
+	SetSizer(syllabusSizer);
+	Hide();
 }

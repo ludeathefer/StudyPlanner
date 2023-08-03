@@ -1,25 +1,18 @@
 #include "SidebarMenuItem.h"
-
-//wxBEGIN_EVENT_TABLE(SidebarMenuItem, wxPanel)
-//EVT_COMMAND_LEFT_CLICK(wxID_ANY, SidebarMenuItem::OnClick)
-//wxEND_EVENT_TABLE()
-
-int SidebarMenuItem::selected = 0;
+#include "States.h"
+#include "Mainframe.h"
 
 SidebarMenuItem::SidebarMenuItem(wxWindow* parent, int _index, wxString _label, wxString _imagePath) : index(_index), label(_label), imagePath(_imagePath), wxPanel(parent)
 {
 
 }
 
-void SidebarMenuItem::OnClick(wxMouseEvent&)
+void SidebarMenuItem::OnClick(wxMouseEvent& evt)
 {
-	wxLogStatus("%d, %d", selected, index);
-	if (selected != index) {
-		selected = index;
+	if (States::selectedWindow != index) {
+		States::selectedWindow = index;
+		States::mainframe->ChangePage();
 	}
-	wxLogStatus("%d, %d", selected, index);
-	//selected == index ? SetBackgroundColour(wxColor(120, 120, 120)) : NULL;
-	Refresh();
 }
 
 void SidebarMenuItem::OnEnter(wxMouseEvent&)
@@ -36,7 +29,6 @@ void SidebarMenuItem::OnExit(wxMouseEvent&)
 
 void SidebarMenuItem::Initialize()
 {
-	wxRect rect = GetRect();
 	wxStaticText* titleText = new wxStaticText(this, wxID_STATIC, label);
 	wxFont* titleFont = new wxFont(16, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
 	titleText->SetFont(*titleFont);
@@ -48,7 +40,7 @@ void SidebarMenuItem::Initialize()
 
 	wxBoxSizer* sidebarMenuItemSizer = new wxBoxSizer(wxHORIZONTAL);
 	sidebarMenuItemSizer->Add(titleImage, 0, wxALIGN_CENTER_VERTICAL);
-	sidebarMenuItemSizer->Add(titleText, 0, wxALIGN_BOTTOM | wxLEFT, 40);
+	States::minimizedSidebar ? 0 : sidebarMenuItemSizer->Add(titleText, 0, wxALIGN_BOTTOM | wxLEFT, 30);
 	SetSizerAndFit(sidebarMenuItemSizer);
 
 	//selected == index ? SetBackgroundColour(wxColor(120, 120, 120)) : NULL;
@@ -59,4 +51,4 @@ void SidebarMenuItem::Initialize()
 
 	//Bind(wxEVT_ENTER_WINDOW, &SidebarMenuItem::OnEnter, this);
 	//Bind(wxEVT_LEAVE_WINDOW, &SidebarMenuItem::OnExit, this);
-}
+};

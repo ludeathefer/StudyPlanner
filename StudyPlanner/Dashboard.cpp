@@ -16,5 +16,6 @@ void Dashboard::Initialize()
 	wxBoxSizer* tempSizer = new wxBoxSizer(wxHORIZONTAL);
 	tempSizer->Add(dashboardText, 0, wxALIGN_CENTER);
 	dashboardSizer->Add(tempSizer, 1, wxALIGN_CENTER);
-	this->SetSizer(dashboardSizer);
+	SetSizer(dashboardSizer);
+	Hide();
 }

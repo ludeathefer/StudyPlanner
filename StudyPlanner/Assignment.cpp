@@ -16,5 +16,6 @@ void Assignment::Initialize()
 	wxBoxSizer* tempSizer = new wxBoxSizer(wxHORIZONTAL);
 	tempSizer->Add(assignmentText, 0, wxALIGN_CENTER);
 	assignmentSizer->Add(tempSizer, 1, wxALIGN_CENTER);
-	this->SetSizer(assignmentSizer);
+	SetSizer(assignmentSizer);
+	Hide();
 }
