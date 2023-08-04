@@ -16,12 +16,13 @@ wxPanel* titlePanel;
 void Sidebar::OnClick(wxMouseEvent& evt) {
 	States::minimizedSidebar = !States::minimizedSidebar;
 	titleText->SetLabelText(States::minimizedSidebar ? wxT("") : wxT("Study Planner"));
-	titleSizer->Layout();
+	titleSizer->GetItem(size_t(0))->SetBorder(States::minimizedSidebar ? 0 : 15);
 	titlePanel->SetSizerAndFit(titleSizer);
 	delete sidebarMenu;
 	sidebarMenu = new SidebarMenu(this);
 	sidebarMenu->Initialize();
 	sidebarSizer->Add(sidebarMenu, 1, !States::minimizedSidebar ? wxLEFT : wxALIGN_CENTER_HORIZONTAL, 40);
+	titleSizer->Layout();
 	sidebarSizer->Layout();
 	States::mainframe->ShowSidebar();
 };

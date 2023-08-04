@@ -32,6 +32,7 @@
     <ClInclude Include="SidebarMenuItem.h" />
     <ClInclude Include="States.h" />
     <ClInclude Include="Syllabus.h" />
+    <ClInclude Include="Titlebar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
@@ -47,6 +48,7 @@
     <ClCompile Include="SidebarMenuItem.cpp" />
     <ClCompile Include="States.cpp" />
     <ClCompile Include="Syllabus.cpp" />
+    <ClCompile Include="Titlebar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="assets\font\Inter-Regular.ttf" />

@@ -54,6 +54,9 @@
     <ClInclude Include="States.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Titlebar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mainframe.cpp">
@@ -93,6 +96,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="States.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Titlebar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

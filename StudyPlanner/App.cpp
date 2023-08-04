@@ -11,5 +11,6 @@ bool App::OnInit()
 	//#endif
 	Mainframe* mainframe = new Mainframe("Study Planner");
 	mainframe->Initialize();
+	mainframe->Show();
 	return true;
 }
