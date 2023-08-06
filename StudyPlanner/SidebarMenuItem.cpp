@@ -21,14 +21,6 @@ void SidebarMenuItem::OnClick(wxMouseEvent& evt)
 	States::sidebarMenu->Refresh();
 }
 
-void SidebarMenuItem::OnHover(wxMouseEvent& evt)
-{
-	wxRect thisRect = GetClientRect();
-	wxRect innerRect = wxRect(thisRect.x + 1, thisRect.y + 1, thisRect.width - 2, thisRect.height - 2);
-	if (innerRect.Contains(evt.GetPosition())) SetCursor(wxCURSOR_HAND);
-	else SetCursor(wxCURSOR_ARROW);
-}
-
 void SidebarMenuItem::OnClickStatic() {
 	for (SidebarMenuItem* item : SidebarMenu::items) {
 		item->SetBackgroundColour(wxColour(44, 40, 59));

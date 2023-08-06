@@ -10,7 +10,6 @@ class SidebarMenuItem : public wxPanel
 	wxFont* itemTitleFont;
 	wxBoxSizer* sidebarMenuItemSizer;
 	void OnClick(wxMouseEvent& evt);
-	void OnHover(wxMouseEvent& evt);
 	static void OnClickStatic();
 public:
 	SidebarMenuItem(wxWindow* parent, int _index, wxString _label, int _imageId);
