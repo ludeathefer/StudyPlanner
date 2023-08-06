@@ -55,7 +55,7 @@ void Mainframe::Initialize() {
 	settings->Initialize();
 	//internships->Initialize();
 
-	sizer->Add(sidebar, 1, wxEXPAND | wxALL, 0);
+	sizer->Add(sidebar, States::minimizedSidebar ? 1 : 4, wxEXPAND | wxALL, 0);
 	ChangePage();
 	SetSizer(sizer);
 }
@@ -94,12 +94,12 @@ void Mainframe::ChangePage() {
 		sizer->Add(revision, 16, wxEXPAND | wxALL, 0);
 		revision->Show();
 		break;
-	case 6:
+	case 5:
 		if (sizer->GetItemCount() > 1) { sizer->Hide(1); sizer->Remove(1); }
 		sizer->Add(settings, 16, wxEXPAND | wxALL, 0);
 		settings->Show();
 		break;
-	//case 5:
+	//case 6:
 	//	if (sizer->GetItemCount() > 1) { sizer->Hide(1); sizer->Remove(1); }
 	//	sizer->Add(internships, 1, wxEXPAND | wxALL, 0);
 	//	internships->Show();

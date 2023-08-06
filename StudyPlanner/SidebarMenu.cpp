@@ -1,39 +1,39 @@
+#include "States.h"
 #include "SidebarMenu.h"
-#include "SidebarMenuItem.h"
+#include "resource.h"
 
 SidebarMenu::SidebarMenu(wxWindow* parent) : wxPanel(parent)
 {
-
+	sidebarMenuSizer = new wxBoxSizer(wxVERTICAL);
 }
+
+struct SidebarMenu::item {
+	int index;
+	std::string itemLabel;
+	int imageLabel;
+};
+
+std::vector<SidebarMenuItem*> SidebarMenu::items;
 
 void SidebarMenu::Initialize()
 {
-	wxBoxSizer* sidebarMenuSizer = new wxBoxSizer(wxVERTICAL);
-	SidebarMenuItem* dashboard = new SidebarMenuItem(this, 0, wxT("Dashboard"), wxT("assets/img/dashboard.png"));
-	SidebarMenuItem* calander = new SidebarMenuItem(this, 1, wxT("Calander"), wxT("assets/img/calander.png"));
-	SidebarMenuItem* syllabus = new SidebarMenuItem(this, 2, wxT("Syllabus"), wxT("assets/img/syllabus.png"));
-	SidebarMenuItem* assignment = new SidebarMenuItem(this, 3, wxT("Assignment"), wxT("assets/img/assignment.png"));
-	SidebarMenuItem* revision = new SidebarMenuItem(this, 4, wxT("Revision"), wxT("assets/img/revision.png"));
-	//SidebarMenuItem* internships = new SidebarMenuItem(this, 5, wxT("Internships"), wxT("assets/img/internships.png"));
-	SidebarMenuItem* settings = new SidebarMenuItem(this, 6, wxT("Settings"), wxT("assets/img/settings.png"));
+	item itemArray[6] = {
+		{0, "Dashboard", DASHBOARD_PNG},
+		{1, "Calander", CALANDER_PNG},
+		{2, "Syllabus", SYLLABUS_PNG},
+		{3, "Assignment", ASSIGNMENT_PNG},
+		{4, "Revision", REVISION_PNG},
+		{5, "Settings", SETTINGS_PNG},
+		//{6, "Internships", INTERNSHIPS_PNG}
+	};
 
-	dashboard->Initialize();
-	calander->Initialize();
-	syllabus->Initialize();
-	assignment->Initialize();
-	revision->Initialize();
-	//internships->Initialize();
-	settings->Initialize();
-
-	int vPadding = 12;
-	sidebarMenuSizer->Add(dashboard, 0, wxTOP | wxBOTTOM, vPadding);
-	sidebarMenuSizer->Add(calander, 0, wxTOP | wxBOTTOM, vPadding);
-	sidebarMenuSizer->Add(syllabus, 0, wxTOP | wxBOTTOM, vPadding);
-	sidebarMenuSizer->Add(assignment, 0, wxTOP | wxBOTTOM, vPadding);
-	sidebarMenuSizer->Add(revision, 0, wxTOP | wxBOTTOM, vPadding);
-	//sidebarMenuSizer->Add(internships, 0, wxTOP | wxBOTTOM, vPadding);
-	sidebarMenuSizer->AddStretchSpacer();
-	sidebarMenuSizer->Add(settings, 0, wxTOP | wxBOTTOM, 2 * vPadding);
-
+	States::sidebarMenu = this;
+	for (int i = 0; i < 6; i++) {
+		items.push_back(new SidebarMenuItem(this, itemArray[i].index, itemArray[i].itemLabel, itemArray[i].imageLabel));
+		items[i]->Initialize();
+		sidebarMenuSizer->Add(items[i], 0, wxEXPAND);
+		if (i == 4) sidebarMenuSizer->AddStretchSpacer();
+	};
 	SetSizerAndFit(sidebarMenuSizer);
 };
+

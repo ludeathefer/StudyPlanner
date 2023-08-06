@@ -1,6 +1,7 @@
 #include "States.h"
 #include "Sidebar.h"
 #include "SidebarMenu.h"
+#include "SidebarMenuItem.h"
 
 Sidebar::Sidebar(wxWindow* parent) : wxPanel(parent, wxID_ANY, wxDefaultPosition)
 {
@@ -18,12 +19,8 @@ void Sidebar::OnClick(wxMouseEvent& evt) {
 	titleText->SetLabelText(States::minimizedSidebar ? wxT("") : wxT("Study Planner"));
 	titleSizer->GetItem(size_t(0))->SetBorder(States::minimizedSidebar ? 0 : 15);
 	titlePanel->SetSizerAndFit(titleSizer);
-	delete sidebarMenu;
-	sidebarMenu = new SidebarMenu(this);
-	sidebarMenu->Initialize();
-	sidebarSizer->Add(sidebarMenu, 1, !States::minimizedSidebar ? wxLEFT : wxALIGN_CENTER_HORIZONTAL, 40);
-	titleSizer->Layout();
-	sidebarSizer->Layout();
+	SidebarMenuItem::SizeChange();
+	States::sidebarMenu->SetSizerAndFit(sidebarMenu->sidebarMenuSizer);
 	States::mainframe->ShowSidebar();
 };
 
@@ -38,11 +35,13 @@ void Sidebar::Initialize()
 
 	wxPNGHandler* handler = new wxPNGHandler();
 	wxImage::AddHandler(handler);
-	wxStaticBitmap* titleImage = new wxStaticBitmap(titlePanel, wxID_ANY, wxBitmap(wxT("assets/img/logoImg.png"), wxBITMAP_TYPE_PNG), wxDefaultPosition);
+	wxStaticBitmap* titleImage = new wxStaticBitmap(titlePanel, wxID_ANY, States::LoadPNGFromResource(LOGO_PNG, "PNG"), wxDefaultPosition);
 
 	titleSizer->Add(titleText, 0, wxALIGN_BOTTOM | wxRIGHT, 15);
 	titleSizer->Add(titleImage, 0, wxALIGN_BOTTOM | wxBOTTOM, 5);
 	titlePanel->SetSizerAndFit(titleSizer);
+
+	titlePanel->SetCursor(wxCursor(wxCURSOR_HAND));
 	titlePanel->Bind(wxEVT_LEFT_DOWN, &Sidebar::OnClick, this);
 	titleText->Bind(wxEVT_LEFT_DOWN, &Sidebar::OnClick, this);
 	titleImage->Bind(wxEVT_LEFT_DOWN, &Sidebar::OnClick, this);
@@ -50,7 +49,7 @@ void Sidebar::Initialize()
 	sidebarMenu = new SidebarMenu(this);
 	sidebarMenu->Initialize();
 
-	sidebarSizer->Add(titlePanel, 0, wxALIGN_CENTER_HORIZONTAL | wxTOP | wxBOTTOM, 60);
-	sidebarSizer->Add(sidebarMenu, 1, !States::minimizedSidebar ? wxLEFT : wxALIGN_CENTER_HORIZONTAL, 40);
+	sidebarSizer->Add(titlePanel, 0, wxALIGN_CENTER_HORIZONTAL | wxTOP , 90);
+	sidebarSizer->Add(sidebarMenu, 1, wxTOP | wxEXPAND, 60);
 	SetSizer(sidebarSizer);
 };
