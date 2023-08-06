@@ -123,9 +123,6 @@
     <Image Include="assets\img\revision.png">
       <Filter>Resource FIles</Filter>
     </Image>
-    <Image Include="assets\img\search.png">
-      <Filter>Resource FIles</Filter>
-    </Image>
     <Image Include="assets\img\settings.png">
       <Filter>Resource FIles</Filter>
     </Image>

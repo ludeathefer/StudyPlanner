@@ -30,18 +30,18 @@ void SidebarMenuItem::OnHover(wxMouseEvent& evt)
 }
 
 void SidebarMenuItem::OnClickStatic() {
-	for (SidebarMenuItem* instance : SidebarMenu::items) {
-		instance->SetBackgroundColour(wxColour(44, 40, 59));
-		instance->Refresh();
+	for (SidebarMenuItem* item : SidebarMenu::items) {
+		item->SetBackgroundColour(wxColour(44, 40, 59));
+		item->Refresh();
 	};
 };
 
 void SidebarMenuItem::SizeChange() {
-	for (SidebarMenuItem* instance : SidebarMenu::items) {
-		instance->itemTitleText->SetLabelText(States::minimizedSidebar ? wxT("") : instance->label);
-		instance->sidebarMenuItemSizer->GetItem(size_t(0))->SetBorder(States::minimizedSidebar ? 25 : 50);
-		instance->sidebarMenuItemSizer->GetItem(size_t(1))->SetBorder(States::minimizedSidebar ? 0 : 20);
-		instance->SetSizerAndFit(instance->sidebarMenuItemSizer);
+	for (SidebarMenuItem* item : SidebarMenu::items) {
+		item->itemTitleText->SetLabelText(States::minimizedSidebar ? wxT("") : item->label);
+		item->sidebarMenuItemSizer->GetItem(size_t(0))->SetBorder(States::minimizedSidebar ? 25 : 50);
+		item->sidebarMenuItemSizer->GetItem(size_t(1))->SetBorder(States::minimizedSidebar ? 0 : 20);
+		item->SetSizerAndFit(item->sidebarMenuItemSizer);
 	};
 };
 

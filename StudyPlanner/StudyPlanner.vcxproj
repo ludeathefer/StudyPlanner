@@ -67,7 +67,6 @@
     <Image Include="assets\img\logoImg.ico" />
     <Image Include="assets\img\logoImg.png" />
     <Image Include="assets\img\revision.png" />
-    <Image Include="assets\img\search.png" />
     <Image Include="assets\img\settings.png" />
     <Image Include="assets\img\syllabus.png" />
   </ItemGroup>
