@@ -22,6 +22,7 @@
     <ClInclude Include="App.h" />
     <ClInclude Include="Assignment.h" />
     <ClInclude Include="Calendar.h" />
+    <ClInclude Include="CustomPanel.h" />
     <ClInclude Include="Dashboard.h" />
     <ClInclude Include="Assets.h" />
     <ClInclude Include="Internships.h" />
@@ -40,6 +41,7 @@
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Assignment.cpp" />
     <ClCompile Include="Calendar.cpp" />
+    <ClCompile Include="CustomPanel.cpp" />
     <ClCompile Include="Dashboard.cpp" />
     <ClCompile Include="Internships.cpp" />
     <ClCompile Include="Mainframe.cpp" />

@@ -8,4 +8,3 @@
 #define TITLEBAR_COLOUR wxColour("#403D4F")
 #define TITLEBAR_CLOSE_COLOUR wxColour("#B4293B")
 #define TITLEBAR_MINIMIZE_COLOUR wxColour("#683D77")
-
