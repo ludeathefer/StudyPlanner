@@ -33,7 +33,6 @@ void Mainframe::Initialize() {
 	//CreateStatusBar();
 	States::mainframe = this;
 
-	SetMinSize(wxGetDisplaySize());
 	titlebar = new Titlebar(this);
 	titlebar->Initialize();
 	sidebar = new Sidebar(this);

@@ -1,5 +1,6 @@
 #pragma once
 #include <wx/wx.h>
+#include <wx/display.h>
 
 class Mainframe : public wxFrame 
 {
@@ -9,4 +10,3 @@ public:
 	void ChangePage();
 	void ShowSidebar();
 };
-

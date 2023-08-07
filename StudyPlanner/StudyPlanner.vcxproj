@@ -23,6 +23,7 @@
     <ClInclude Include="Assignment.h" />
     <ClInclude Include="Calendar.h" />
     <ClInclude Include="Dashboard.h" />
+    <ClInclude Include="Assets.h" />
     <ClInclude Include="Internships.h" />
     <ClInclude Include="Mainframe.h" />
     <ClInclude Include="resource.h" />

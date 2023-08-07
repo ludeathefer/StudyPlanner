@@ -2,6 +2,7 @@
 #include "Sidebar.h"
 #include "SidebarMenu.h"
 #include "SidebarMenuItem.h"
+#include "Assets.h"
 
 Sidebar::Sidebar(wxWindow* parent) : wxPanel(parent, wxID_ANY, wxDefaultPosition)
 {
@@ -26,12 +27,12 @@ void Sidebar::OnClick(wxMouseEvent& evt) {
 
 void Sidebar::Initialize()
 {
-	SetBackgroundColour(wxColour(44, 41, 59));
+	SetBackgroundColour(SIDEBAR_COLOUR);
 	titlePanel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxDefaultSize);
 	wxFont* titleFont = new wxFont(20, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 	titleText = new wxStaticText(titlePanel, wxID_STATIC, States::minimizedSidebar ? wxT("") : wxT("Study Planner"));
 	titleText->SetFont(*titleFont);
-	titleText->SetForegroundColour(wxColour(233, 233, 233));
+	titleText->SetForegroundColour(TEXT_THEME_COLOUR);
 
 	wxPNGHandler* handler = new wxPNGHandler();
 	wxImage::AddHandler(handler);

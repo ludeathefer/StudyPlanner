@@ -1,5 +1,6 @@
 ﻿#include "Titlebar.h"
 #include "States.h"
+#include "Assets.h"
 
 Titlebar::Titlebar(wxWindow* parent) : wxPanel(parent, wxID_ANY), isCloseHovered(false), isMinimizeHovered(false) {
 
@@ -42,7 +43,6 @@ void Titlebar::HandleControlsLeave(wxMouseEvent& hover) {
 void Titlebar::Initialize() {
     SetDoubleBuffered(true);
     SetSize(wxSize(wxGetDisplaySize().GetWidth(), 25));
-    SetBackgroundColour(wxColour(180, 180, 180));
     Bind(wxEVT_LEFT_UP, &Titlebar::HandleControls, this);
     Bind(wxEVT_MOTION, &Titlebar::HandleControlsHover, this);
     Bind(wxEVT_LEAVE_WINDOW, &Titlebar::HandleControlsLeave, this);
@@ -53,21 +53,21 @@ void Titlebar::OnPaint(wxPaintEvent&) {
     wxPaintDC* dc = new wxPaintDC(this);
     wxFont* titleFont = new wxFont(10, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MAX);
     dc->SetFont(*titleFont);
-    dc->SetBrush(wxColour(64, 61, 79));
+    dc->SetBrush(TITLEBAR_COLOUR);
     dc->DrawRectangle(0, 0, wxGetDisplaySize().GetWidth(), 26);
-    dc->SetTextForeground(wxColour(180, 180, 180));
+    dc->SetTextForeground(TEXT_THEME_COLOUR);
     dc->DrawText("STUDY PLANNER", 10, 6);
-    dc->SetPen(wxColour(64, 61, 79));
-    dc->SetBrush(Titlebar::isCloseHovered ? wxColour(180, 41, 59) : wxColour(64, 61, 79));
+    dc->SetPen(TITLEBAR_COLOUR);
+    dc->SetBrush(Titlebar::isCloseHovered ? TITLEBAR_CLOSE_COLOUR : TITLEBAR_COLOUR);
     dc->DrawRectangle(*closeRect);
-    dc->SetTextForeground(wxColour(200, 200, 200));
+    dc->SetTextForeground(TEXT_THEME_COLOUR);
     dc->DrawText(wxT("❌"), wxGetDisplaySize().GetWidth() - 24, 7);
-    dc->SetBrush(wxColour(64, 61, 79));
+    dc->SetBrush(TITLEBAR_COLOUR);
     dc->DrawRectangle(*maximizeRect);
     dc->SetTextForeground(wxColour(100, 100, 100));
     dc->DrawText(wxT("🗖"), wxGetDisplaySize().GetWidth() - 22 - 35, 6);
-    dc->SetBrush(Titlebar::isMinimizeHovered ? wxColour(84, 61, 99) : wxColour(64, 61, 79));
+    dc->SetBrush(Titlebar::isMinimizeHovered ? TITLEBAR_MINIMIZE_COLOUR : TITLEBAR_COLOUR);
     dc->DrawRectangle(*minimizeRect);
-    dc->SetTextForeground(wxColour(180, 180, 180));
+    dc->SetTextForeground(TEXT_THEME_COLOUR);
     dc->DrawText(wxT("-"), wxGetDisplaySize().GetWidth() - 22 - 2 * 35, 6);
 }

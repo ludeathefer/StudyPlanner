@@ -2,6 +2,7 @@
 #include "SidebarMenu.h"
 #include "States.h"
 #include "Mainframe.h"
+#include "Assets.h"
 
 SidebarMenuItem::SidebarMenuItem(wxWindow* parent, int _index, wxString _label, int _imageId) : index(_index), label(_label), imageId(_imageId), wxPanel(parent)
 {
@@ -16,14 +17,14 @@ void SidebarMenuItem::OnClick(wxMouseEvent& evt)
 	States::selectedWindow = index;
 	States::mainframe->ChangePage();
 	SidebarMenuItem::OnClickStatic();
-	SetBackgroundColour(wxColour(83, 80, 96));
+	SetBackgroundColour(SIDEBAR_SELECTED_COLOUR);
 	Refresh();
 	States::sidebarMenu->Refresh();
 }
 
 void SidebarMenuItem::OnClickStatic() {
 	for (SidebarMenuItem* item : SidebarMenu::items) {
-		item->SetBackgroundColour(wxColour(44, 40, 59));
+		item->SetBackgroundColour(SIDEBAR_COLOUR);
 		item->Refresh();
 	};
 };
@@ -39,9 +40,9 @@ void SidebarMenuItem::SizeChange() {
 
 void SidebarMenuItem::Initialize()
 {
-	SetBackgroundColour(States::selectedWindow == index ? wxColour(83, 80, 96) : wxColour(44, 40, 59));
+	SetBackgroundColour(States::selectedWindow == index ? SIDEBAR_SELECTED_COLOUR : SIDEBAR_COLOUR);
 	itemTitleText->SetFont(*itemTitleFont);
-	itemTitleText->SetForegroundColour(wxColour(233, 233, 233));
+	itemTitleText->SetForegroundColour(TEXT_THEME_COLOUR);
 
 	wxPNGHandler* handler = new wxPNGHandler();
 	wxImage::AddHandler(handler);
