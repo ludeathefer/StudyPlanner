@@ -101,7 +101,7 @@ void Mainframe::ChangePage() {
 		break;
 	//case 6:
 	//	if (sizer->GetItemCount() > 1) { sizer->Hide(1); sizer->Remove(1); }
-	//	sizer->Add(internships, 1, wxEXPAND | wxALL, 0);
+	//	sizer->Add(internships, 16, wxEXPAND | wxALL, 0);
 	//	internships->Show();
 	//	break;
 	default:

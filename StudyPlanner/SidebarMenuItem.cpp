@@ -5,7 +5,7 @@
 
 SidebarMenuItem::SidebarMenuItem(wxWindow* parent, int _index, wxString _label, int _imageId) : index(_index), label(_label), imageId(_imageId), wxPanel(parent)
 {
-	itemTitleText = new wxStaticText(this, wxID_STATIC, States::minimizedSidebar ? wxT("") : label);
+	itemTitleText = new wxStaticText(this, wxID_STATIC, States::minimizedSidebar ? std::string() : label);
 	itemTitleFont = new wxFont(16, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, States::selectedWindow == index ? wxFONTWEIGHT_NORMAL : wxFONTWEIGHT_LIGHT);
 	sidebarMenuItemSizer = new wxBoxSizer(wxHORIZONTAL);
 };
@@ -30,7 +30,7 @@ void SidebarMenuItem::OnClickStatic() {
 
 void SidebarMenuItem::SizeChange() {
 	for (SidebarMenuItem* item : SidebarMenu::items) {
-		item->itemTitleText->SetLabelText(States::minimizedSidebar ? wxT("") : item->label);
+		item->itemTitleText->SetLabelText(States::minimizedSidebar ? std::string() : item->label);
 		item->sidebarMenuItemSizer->GetItem(size_t(0))->SetBorder(States::minimizedSidebar ? 25 : 50);
 		item->sidebarMenuItemSizer->GetItem(size_t(1))->SetBorder(States::minimizedSidebar ? 0 : 20);
 		item->SetSizerAndFit(item->sidebarMenuItemSizer);
