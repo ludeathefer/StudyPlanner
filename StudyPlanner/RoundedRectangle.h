@@ -7,9 +7,9 @@ class RoundedRectangle : public wxPanel
 {
 private:
 	int r;
-	wxColour bg;
-	wxColour color;
 	void OnPaint(wxPaintEvent& evt);
 public:
 	RoundedRectangle(wxWindow* parent, wxSize size, wxColour color, wxColour bg, int r);
+	wxColour bg;
+	wxColour color;
 };
