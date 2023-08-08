@@ -52,5 +52,5 @@ void Sidebar::Initialize()
 
 	sidebarSizer->Add(titlePanel, 0, wxALIGN_CENTER_HORIZONTAL | wxTOP , 90);
 	sidebarSizer->Add(sidebarMenu, 1, wxTOP | wxEXPAND, 60);
-	SetSizer(sidebarSizer);
+	SetSizerAndFit(sidebarSizer);
 };
