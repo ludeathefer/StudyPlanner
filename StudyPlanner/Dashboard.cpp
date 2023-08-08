@@ -1,6 +1,7 @@
 #include "Dashboard.h"
 #include "Assets.h"
-#include "CustomPanel.h"
+#include "RoundedRectangle.h"
+#include "PieChart.h"
 
 Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent) 
 {
@@ -9,7 +10,12 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 void Dashboard::Initialize()
 {
-	CustomPanel* round = new CustomPanel(this, wxDefaultPosition, wxSize(300, 300), wxBrush(SIDEBAR_COLOUR), 20, THEME_COLOUR);
+	//Pie Chart Demonstration
+	//std::vector <float> data = { 20, 10, 5, 25, 10, 20, 7, 3 };
+	//PieChart* round = new PieChart(this, 100, THEME_COLOUR, data);
+
+	//Rounded Rectangle Demonstration
+	RoundedRectangle* round = new RoundedRectangle(this, wxSize(300, 300), SIDEBAR_COLOUR, THEME_COLOUR, 10);
 	wxFont* round1Font = new wxFont(24, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 	wxFont* round2Font = new wxFont(18, wxFONTFAMILY_ROMAN, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
 	wxStaticText* roundText1 = new wxStaticText(round, wxID_STATIC, wxT("Assignments"));
