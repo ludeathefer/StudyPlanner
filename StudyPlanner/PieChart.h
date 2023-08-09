@@ -3,14 +3,19 @@
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
 #include <cmath>
+#include "RoundedRectangle.h"
 
 class PieChart : public wxPanel
 {
 private:
 	int r;
-	wxColour bg;
 	std::vector<float> data;
+	std::vector<wxString> dataLabel;
+	std::vector<wxColour> colors;
+	RoundedRectangle* parent;
+	wxString label;
+	void OnPaint(wxPaintEvent& evt);
 public:
-	PieChart(wxWindow* parent, int r, wxColour bg, std::vector<float> data);
-	virtual void OnPaint(wxPaintEvent& evt);
+	PieChart(RoundedRectangle* parent, std::vector<float> data, std::vector<wxString> dataLabel, wxString label);
+	void AddLabel();
 };
