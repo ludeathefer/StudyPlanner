@@ -18,12 +18,12 @@ void Dashboard::Initialize()
 	dashboardText->SetFont(*dashboardFont);
 	dashboardText->SetForegroundColour(TEXT_THEME_COLOUR);
 
-	RoundedRectangle* roundPie = new RoundedRectangle(this, wxSize(300, 300), SIDEBAR_COLOUR, THEME_COLOUR, 32);
+	RoundedRectangle* roundPie = new RoundedRectangle(this, wxSize(400, 400), SIDEBAR_COLOUR, THEME_COLOUR, 32);
 	std::vector <float> data = { 30, 10, 40, 20 };
 	std::vector <wxString> dataLabel = { "Done", "Pending", "Missed", "Random" };
 	PieChart* pie = new PieChart(roundPie, data, dataLabel, wxString("TASKS THIS WEEK"));
 
-	RoundedRectangle* roundLine = new RoundedRectangle(this, wxSize(500, 500), SIDEBAR_COLOUR, THEME_COLOUR, 32);
+	RoundedRectangle* roundLine = new RoundedRectangle(this, wxSize(500, 400), SIDEBAR_COLOUR, THEME_COLOUR, 32);
 	std::vector <float> dataX = { 30, 10, 40, 20 };
 	std::vector <float> dataY = { 90, 100, 45, 60, 70, 80, 90, 95, 80, 150, 125, 120 };
 	LineGraph* line = new LineGraph(roundLine, dataX, dataY, wxString("Syllabus"));

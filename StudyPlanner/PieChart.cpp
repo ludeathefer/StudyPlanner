@@ -46,9 +46,11 @@ void PieChart::AddLabel() {
 	roundText->SetForegroundColour(TEXT_THEME_COLOUR);
 	roundText->SetFont(*roundFont);
 	wxBoxSizer* roundSizer = new wxBoxSizer(wxVERTICAL);
-	roundSizer->Add(roundText, 1, wxTOP | wxALIGN_CENTER_HORIZONTAL, 20);
-	roundSizer->Add(this, 7, wxTOP | wxALIGN_CENTER_HORIZONTAL, 20);
-	roundSizer->Add(labelPanel, 1, wxBOTTOM | wxALIGN_CENTER_HORIZONTAL, 20);
+	wxBoxSizer* pieSizer = new wxBoxSizer(wxHORIZONTAL);
+	roundSizer->Add(roundText, 0, wxTOP | wxALIGN_CENTER_HORIZONTAL, parent->GetSize().GetHeight() / 10.0);
+	pieSizer->Add(this, 0, wxALIGN_CENTER);
+	roundSizer->Add(pieSizer, 1, wxALIGN_CENTER);
+	roundSizer->Add(labelPanel, 0, wxBOTTOM | wxALIGN_CENTER_HORIZONTAL, parent->GetSize().GetHeight() / 20.0);
 	parent->SetSizer(roundSizer);
 }
 

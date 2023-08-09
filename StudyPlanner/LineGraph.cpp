@@ -18,7 +18,7 @@ void LineGraph::AddLabel()
 	roundText->SetForegroundColour(TEXT_THEME_COLOUR);
 	roundText->SetFont(*roundFont);
 	wxBoxSizer* roundSizer = new wxBoxSizer(wxVERTICAL);
-	roundSizer->Add(roundText, 0, wxTOP | wxALIGN_CENTER_HORIZONTAL, 20);
+	roundSizer->Add(roundText, 0, wxTOP | wxALIGN_CENTER_HORIZONTAL, GetSize().GetHeight() / 10.0);
 	roundSizer->Add(this, 1, wxALIGN_CENTER_HORIZONTAL);
 	parent->SetSizer(roundSizer);
 };
@@ -63,7 +63,7 @@ void LineGraph::OnPaint(wxPaintEvent&)
 			gc->StrokeLines(2, linePoints);
 			double valueAtY = normalizedToYValue.TransformPoint({ 0, normalizedLineY }).m_y;
 			wxString text = wxString::Format("%.2f", valueAtY);
-			text = wxControl::Ellipsize(text, dc, wxELLIPSIZE_MIDDLE, graphArea.GetLeft());
+			//text = wxControl::Ellipsize(text, dc, wxELLIPSIZE_MIDDLE, graphArea.GetLeft());
 			double tw, th;
 			gc->GetTextExtent(text, &tw, &th);
 			gc->DrawText(text, graphArea.GetLeft() - 5 - tw, startPoint.m_y - th / 2.0);
