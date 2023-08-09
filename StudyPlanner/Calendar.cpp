@@ -29,16 +29,16 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 	panel->SetBackgroundColour(wxColor(84, 78, 111));
 	panel->SetDoubleBuffered(true);
 	
-	RoundedRectangle* dayinfo = new RoundedRectangle(panel, wxSize(313, 120), wxColor(44, 41, 59), wxColor(84, 78, 111), 30);
+	RoundedRectangle* dayinfo = new RoundedRectangle(panel, wxSize(313, 120), SIDEBAR_COLOUR, THEME_COLOUR, 30);
 
-	RoundedRectangle* todopend = new RoundedRectangle(panel, wxSize(140, 140), wxColor(44, 41, 59), wxColor(84, 78, 111), 30);
+	RoundedRectangle* todopend = new RoundedRectangle(panel, wxSize(140, 140), SIDEBAR_COLOUR, THEME_COLOUR, 30);
 
-	RoundedRectangle* assignpend = new RoundedRectangle(panel, wxSize(140, 140), wxColor(44, 41, 59), wxColor(84, 78, 111), 30);
+	RoundedRectangle* assignpend = new RoundedRectangle(panel, wxSize(140, 140), SIDEBAR_COLOUR, THEME_COLOUR, 30);
 
-	RoundedRectangle* todolist = new RoundedRectangle(panel, wxSize(271, 266), wxColor(44, 41, 59), wxColor(84, 78, 111), 30);
+	RoundedRectangle* todolist = new RoundedRectangle(panel, wxSize(271, 266), SIDEBAR_COLOUR, THEME_COLOUR, 30);
 
-	RoundedRectangle* noteslist = new RoundedRectangle(panel, wxSize(271, 266), wxColor(44, 41, 59), wxColor(84, 78, 111), 30);
 
+	RoundedRectangle* noteslist = new RoundedRectangle(panel, wxSize(300, 300), SIDEBAR_COLOUR, THEME_COLOUR, 32);
 
 	//wxPanel* assignpend = new wxPanel(panel, wxID_ANY, wxDefaultPosition, wxSize(130, 130));
 	//assignpend->SetBackgroundColour(wxColor(44, 41, 59));
@@ -205,7 +205,7 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 
 
 			calendardateText[count] = new wxButton(calendar, count + 2, cr.getDates()[count],
-				wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT | wxTop);
+				wxDefaultPosition, wxDefaultSize, wxALIGN_RIGHT | wxALIGN_TOP);
 			calendardateText[count]->SetFont(*calendarnumberFont);
 			(j == 6) ? calendardateText[count]->SetForegroundColour(wxColor("#dd403a")) : calendardateText[count]->SetForegroundColour(*wxWHITE);
 
@@ -242,6 +242,11 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 	AddSavedTasks();
 	assignNumber->SetLabel(std::to_string((a.pendingassignmentsCount("assignments.txt").at(1))));
 	todoNumber->SetLabel(std::to_string((pendingtaskCount("tasks.txt").at(1))));
+
+	std::vector <float> data = { 30, 10, 40, 20 };
+	std::vector <wxString> dataLabel = { "Done", "Pending", "Missed", "Random" };
+
+	PieChart* pie = new PieChart(noteslist, data, dataLabel, wxString("TASKS THIS WEEK"));
 
 }
 

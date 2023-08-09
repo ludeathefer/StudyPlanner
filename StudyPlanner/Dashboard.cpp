@@ -6,9 +6,11 @@
 #include <wx/datetime.h>
 #include <vector>
 #include <cstring>
+#include "Assets.h"
 #include "AssignmentData.h"
 #include "Task.h"
 #include "Dummies.h"
+
 
 Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent) 
 {
@@ -21,10 +23,10 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	/*PANELS INITIALIZATIONS START*/
 	wxPanel* panel = new wxPanel(this);
 	panel->SetBackgroundColour(wxColor(84, 78, 111));
-	wxPanel* assigninfo = new wxPanel(panel, wxID_ANY, wxDefaultPosition, wxSize(220, 148));
-	assigninfo->SetBackgroundColour(wxColor(44, 41, 59));
-	wxPanel* todoinfo = new wxPanel(panel, wxID_ANY, wxDefaultPosition, wxSize(220, 148));
-	todoinfo->SetBackgroundColour(wxColor(44, 41, 59));
+
+	RoundedRectangle* assigninfo = new RoundedRectangle(panel, wxSize(220, 148), SIDEBAR_COLOUR, THEME_COLOUR, 30);
+	RoundedRectangle* todoinfo = new RoundedRectangle(panel, wxSize(220, 148), SIDEBAR_COLOUR, THEME_COLOUR, 30);
+	
 	auto classroutine = new wxScrolled<wxPanel>(panel, wxID_ANY, wxDefaultPosition, wxSize(600, 325));
 	classroutine->SetBackgroundColour(wxColor(44, 41, 59));
 	auto revisionprog = new wxScrolled<wxPanel>(panel, wxID_ANY, wxDefaultPosition, wxSize(420, 250));
@@ -61,6 +63,8 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 	wxStaticText* syllabusTitle = new wxStaticText(syllabusprog, wxID_STATIC, "Syllabus Progress", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
 	syllabusTitle->SetFont(*boxheadingFont);
+	syllabusTitle->SetBackgroundColour(SIDEBAR_COLOUR);
+
 	syllabusTitle->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxStaticText* routineTitle = new wxStaticText(classroutine, wxID_STATIC, "Class Routine", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
@@ -78,62 +82,83 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 	wxStaticText* todoTitle = new wxStaticText(todoinfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	todoTitle->SetFont(*boxheadingFont);
+	todoTitle->SetBackgroundColour(SIDEBAR_COLOUR);
 	todoTitle->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxStaticText* todoSubhead = new wxStaticText(todoinfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	todoSubhead->SetFont(*boxsubheadingFont);
+	todoSubhead->SetBackgroundColour(SIDEBAR_COLOUR);
 	todoSubhead->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxStaticText* todoCompleted = new wxStaticText(todoinfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	todoCompleted->SetFont(*boxsubheadingFont);
+	todoCompleted->SetBackgroundColour(SIDEBAR_COLOUR);
 	todoCompleted->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxStaticText* todoPending = new wxStaticText(todoinfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	todoPending->SetFont(*boxsubheadingFont);
+	todoPending->SetBackgroundColour(SIDEBAR_COLOUR);
 	todoPending->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxStaticText* todocompNum = new wxStaticText(todoinfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	todocompNum->SetFont(*completednumFont);
+	todocompNum->SetBackgroundColour(SIDEBAR_COLOUR);
 	todocompNum->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxStaticText* todopendNum = new wxStaticText(todoinfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	todopendNum->SetFont(*pendingnumFont);
 	todopendNum->SetForegroundColour(wxColour(255, 94, 3));
+	todopendNum->SetBackgroundColour(SIDEBAR_COLOUR);
+
 	wxStaticText* todoBlank = new wxStaticText(todoinfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
+	todoBlank->SetBackgroundColour(SIDEBAR_COLOUR);
 	wxStaticText* todoBlank1 = new wxStaticText(todoinfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
 	wxStaticText* todoBlank2 = new wxStaticText(todoinfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
 	wxStaticText* todoBlank3 = new wxStaticText(todoinfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
+	todoBlank1->SetBackgroundColour(SIDEBAR_COLOUR);
+	todoBlank2->SetBackgroundColour(SIDEBAR_COLOUR);
+	todoBlank3->SetBackgroundColour(SIDEBAR_COLOUR);
 
 
 
 
 	wxStaticText* assignmentTitle = new wxStaticText(assigninfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	assignmentTitle->SetFont(*boxheadingFont);
+	assignmentTitle->SetBackgroundColour(SIDEBAR_COLOUR);
 	assignmentTitle->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxStaticText* assignmentSubhead = new wxStaticText(assigninfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	assignmentSubhead->SetFont(*boxsubheadingFont);
+	assignmentSubhead->SetBackgroundColour(SIDEBAR_COLOUR);
 	assignmentSubhead->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxStaticText* assignmentCompleted = new wxStaticText(assigninfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	assignmentCompleted->SetFont(*boxsubheadingFont);
+	assignmentCompleted->SetBackgroundColour(SIDEBAR_COLOUR);
 	assignmentCompleted->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxStaticText* assignmentPending = new wxStaticText(assigninfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	assignmentPending->SetFont(*boxsubheadingFont);
+	assignmentPending->SetBackgroundColour(SIDEBAR_COLOUR);
 	assignmentPending->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxStaticText* assigncompNum = new wxStaticText(assigninfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	assigncompNum->SetFont(*completednumFont);
+	assigncompNum->SetBackgroundColour(SIDEBAR_COLOUR);
 	assigncompNum->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxStaticText* assignpendNum = new wxStaticText(assigninfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	assignpendNum->SetFont(*pendingnumFont);
 	assignpendNum->SetForegroundColour(wxColour(255, 94, 3));
+	assignpendNum->SetBackgroundColour(SIDEBAR_COLOUR);
 	wxStaticText* assignBlank = new wxStaticText(assigninfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
 	wxStaticText* assignBlank1 = new wxStaticText(assigninfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
 	wxStaticText* assignBlank2 = new wxStaticText(assigninfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
 	wxStaticText* assignBlank3 = new wxStaticText(assigninfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
+	assignBlank->SetBackgroundColour(SIDEBAR_COLOUR);
+	assignBlank1->SetBackgroundColour(SIDEBAR_COLOUR);
+	assignBlank2->SetBackgroundColour(SIDEBAR_COLOUR);
+	assignBlank3->SetBackgroundColour(SIDEBAR_COLOUR);
 
 	/*STATIC TEXT INITIALIZATION END*/
 
@@ -320,6 +345,7 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 void Dashboard::Initialize()
 {
+	/*
 	SetBackgroundColour(THEME_COLOUR);
 	wxBoxSizer* dashboardSizer = new wxBoxSizer(wxHORIZONTAL);
 	wxStaticText* dashboardText = new wxStaticText(this, wxID_STATIC, wxT("Dashboard"));
@@ -353,4 +379,3 @@ void Dashboard::Initialize()
 
 
 }
-};
