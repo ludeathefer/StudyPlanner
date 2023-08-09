@@ -82,14 +82,15 @@ void LineGraph::OnPaint(wxPaintEvent&)
 		gc->StrokeLines(2, leftHLinePoints);
 		gc->StrokeLines(2, rightHLinePoints);
 
-		wxPoint2DDouble* pointArray = new wxPoint2DDouble[dataY.size()];
+		std::vector<wxPoint2DDouble> pointVector(dataY.size());
 		wxAffineMatrix2D valueToNormalized = normalizedToYValue;
 		valueToNormalized.Invert();
 		wxAffineMatrix2D valueToChartArea = normalizedToGraphArea;
 		valueToChartArea.Concat(valueToNormalized);
 
-		for (int i = 0; i < dataY.size(); i++) pointArray[i] = valueToChartArea.TransformPoint({ (double) i, dataY[i] });
+		for (int i = 0; i < dataY.size(); i++) pointVector[i] = valueToChartArea.TransformPoint({ (double) i, dataY[i] });
 
+		wxPoint2DDouble* pointArray = &pointVector[0];
 		gc->SetPen(wxPen(*wxCYAN, 2));
 		gc->StrokeLines(dataY.size(), pointArray);
 	};
