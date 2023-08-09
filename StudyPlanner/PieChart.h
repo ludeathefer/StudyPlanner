@@ -9,15 +9,13 @@ class PieChart : public wxPanel
 {
 private:
 	int r;
-	wxColour bg;
 	std::vector<float> data;
 	std::vector<wxString> dataLabel;
 	std::vector<wxColour> colors;
 	RoundedRectangle* parent;
 	wxString label;
-public:
-	PieChart(RoundedRectangle* parent, int r, wxColour bg, std::vector<float> data, std::vector<wxString> dataLabel, wxString label);
 	void OnPaint(wxPaintEvent& evt);
+public:
+	PieChart(RoundedRectangle* parent, std::vector<float> data, std::vector<wxString> dataLabel, wxString label);
 	void AddLabel();
-
 };

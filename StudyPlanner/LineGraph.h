@@ -1,20 +1,21 @@
 #pragma once
-
 #include <wx/wx.h>
 #include <wx/dcbuffer.h>
 #include <wx/graphics.h>
+#include "RoundedRectangle.h"
 
 class LineGraph : public wxPanel
 {
 private:
+	RoundedRectangle* parent;
 	wxColour bg;
 	wxColour color;
 	std::vector<float> dataX;
 	std::vector<float> dataY;
-	float xScale;
-	float yScale;
+	wxString label;
 	void OnPaint(wxPaintEvent& evt);
 public:
-	LineGraph(wxWindow* parent, wxSize size, wxColour color, wxColour bg, std::vector<float> dataX, std::vector<float> dataY, float xScale, float yScale);
+	LineGraph(RoundedRectangle* parent, std::vector<float> dataX, std::vector<float> dataY, wxString label);
+	void AddLabel();
 };
 

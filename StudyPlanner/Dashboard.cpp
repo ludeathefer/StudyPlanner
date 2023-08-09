@@ -2,6 +2,7 @@
 #include "Assets.h"
 #include "RoundedRectangle.h"
 #include "PieChart.h"
+#include "LineGraph.h"
 
 Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent) 
 {
@@ -17,15 +18,23 @@ void Dashboard::Initialize()
 	dashboardText->SetFont(*dashboardFont);
 	dashboardText->SetForegroundColour(TEXT_THEME_COLOUR);
 
-	RoundedRectangle* round = new RoundedRectangle(this, wxSize(300, 300), SIDEBAR_COLOUR, THEME_COLOUR, 10);
-	std::vector <float> data = { 25, 30, 5, 40 };
-	std::vector <wxString> dataLabel = { "Done", "Pending", "Missed", "Random"};
-	PieChart* pie = new PieChart(round, 75, SIDEBAR_COLOUR, data, dataLabel, wxString("LOREM IPSUM"));
+	RoundedRectangle* roundPie = new RoundedRectangle(this, wxSize(300, 300), SIDEBAR_COLOUR, THEME_COLOUR, 32);
+	std::vector <float> data = { 30, 10, 40, 20 };
+	std::vector <wxString> dataLabel = { "Done", "Pending", "Missed", "Random" };
+	PieChart* pie = new PieChart(roundPie, data, dataLabel, wxString("TASKS THIS WEEK"));
 
+	RoundedRectangle* roundLine = new RoundedRectangle(this, wxSize(500, 500), SIDEBAR_COLOUR, THEME_COLOUR, 32);
+	std::vector <float> dataX = { 30, 10, 40, 20 };
+	std::vector <float> dataY = { 90, 100, 45, 60, 70, 80, 90, 95, 80, 150, 125, 120 };
+	LineGraph* line = new LineGraph(roundLine, dataX, dataY, wxString("Syllabus"));
+
+	wxBoxSizer* tempTempSizer = new wxBoxSizer(wxHORIZONTAL);
 	wxBoxSizer* tempSizer = new wxBoxSizer(wxVERTICAL);
+	tempTempSizer->Add(roundPie, 0, wxRIGHT | wxALIGN_CENTER, 40);
+	tempTempSizer->Add(roundLine, 0, wxALIGN_CENTER);
 	tempSizer->Add(dashboardText, 0, wxALIGN_CENTER);
-	tempSizer->Add(round, 0, wxTOP | wxALIGN_CENTER, 40);
+	tempSizer->Add(tempTempSizer, 0, wxTOP | wxALIGN_CENTER, 40);
 	dashboardSizer->Add(tempSizer, 1, wxALIGN_CENTER);
 	SetSizer(dashboardSizer);
 	Hide();
-}
+};
