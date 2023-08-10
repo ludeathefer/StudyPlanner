@@ -71,6 +71,18 @@
     <ClInclude Include="LineGraph.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CalendarBuilder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dummies.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Task.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AssignmentData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mainframe.cpp">
@@ -122,6 +134,18 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LineGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CalendarBuilder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Dummies.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Task.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AssignmentData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

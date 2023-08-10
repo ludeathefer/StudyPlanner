@@ -21,9 +21,12 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Assignment.h" />
+    <ClInclude Include="AssignmentData.h" />
     <ClInclude Include="Calendar.h" />
+    <ClInclude Include="CalendarBuilder.h" />
     <ClInclude Include="Dashboard.h" />
     <ClInclude Include="Assets.h" />
+    <ClInclude Include="Dummies.h" />
     <ClInclude Include="Internships.h" />
     <ClInclude Include="LineGraph.h" />
     <ClInclude Include="Mainframe.h" />
@@ -37,13 +40,17 @@
     <ClInclude Include="SidebarMenuItem.h" />
     <ClInclude Include="States.h" />
     <ClInclude Include="Syllabus.h" />
+    <ClInclude Include="Task.h" />
     <ClInclude Include="Titlebar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Assignment.cpp" />
+    <ClCompile Include="AssignmentData.cpp" />
     <ClCompile Include="Calendar.cpp" />
+    <ClCompile Include="CalendarBuilder.cpp" />
     <ClCompile Include="Dashboard.cpp" />
+    <ClCompile Include="Dummies.cpp" />
     <ClCompile Include="Internships.cpp" />
     <ClCompile Include="LineGraph.cpp" />
     <ClCompile Include="Mainframe.cpp" />
@@ -56,6 +63,7 @@
     <ClCompile Include="SidebarMenuItem.cpp" />
     <ClCompile Include="States.cpp" />
     <ClCompile Include="Syllabus.cpp" />
+    <ClCompile Include="Task.cpp" />
     <ClCompile Include="Titlebar.cpp" />
   </ItemGroup>
   <ItemGroup>
