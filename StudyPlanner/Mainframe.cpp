@@ -8,7 +8,7 @@
 #include "Assignment.h"
 #include "Revision.h"
 #include "Settings.h"
-//#include "Internships.h"
+#include "Internships.h"
 
 Mainframe::Mainframe(const wxString& title): wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxCAPTION))
 {
@@ -26,7 +26,7 @@ Syllabus* syllabus;
 Assignment* assignment;
 Revision* revision;
 Settings* settings;
-//Internships* internships;
+Internships* internships;
 
 void Mainframe::Initialize() {
 	Maximize();
@@ -44,7 +44,7 @@ void Mainframe::Initialize() {
 	assignment = new Assignment(this);
 	revision = new Revision(this);
 	settings = new Settings(this);
-	//internships = new Internships(this);
+	internships = new Internships(this);
 
 	dashboard->Initialize();
 	calendar->Initialize();
@@ -52,7 +52,7 @@ void Mainframe::Initialize() {
 	assignment->Initialize();
 	revision->Initialize();
 	settings->Initialize();
-	//internships->Initialize();
+	internships->Initialize();
 
 	sizer->Add(sidebar, States::minimizedSidebar ? 1 : 4, wxEXPAND | wxALL, 0);
 	ChangePage();
@@ -93,16 +93,16 @@ void Mainframe::ChangePage() {
 		sizer->Add(revision, 16, wxEXPAND | wxALL, 0);
 		revision->Show();
 		break;
-	case 5:
+	case 6:
 		if (sizer->GetItemCount() > 1) { sizer->Hide(1); sizer->Remove(1); }
 		sizer->Add(settings, 16, wxEXPAND | wxALL, 0);
 		settings->Show();
 		break;
-	//case 6:
-	//	if (sizer->GetItemCount() > 1) { sizer->Hide(1); sizer->Remove(1); }
-	//	sizer->Add(internships, 16, wxEXPAND | wxALL, 0);
-	//	internships->Show();
-	//	break;
+	case 5:
+		if (sizer->GetItemCount() > 1) { sizer->Hide(1); sizer->Remove(1); }
+		sizer->Add(internships, 16, wxEXPAND | wxALL, 0);
+		internships->Show();
+		break;
 	default:
 		break;
 	};
