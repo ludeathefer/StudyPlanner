@@ -27,6 +27,7 @@
     <ClInclude Include="Dashboard.h" />
     <ClInclude Include="Assets.h" />
     <ClInclude Include="Dummies.h" />
+    <ClInclude Include="InternshipCard.h" />
     <ClInclude Include="Internships.h" />
     <ClInclude Include="LineGraph.h" />
     <ClInclude Include="Mainframe.h" />
@@ -51,6 +52,7 @@
     <ClCompile Include="CalendarBuilder.cpp" />
     <ClCompile Include="Dashboard.cpp" />
     <ClCompile Include="Dummies.cpp" />
+    <ClCompile Include="InternshipCard.cpp" />
     <ClCompile Include="Internships.cpp" />
     <ClCompile Include="LineGraph.cpp" />
     <ClCompile Include="Mainframe.cpp" />
