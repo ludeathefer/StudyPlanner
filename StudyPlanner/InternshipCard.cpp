@@ -1,8 +1,9 @@
 #include "InternshipCard.h"
 #include "wx/wx.h"
+#include <wx/hyperlink.h>
 #include "Assets.h"
 
-InternshipCard::InternshipCard(wxWindow* parent) : RoundedRectangle(parent, wxSize(425, 250), SIDEBAR_COLOUR, THEME_COLOUR, 30)
+InternshipCard::InternshipCard(wxWindow* parent, std::string jobTitle, std::string jobLink, std::string companyTitle, std::string companyLink, std::string location, std::string image, std::string appdeadline) : RoundedRectangle(parent, wxSize(425, 250), SIDEBAR_COLOUR, THEME_COLOUR, 30)
 {
 	
 	auto panel = new RoundedRectangle(this, wxSize(400, 225), SIDEBAR_COLOUR, THEME_COLOUR, 30);
@@ -19,22 +20,22 @@ InternshipCard::InternshipCard(wxWindow* parent) : RoundedRectangle(parent, wxSi
 	resultContentFont = new wxFont(10, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_LIGHT);
 
 
-	resultTitleText = new wxStaticText(textcontentContainer, wxID_STATIC, "Job Title: PHP Developer");
+	resultTitleText = new wxHyperlinkCtrl(textcontentContainer, wxID_STATIC, jobTitle, jobLink);
 	resultTitleText->SetFont(*resultTitleFont);
 	resultTitleText->SetForegroundColour(*wxWHITE);
 	resultTitleText->SetBackgroundColour(SIDEBAR_COLOUR);
 
-	wxStaticText* companyName = new wxStaticText(textcontentContainer, wxID_STATIC, "Company: Alphabet Inc");
+	wxHyperlinkCtrl* companyName = new wxHyperlinkCtrl(textcontentContainer, wxID_STATIC, companyTitle, companyLink);
 	companyName->SetFont(*resultContentFont);
 	companyName->SetForegroundColour(*wxWHITE);
 	companyName->SetBackgroundColour(SIDEBAR_COLOUR);
 	
-	wxStaticText* companyLocation = new wxStaticText(textcontentContainer, wxID_STATIC, "Location: Sanepa");
+	wxStaticText* companyLocation = new wxStaticText(textcontentContainer, wxID_STATIC, location);
 	companyLocation->SetFont(*resultContentFont);
 	companyLocation->SetForegroundColour(*wxWHITE);
 	companyLocation->SetBackgroundColour(SIDEBAR_COLOUR);
 	
-	wxStaticText* deadline = new wxStaticText(textcontentContainer, wxID_STATIC, "Deadline: 08/10/2023");
+	wxStaticText* deadline = new wxStaticText(textcontentContainer, wxID_STATIC, appdeadline);
 	deadline->SetFont(*resultContentFont);
 	deadline->SetForegroundColour(*wxWHITE);
 	deadline->SetBackgroundColour(SIDEBAR_COLOUR);

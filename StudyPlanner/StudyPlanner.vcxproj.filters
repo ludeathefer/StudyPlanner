@@ -86,6 +86,9 @@
     <ClInclude Include="InternshipCard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MeroJob.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Mainframe.cpp">
@@ -152,6 +155,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="InternshipCard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MeroJob.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
