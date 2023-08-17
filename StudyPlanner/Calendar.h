@@ -13,6 +13,7 @@ private:
 	wxCheckListBox* todocheckListBox;
 	wxCheckListBox* checkListBox;
 	wxButton* calendardateText[31];
+
 public:
 	Calendar(wxWindow* parent);
 	~Calendar();

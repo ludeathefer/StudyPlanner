@@ -31,6 +31,7 @@
     <ClInclude Include="Internships.h" />
     <ClInclude Include="LineGraph.h" />
     <ClInclude Include="Mainframe.h" />
+    <ClInclude Include="MeroJob.h" />
     <ClInclude Include="PieChart.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Revision.h" />
@@ -56,6 +57,7 @@
     <ClCompile Include="Internships.cpp" />
     <ClCompile Include="LineGraph.cpp" />
     <ClCompile Include="Mainframe.cpp" />
+    <ClCompile Include="MeroJob.cpp" />
     <ClCompile Include="PieChart.cpp" />
     <ClCompile Include="Revision.cpp" />
     <ClCompile Include="RoundedRectangle.cpp" />

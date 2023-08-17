@@ -135,7 +135,7 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 
 	/*SIZERS INITIALIZATION START*/
 	wxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
-	mainSizer->Add(panel, 2, wxEXPAND | wxALL, 2);
+	mainSizer->Add(panel, 2, wxEXPAND | wxALL, 0);
 
 	wxSizer* panelSizer = new wxBoxSizer(wxHORIZONTAL);
 	wxSizer* taskSizer = new wxBoxSizer(wxVERTICAL);
@@ -253,6 +253,7 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 Calendar::~Calendar()
 {
 	for (int i = 0; i < 35; i++) {
+		//calendarcontentSizer->Detach(calendardateText[i]);
 		delete[] calendardateText[i];
 	}
 }
