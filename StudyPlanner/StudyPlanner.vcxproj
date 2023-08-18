@@ -21,10 +21,19 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="Assignment.h" />
+    <ClInclude Include="AssignmentData.h" />
     <ClInclude Include="Calendar.h" />
+    <ClInclude Include="CalendarBuilder.h" />
     <ClInclude Include="Dashboard.h" />
+    <ClInclude Include="Assets.h" />
+    <ClInclude Include="Dummies.h" />
+    <ClInclude Include="InternshipCard.h" />
     <ClInclude Include="Internships.h" />
+    <ClInclude Include="LineGraph.h" />
     <ClInclude Include="Mainframe.h" />
+    <ClInclude Include="MeroJob.h" />
+    <ClInclude Include="PieChart.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Revision.h" />
     <ClInclude Include="RoundedRectangle.h" />
     <ClInclude Include="Settings.h" />
@@ -33,14 +42,23 @@
     <ClInclude Include="SidebarMenuItem.h" />
     <ClInclude Include="States.h" />
     <ClInclude Include="Syllabus.h" />
+    <ClInclude Include="Task.h" />
+    <ClInclude Include="Titlebar.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="Assignment.cpp" />
+    <ClCompile Include="AssignmentData.cpp" />
     <ClCompile Include="Calendar.cpp" />
+    <ClCompile Include="CalendarBuilder.cpp" />
     <ClCompile Include="Dashboard.cpp" />
+    <ClCompile Include="Dummies.cpp" />
+    <ClCompile Include="InternshipCard.cpp" />
     <ClCompile Include="Internships.cpp" />
+    <ClCompile Include="LineGraph.cpp" />
     <ClCompile Include="Mainframe.cpp" />
+    <ClCompile Include="MeroJob.cpp" />
+    <ClCompile Include="PieChart.cpp" />
     <ClCompile Include="Revision.cpp" />
     <ClCompile Include="RoundedRectangle.cpp" />
     <ClCompile Include="Settings.cpp" />
@@ -49,21 +67,25 @@
     <ClCompile Include="SidebarMenuItem.cpp" />
     <ClCompile Include="States.cpp" />
     <ClCompile Include="Syllabus.cpp" />
+    <ClCompile Include="Task.cpp" />
+    <ClCompile Include="Titlebar.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="assets\font\Inter-Regular.ttf" />
+    <ResourceCompile Include="Resource.rc">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\img\assignment.png" />
     <Image Include="assets\img\calander.png" />
     <Image Include="assets\img\dashboard.png" />
     <Image Include="assets\img\internships.png" />
-    <Image Include="assets\img\logoImg.png">
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
-    </Image>
+    <Image Include="assets\img\logoImg.ico" />
+    <Image Include="assets\img\logoImg.png" />
     <Image Include="assets\img\revision.png" />
-    <Image Include="assets\img\search.png" />
     <Image Include="assets\img\settings.png" />
     <Image Include="assets\img\syllabus.png" />
   </ItemGroup>

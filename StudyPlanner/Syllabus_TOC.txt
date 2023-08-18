@@ -1,7 +1,0 @@
-6
-Introduction 0
-Finite_Automata 0
-Context_Free_Language 0
-Turing_Machine 0
-Undecidability 0
-Computational_Complexity 0
