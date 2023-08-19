@@ -1,0 +1,4 @@
+3
+Read_MOSFET 0
+Read_Relaxation_oscillator 1
+EDC_sucks 0

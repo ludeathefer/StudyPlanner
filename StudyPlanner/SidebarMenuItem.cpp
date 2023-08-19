@@ -1,60 +1,54 @@
 #include "SidebarMenuItem.h"
-#include "SidebarMenu.h"
 #include "States.h"
 #include "Mainframe.h"
-#include "Assets.h"
 
-SidebarMenuItem::SidebarMenuItem(wxWindow* parent, int _index, wxString _label, int _imageId) : index(_index), label(_label), imageId(_imageId), wxPanel(parent)
+SidebarMenuItem::SidebarMenuItem(wxWindow* parent, int _index, wxString _label, wxString _imagePath) : index(_index), label(_label), imagePath(_imagePath), wxPanel(parent)
 {
-	itemTitleText = new wxStaticText(this, wxID_STATIC, States::minimizedSidebar ? std::string() : label);
-	itemTitleFont = new wxFont(16, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, States::selectedWindow == index ? wxFONTWEIGHT_NORMAL : wxFONTWEIGHT_LIGHT);
-	sidebarMenuItemSizer = new wxBoxSizer(wxHORIZONTAL);
-};
+
+}
 
 void SidebarMenuItem::OnClick(wxMouseEvent& evt)
 {
-	if (States::selectedWindow == index) return;
-	States::selectedWindow = index;
-	States::mainframe->ChangePage();
-	SidebarMenuItem::OnClickStatic();
-	SetBackgroundColour(SIDEBAR_SELECTED_COLOUR);
-	Refresh();
-	States::sidebarMenu->Refresh();
+	if (States::selectedWindow != index) {
+		States::selectedWindow = index;
+		States::mainframe->ChangePage();
+	}
 }
 
-void SidebarMenuItem::OnClickStatic() {
-	for (SidebarMenuItem* item : SidebarMenu::items) {
-		item->SetBackgroundColour(SIDEBAR_COLOUR);
-		item->Refresh();
-	};
-};
+void SidebarMenuItem::OnEnter(wxMouseEvent&)
+{
+	SetBackgroundColour(wxColour(100, 100, 100));
+	Refresh();
+}
 
-void SidebarMenuItem::SizeChange() {
-	for (SidebarMenuItem* item : SidebarMenu::items) {
-		item->itemTitleText->SetLabelText(States::minimizedSidebar ? std::string() : item->label);
-		item->sidebarMenuItemSizer->GetItem(size_t(0))->SetBorder(States::minimizedSidebar ? 25 : 50);
-		item->sidebarMenuItemSizer->GetItem(size_t(1))->SetBorder(States::minimizedSidebar ? 0 : 20);
-		item->SetSizerAndFit(item->sidebarMenuItemSizer);
-	};
-};
+void SidebarMenuItem::OnExit(wxMouseEvent&)
+{
+	SetBackgroundColour(wxColour(44, 41, 59));
+	Refresh();
+}
 
 void SidebarMenuItem::Initialize()
 {
-	SetBackgroundColour(States::selectedWindow == index ? SIDEBAR_SELECTED_COLOUR : SIDEBAR_COLOUR);
-	itemTitleText->SetFont(*itemTitleFont);
-	itemTitleText->SetForegroundColour(TEXT_THEME_COLOUR);
+	wxStaticText* titleText = new wxStaticText(this, wxID_STATIC, label);
+	wxFont* titleFont = new wxFont(16, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
+	titleText->SetFont(*titleFont);
+	titleText->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxPNGHandler* handler = new wxPNGHandler();
 	wxImage::AddHandler(handler);
-	wxStaticBitmap* titleImage = new wxStaticBitmap(this, wxID_ANY, States::LoadPNGFromResource(imageId, "PNG"), wxDefaultPosition, wxSize(30, 30));
+	wxStaticBitmap* titleImage = new wxStaticBitmap(this, wxID_ANY, wxBitmap(imagePath, wxBITMAP_TYPE_PNG), wxDefaultPosition, wxSize(30, 30));
 
-	sidebarMenuItemSizer->Add(titleImage, 0, wxALIGN_CENTER_VERTICAL | wxLEFT , 25);
-	sidebarMenuItemSizer->Add(itemTitleText, 1, wxALIGN_CENTER_VERTICAL | wxLEFT, 0);
-	sidebarMenuItemSizer->SetMinSize(wxSize(0, 60));
+	wxBoxSizer* sidebarMenuItemSizer = new wxBoxSizer(wxHORIZONTAL);
+	sidebarMenuItemSizer->Add(titleImage, 0, wxALIGN_CENTER_VERTICAL);
+	States::minimizedSidebar ? 0 : sidebarMenuItemSizer->Add(titleText, 0, wxALIGN_BOTTOM | wxLEFT, 30);
 	SetSizerAndFit(sidebarMenuItemSizer);
 
+	//selected == index ? SetBackgroundColour(wxColor(120, 120, 120)) : NULL;
+
 	Bind(wxEVT_LEFT_DOWN, &SidebarMenuItem::OnClick, this);
-	itemTitleText->Bind(wxEVT_LEFT_DOWN, &SidebarMenuItem::OnClick, this);
+	titleText->Bind(wxEVT_LEFT_DOWN, &SidebarMenuItem::OnClick, this);
 	titleImage->Bind(wxEVT_LEFT_DOWN, &SidebarMenuItem::OnClick, this);
-	SetCursor(wxCURSOR_HAND);
+
+	//Bind(wxEVT_ENTER_WINDOW, &SidebarMenuItem::OnEnter, this);
+	//Bind(wxEVT_LEAVE_WINDOW, &SidebarMenuItem::OnExit, this);
 };

@@ -1,18 +1,15 @@
 #pragma once
-#include <wx/wx.h>
+#include <wx\wx.h>
 
 class SidebarMenuItem : public wxPanel
 {
-	wxString label;
-	int imageId;
+	wxString label, imagePath;
 	int index;
-	wxStaticText* itemTitleText;
-	wxFont* itemTitleFont;
-	wxBoxSizer* sidebarMenuItemSizer;
 	void OnClick(wxMouseEvent& evt);
-	static void OnClickStatic();
+	void OnEnter(wxMouseEvent& evt);
+	void OnExit(wxMouseEvent& evt);
+
 public:
-	SidebarMenuItem(wxWindow* parent, int _index, wxString _label, int _imageId);
+	SidebarMenuItem(wxWindow* parent, int _index, wxString _label, wxString _imagePath);
 	void Initialize();
-	static void SizeChange();
 };

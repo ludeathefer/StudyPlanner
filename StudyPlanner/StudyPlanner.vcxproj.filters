@@ -9,8 +9,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource FIles">
-      <UniqueIdentifier>{5004581a-07d6-4815-a28b-cc7a84054d32}</UniqueIdentifier>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -53,40 +54,10 @@
     <ClInclude Include="States.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Titlebar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Assets.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PieChart.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RoundedRectangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LineGraph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CalendarBuilder.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dummies.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Task.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AssignmentData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InternshipCard.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MeroJob.h">
+    <ClInclude Include="AddAssignmentDialog.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -130,69 +101,45 @@
     <ClCompile Include="States.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Titlebar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PieChart.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RoundedRectangle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LineGraph.cpp">
+    <ClCompile Include="AddAssignmentDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CalendarBuilder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dummies.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Task.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AssignmentData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InternshipCard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MeroJob.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="assets\font\Inter-Regular.ttf">
+      <Filter>Resource Files</Filter>
+    </Font>
   </ItemGroup>
   <ItemGroup>
     <Image Include="assets\img\assignment.png">
-      <Filter>Resource FIles</Filter>
+      <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\img\calander.png">
-      <Filter>Resource FIles</Filter>
-    </Image>
-    <Image Include="assets\img\dashboard.png">
-      <Filter>Resource FIles</Filter>
+      <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\img\internships.png">
-      <Filter>Resource FIles</Filter>
+      <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\img\logoImg.png">
-      <Filter>Resource FIles</Filter>
+      <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\img\revision.png">
-      <Filter>Resource FIles</Filter>
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\img\search.png">
+      <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\img\settings.png">
-      <Filter>Resource FIles</Filter>
+      <Filter>Resource Files</Filter>
     </Image>
     <Image Include="assets\img\syllabus.png">
-      <Filter>Resource FIles</Filter>
+      <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="assets\img\logoImg.ico">
-      <Filter>Resource FIles</Filter>
+    <Image Include="assets\img\dashboard.png">
+      <Filter>Resource Files</Filter>
     </Image>
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Resource.rc">
-      <Filter>Resource FIles</Filter>
-    </ResourceCompile>
   </ItemGroup>
 </Project>
