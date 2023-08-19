@@ -74,9 +74,9 @@ void Internships::OnSearchButton(wxCommandEvent& event)
 	for (const IndustryCard& industrycard : m.GetResults()) {
 		resultSizer->Detach(resultItem[i]);
 		resultItem[i]->DestroyChildren();
-		resultItem[i]->Destroy();
+		delete resultItem[i];
 		resultSizer->Layout();
-		//delete resultItem[i];
+		
 		i++;
 	}
 	resultSizer->Clear(true);

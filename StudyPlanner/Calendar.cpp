@@ -11,6 +11,7 @@
 #include "Task.h"
 #include "RoundedRectangle.h"
 #include "PieChart.h"
+#include "States.h"
 
 
 AssignmentData a;
@@ -69,7 +70,7 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 	titleText->SetForegroundColour(wxColour(233, 233, 233));
 
 	/*DAY INFO TEXTS*/
-	wxStaticText* nepdateInfo = new wxStaticText(dayinfo, wxID_ANY, cr.getEqvNepaliDate(2023, 8, 8), wxPoint(10, 10), wxDefaultSize);
+	wxStaticText* nepdateInfo = new wxStaticText(dayinfo, wxID_ANY, cr.getEqvNepaliDate(), wxPoint(10, 10), wxDefaultSize);
 	nepdateInfo->SetFont(*nepdateFont);
 	nepdateInfo->SetBackgroundColour(wxColor(44, 41, 59));
 	nepdateInfo->SetForegroundColour(wxColour(233, 233, 233));
@@ -79,7 +80,7 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 	*engdate = dt.Format(wxT("%B %d %Y"));
 
 
-	wxStaticText* engdateInfo = new wxStaticText(dayinfo, wxID_ANY, *engdate, wxPoint(10, 10), wxDefaultSize);
+	wxStaticText* engdateInfo = new wxStaticText(dayinfo, wxID_ANY, States::minimizedSidebar ? dt.Format(wxT("%d/%m/%y")) : *engdate, wxPoint(10, 10), wxDefaultSize);
 	engdateInfo->SetFont(*engdateFont);
 	engdateInfo->SetBackgroundColour(wxColor(44, 41, 59));
 	engdateInfo->SetForegroundColour(wxColour(233, 233, 233));
@@ -222,7 +223,7 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 
 		}
 	}
-
+	
 
 	taskSizer->Layout();
 	calenSizer->Layout();
@@ -253,24 +254,15 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 Calendar::~Calendar()
 {
 	for (int i = 0; i < 35; i++) {
-		//calendarcontentSizer->Detach(calendardateText[i]);
-		delete[] calendardateText[i];
+		
+		delete calendardateText[i];
 	}
+	delete[] calendardateText;
 }
 
 void Calendar::Initialize()
 {
-/*	SetBackgroundColour(THEME_COLOUR);
-	wxBoxSizer* calendarSizer = new wxBoxSizer(wxVERTICAL);
-	wxStaticText* calendarText = new wxStaticText(this, wxID_STATIC, wxT("Calendar"));
-	wxFont* calendarFont = new wxFont(72, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_SEMIBOLD);
-	calendarText->SetFont(*calendarFont);
-	calendarText->SetForegroundColour(TEXT_THEME_COLOUR);
-	wxBoxSizer* tempSizer = new wxBoxSizer(wxHORIZONTAL);
-	tempSizer->Add(calendarText, 0, wxALIGN_CENTER);
-	calendarSizer->Add(tempSizer, 1, wxALIGN_CENTER);
-	SetSizer(calendarSizer);
-	*/
+
 	Hide();
 }
 
