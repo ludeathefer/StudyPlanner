@@ -6,13 +6,17 @@
 InternshipCard::InternshipCard(wxWindow* parent, std::string jobTitle, std::string jobLink, std::string companyTitle, std::string companyLink, std::string location, std::string image, std::string appdeadline) : RoundedRectangle(parent, wxSize(425, 250), SIDEBAR_COLOUR, THEME_COLOUR, 30)
 {
 	
-	auto panel = new RoundedRectangle(this, wxSize(400, 225), SIDEBAR_COLOUR, THEME_COLOUR, 30);
+	auto panel = new RoundedRectangle(this, wxSize(400, 225), SIDEBAR_COLOUR, THEME_COLOUR, 1);
 	panel->SetBackgroundColour(SIDEBAR_COLOUR);
 	wxPanel* infoContainer = new wxPanel(panel, wxID_ANY, wxDefaultPosition, wxSize(390, 200));
 	infoContainer->SetBackgroundColour(SIDEBAR_COLOUR);
 	wxPanel* textcontentContainer = new wxPanel(infoContainer);
 	textcontentContainer->SetBackgroundColour(SIDEBAR_COLOUR);
-	RoundedRectangle* imageContainer = new RoundedRectangle(infoContainer, wxSize(120, 120), *wxWHITE, SIDEBAR_COLOUR, 20);
+	wxPanel* buttonContainer = new wxPanel(textcontentContainer, wxID_ANY, wxDefaultPosition, wxSize(390, 50));
+
+	
+	auto MoreDetails = new RoundedRectangle(buttonContainer, wxSize(180, 40), FOCUS_COLOR, SIDEBAR_COLOUR, 15);
+	auto CompanyDetails = new RoundedRectangle(buttonContainer, wxSize(180, 40), FOCUS_COLOR, SIDEBAR_COLOUR, 15);
 
 
 
@@ -46,23 +50,30 @@ InternshipCard::InternshipCard(wxWindow* parent, std::string jobTitle, std::stri
 	wxSizer* panelSizer = new wxBoxSizer(wxVERTICAL);
 	wxSizer* infoSizer = new wxBoxSizer(wxHORIZONTAL);
 	wxSizer* textSizer = new wxBoxSizer(wxVERTICAL);
+	wxSizer* buttonSizer = new wxBoxSizer(wxHORIZONTAL);
 
 	panelSizer->AddStretchSpacer();
 	panelSizer->Add(infoContainer);
 	panelSizer->AddStretchSpacer();
 
-	infoSizer->Add(imageContainer, 2, wxEXPAND | wxALL, 5);
+
 	infoSizer->Add(textcontentContainer, 3, wxEXPAND | wxALL, 5);
 
 	textSizer->Add(resultTitleText, 1, wxEXPAND | wxALL, 5);
 	textSizer->Add(companyName, 1, wxEXPAND | wxALL, 5);
 	textSizer->Add(companyLocation, 1, wxEXPAND | wxALL, 5);
 	textSizer->Add(deadline, 1, wxEXPAND | wxALL, 5);
+	textSizer->Add(buttonContainer, 1, wxEXPAND | wxALL, 5);
+
+	buttonSizer->Add(MoreDetails, 1, wxEXPAND | wxALL, 5);
+	buttonSizer->Add(CompanyDetails, 1, wxEXPAND | wxALL, 5);
+
 
 	this->SetSizerAndFit(mainSizer);
 	panel->SetSizer(panelSizer);
 	infoContainer->SetSizer(infoSizer);
 	textcontentContainer->SetSizer(textSizer);
+	buttonContainer->SetSizer(buttonSizer);
 
 
 }

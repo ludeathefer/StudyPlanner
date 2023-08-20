@@ -18,12 +18,11 @@ void Internships::Initialize()
 	panel->SetDoubleBuffered(true);
 
 	RoundedRectangle* searchBar = new RoundedRectangle(panel, wxSize(600, 50), wxColor(255,255,255), THEME_COLOUR, 20);
-	auto searchbox = new wxSearchCtrl(searchBar, wxID_ANY, "Software Developer", wxDefaultPosition, wxSize(600, 40), wxNO_BORDER | wxTE_PROCESS_ENTER);
+	auto searchbox = new wxSearchCtrl(searchBar, wxID_ANY, "", wxDefaultPosition, wxSize(600, 40), wxNO_BORDER | wxTE_PROCESS_ENTER);
 	searchResult = new wxScrolled<wxPanel>(panel, wxID_ANY, wxDefaultPosition, wxSize(500, 500));
 	searchResult->SetBackgroundColour(wxColor(84, 78, 111));
 	searchResult->SetDoubleBuffered(true);
 	searchResult->SetScrollRate(0, 50);
-	//searchResult->ShowScrollbars(wxSHOW_SB_NEVER, wxSHOW_SB_NEVER);
 
 	
 
@@ -35,7 +34,7 @@ void Internships::Initialize()
 
 
 	wxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
-	mainSizer->Add(panel, 2, wxEXPAND | wxALL, 0);
+	mainSizer->Add(panel, 2, wxEXPAND | wxTOP, 25);
 	wxSizer* panelSizer = new wxBoxSizer(wxVERTICAL);
 	wxSizer* searchBarSizer = new wxBoxSizer(wxVERTICAL);
 	resultSizer = new wxWrapSizer(wxHORIZONTAL);

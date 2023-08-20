@@ -29,10 +29,14 @@ wxSizer* panelSizer = new wxBoxSizer(wxHORIZONTAL);
 
 
 
+
 Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 {
 	States::calendar = this;
 
+	BuildContextMenu();
+
+	
 	/*PANELS INITIALIZATIONS START*/
 	wxPanel* panel = new wxPanel(this);
 	panel->SetBackgroundColour(wxColor(84, 78, 111));
@@ -140,7 +144,10 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 	todocheckListBox->SetBackgroundColour(wxColor(44, 41, 59));
 
 	/*SIZERS INITIALIZATION START*/
-	mainSizer->Add(panel, 0, wxEXPAND | wxTOP, 25);
+
+	wxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
+	mainSizer->Add(panel, 2, wxEXPAND | wxTOP, 25);
+
 
 	wxSizer* taskSizer = new wxBoxSizer(wxVERTICAL);
 	wxSizer* calenSizer = new wxBoxSizer(wxVERTICAL);
@@ -197,6 +204,7 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 		calendardayText->SetFont(*nepdateFont);
 		calendardayText->SetForegroundColour(*wxWHITE);
 		calendarcontentSizer->Add(calendardayText, 1, wxEXPAND | wxALIGN_BOTTOM);
+
 	}
 
 	int count = 0;
@@ -216,6 +224,7 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 			calendardateText[count]->Bind(wxEVT_LEFT_DOWN, [this, count](wxMouseEvent& evt) {
 				onCalendarText(evt, count);
 				});
+			calendardateText[count]->Bind(wxEVT_CONTEXT_MENU, &Calendar::onContextMenuEvent, this);
 			calendarcontentSizer->Add(calendardateText[count], 0, wxEXPAND | wxALL, 10);
 			count++;
 
@@ -345,3 +354,22 @@ void Calendar::SidebarChange()
 	mainSizer->Layout();
 	//Refresh();
 };
+
+
+void Calendar::BuildContextMenu()
+{
+	auto addTask = contextMenu.Append(wxID_ANY, "Add Task");
+	auto clearTask = contextMenu.Append(wxID_ANY, "Clear All tasks for this date");
+	auto selectItem = contextMenu.Append(wxID_ANY, "Select");
+	
+
+}
+
+void Calendar::onContextMenuEvent(wxContextMenuEvent &e)
+{
+	auto clientPos = e.GetPosition() == wxDefaultPosition
+		? wxPoint(this->GetSize().GetWidth() / 2,  this->GetSize().GetWidth() / 2)
+		: this->ScreenToClient(e.GetPosition());
+	PopupMenu(&this->contextMenu, clientPos);
+
+}

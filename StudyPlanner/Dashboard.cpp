@@ -45,6 +45,7 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	revisionprog->ShowScrollbars(wxSHOW_SB_NEVER, wxSHOW_SB_NEVER);
 	syllabusprog->SetScrollRate(0, 10);
 	classroutine->ShowScrollbars(wxSHOW_SB_NEVER, wxSHOW_SB_NEVER);
+	
 
 	/*PANEL INITIALIZATION END*/
 
@@ -165,13 +166,13 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 	/*SIZERS INITIALIZATION START*/
 	wxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
-	mainSizer->Add(panel, 2, wxEXPAND);
+	mainSizer->Add(panel, 2, wxEXPAND|wxTOP, 25);
 
 	wxSizer* panelSizer = new wxBoxSizer(wxVERTICAL);
 	wxSizer* infoSizer = new wxBoxSizer(wxHORIZONTAL);
 	wxSizer* progSizer = new wxBoxSizer(wxHORIZONTAL);
 	wxSizer* pendSizer = new wxBoxSizer(wxVERTICAL);
-	wxSizer* syllabusSizer = new wxGridSizer(16, 1, 10, 10);
+	wxSizer* syllabusSizer = new wxGridSizer(8, 2, 10, 10);
 
 	const int cols = 2;
 	const int routineRows = 9;
@@ -191,9 +192,9 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 
 	panelSizer->AddSpacer((0, 30));
-	panelSizer->Add(titleText, 1, wxLeft | wxLEFT, 50);
+	panelSizer->Add(titleText, 1, wxLeft | wxLEFT, 30);
 	panelSizer->Add(infoSizer, 5, wxALL, 10);
-	panelSizer->Add(progSizer, 5, wxALL, 10);
+	panelSizer->Add(progSizer, 5, wxLEFT, 25);
 
 	infoSizer->Add(pendSizer, 1, wxALL, 15);
 	infoSizer->AddSpacer((20, 0));
@@ -205,7 +206,7 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	assignContainSizer->Add(assigninfo, 1, wxALL, 15);
 	todoContainSizer->Add(todoinfo, 1, wxALL, 15);
 
-	progSizer->AddSpacer(16);
+	progSizer->AddSpacer(1);
 	progSizer->Add(revisionprogContainer, 1, wxALL, 15);
 	progSizer->Add(syllabusprogContainer, 1, wxALL, 15);
 
@@ -214,13 +215,16 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	routineContainSizer->Add(classroutine, 1, wxEXPAND | wxALL, 15);
 
 	syllabusSizer->Add(syllabusTitle, 1, wxALL | wxLeft, FromDIP(8));
+	wxStaticText* syllabusBlank = new wxStaticText(syllabusprog, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
+	syllabusSizer->Add(syllabusBlank, 1, wxALL | wxRight, FromDIP(8));
+
 
 	int count = 0;
 	for (int i = 5; i < 12; i++) {
 		wxStaticText* bodytext = new wxStaticText(syllabusprog, i, s.subjects[count]);
 		bodytext->SetFont(*boxtextFont);
 		bodytext->SetForegroundColour(wxColor(255, 255, 255));
-		wxGauge* proggauge = new wxGauge(syllabusprog, i, 100);
+		wxGauge* proggauge = new wxGauge(syllabusprog, i, 100, wxDefaultPosition, wxSize(80, 10));
 		proggauge->SetValue(s.completion[count]);
 		syllabusSizer->Add(bodytext, 1, wxLEFT | wxLeft, 10);
 		syllabusSizer->Add(proggauge, 1, wxEXPAND | wxLEFT | wxLeft, 10);
