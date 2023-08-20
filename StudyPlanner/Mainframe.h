@@ -1,5 +1,6 @@
 #pragma once
 #include <wx/wx.h>
+#include <wx/display.h>
 
 class Mainframe : public wxFrame 
 {
@@ -8,9 +9,4 @@ public:
 	void Initialize();
 	void ChangePage();
 	void ShowSidebar();
-	//void OnWindowClosed(wxCloseEvent& evt);//, int i);
-
-	
-
 };
-
