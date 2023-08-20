@@ -10,6 +10,7 @@
 #include "AssignmentData.h"
 #include "Task.h"
 #include "Dummies.h"
+#include "ProgressBar.h"
 
 
 Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent) 
@@ -224,10 +225,9 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 		wxStaticText* bodytext = new wxStaticText(syllabusprog, i, s.subjects[count]);
 		bodytext->SetFont(*boxtextFont);
 		bodytext->SetForegroundColour(wxColor(255, 255, 255));
-		wxGauge* proggauge = new wxGauge(syllabusprog, i, 100, wxDefaultPosition, wxSize(80, 10));
-		proggauge->SetValue(s.completion[count]);
+		ProgressBar* pb = new ProgressBar(syllabusprog, wxSize(100, 20), *wxWHITE, SIDEBAR_COLOUR, 8, s.completion[count]);
 		syllabusSizer->Add(bodytext, 1, wxLEFT | wxLeft, 10);
-		syllabusSizer->Add(proggauge, 1, wxEXPAND | wxLEFT | wxLeft, 10);
+		syllabusSizer->Add(pb, 1, wxEXPAND | wxLEFT | wxLeft, 10);
 		if (count == 6) count = 0;
 		count++;
 

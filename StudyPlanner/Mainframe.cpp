@@ -30,7 +30,7 @@ Internships* internships;
 
 void Mainframe::Initialize() {
 	Maximize();
-	//CreateStatusBar();
+	CreateStatusBar();
 	States::mainframe = this;
 
 	titlebar = new Titlebar(this);
