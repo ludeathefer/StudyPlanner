@@ -12,12 +12,13 @@ private:
 
 	wxCheckListBox* todocheckListBox;
 	wxCheckListBox* checkListBox;
-	
 	wxButton** calendardateText = new wxButton* [35];
+	wxStaticText* engdateInfo;
 
 public:
 	Calendar(wxWindow* parent);
 	~Calendar();
 	void Initialize();
+	void SidebarChange();
 };
 

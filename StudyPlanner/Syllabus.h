@@ -10,9 +10,7 @@ public:
 	void DisplaySyllabus();
 	std::string FileName;
 	std::string DisplaySubject;
-	//void BindEventHandlers(int f);
 	void UpdateCurrentSyllabus(wxCloseEvent& evt);
-	//void SaveSyllabusStatus();
 	wxCheckListBox* CheckListBox[7];
 
 };

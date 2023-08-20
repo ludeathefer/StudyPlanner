@@ -21,10 +21,18 @@ CalendarBuilder cr;
 wxString engdate;
 wxDateTime dt;
 std::vector<std::string> dates;
+RoundedRectangle* todolist;
+RoundedRectangle* noteslist;
+
+wxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
+wxSizer* panelSizer = new wxBoxSizer(wxHORIZONTAL);
+
 
 
 Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 {
+	States::calendar = this;
+
 	/*PANELS INITIALIZATIONS START*/
 	wxPanel* panel = new wxPanel(this);
 	panel->SetBackgroundColour(wxColor(84, 78, 111));
@@ -36,10 +44,13 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 
 	RoundedRectangle* assignpend = new RoundedRectangle(panel, wxSize(140, 140), SIDEBAR_COLOUR, THEME_COLOUR, 30);
 
-	RoundedRectangle* todolist = new RoundedRectangle(panel, wxSize(271, 266), SIDEBAR_COLOUR, THEME_COLOUR, 30);
+	todolist = new RoundedRectangle(panel, wxSize(271, 266), SIDEBAR_COLOUR, THEME_COLOUR, 30);
 
+	noteslist = new RoundedRectangle(panel, wxSize(300, 300), SIDEBAR_COLOUR, THEME_COLOUR, 32);
+	std::vector <float> data = { 30, 10, 40, 20 };
+	std::vector <wxString> dataLabel = { "Done", "Pending", "Missed", "Random" };
 
-	RoundedRectangle* noteslist = new RoundedRectangle(panel, wxSize(300, 300), SIDEBAR_COLOUR, THEME_COLOUR, 32);
+	PieChart* pie = new PieChart(noteslist, data, dataLabel, wxString("TASKS THIS WEEK"));
 
 	//wxPanel* assignpend = new wxPanel(panel, wxID_ANY, wxDefaultPosition, wxSize(130, 130));
 	//assignpend->SetBackgroundColour(wxColor(44, 41, 59));
@@ -79,12 +90,10 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 	dt = wxDateTime::Now();
 	*engdate = dt.Format(wxT("%B %d %Y"));
 
-
-	wxStaticText* engdateInfo = new wxStaticText(dayinfo, wxID_ANY, States::minimizedSidebar ? dt.Format(wxT("%d/%m/%y")) : *engdate, wxPoint(10, 10), wxDefaultSize);
+	engdateInfo = new wxStaticText(dayinfo, wxID_ANY, !States::minimizedSidebar ? dt.Format(wxT("%d/%m/%y")) : *engdate, wxPoint(10, 10), wxDefaultSize);
 	engdateInfo->SetFont(*engdateFont);
 	engdateInfo->SetBackgroundColour(wxColor(44, 41, 59));
 	engdateInfo->SetForegroundColour(wxColour(233, 233, 233));
-
 
 	/*PENDING ASSIGNMENTS TEXTS*/
 	wxStaticText* assignHead = new wxStaticText(assignpend, wxID_ANY, "Assignment");
@@ -126,19 +135,13 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 	todolistHead->SetForegroundColour(wxColour(255, 255, 255));
 
 	/*STATIC TEXT INITIALIZATION END*/
-
-
 	todocheckListBox = new wxCheckListBox(todolist, wxID_ANY, wxDefaultPosition, wxSize(330, 400), 0, NULL, wxNO_BORDER);
 	todocheckListBox->UseForegroundColour();
 	todocheckListBox->SetBackgroundColour(wxColor(44, 41, 59));
 
-
-
 	/*SIZERS INITIALIZATION START*/
-	wxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
-	mainSizer->Add(panel, 2, wxEXPAND | wxALL, 0);
+	mainSizer->Add(panel, 0, wxEXPAND | wxTOP, 25);
 
-	wxSizer* panelSizer = new wxBoxSizer(wxHORIZONTAL);
 	wxSizer* taskSizer = new wxBoxSizer(wxVERTICAL);
 	wxSizer* calenSizer = new wxBoxSizer(wxVERTICAL);
 	wxSizer* dateSizer = new wxBoxSizer(wxHORIZONTAL);
@@ -188,18 +191,14 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 	todopendSizer->Add(todoSubhead, 0, wxCENTER | wxALL, 2);
 
 	todopendSizer->Add(todoNumber, 0, wxCENTER | wxBOTTOM, 15);
-	int color = 10;
-	int size = 60;
 
 	for (unsigned i = 0; i < 7; i++) {
 		wxStaticText* calendardayText = new wxStaticText(calendar, wxID_ANY, cr.getDays()[i], wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER_HORIZONTAL);
 		calendardayText->SetFont(*nepdateFont);
 		calendardayText->SetForegroundColour(*wxWHITE);
 		calendarcontentSizer->Add(calendardayText, 1, wxEXPAND | wxALIGN_BOTTOM);
-		color = color += 40;
 	}
 
-	size = 102;
 	int count = 0;
 	for (unsigned i = 0; i < 5; i++) {
 		for (unsigned j = 0; j < 7; j++) {
@@ -218,7 +217,6 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 				onCalendarText(evt, count);
 				});
 			calendarcontentSizer->Add(calendardateText[count], 0, wxEXPAND | wxALL, 10);
-
 			count++;
 
 		}
@@ -243,12 +241,6 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 	AddSavedTasks();
 	assignNumber->SetLabel(std::to_string((a.pendingassignmentsCount("assignments.txt").at(1))));
 	todoNumber->SetLabel(std::to_string((pendingtaskCount("tasks.txt").at(1))));
-
-	std::vector <float> data = { 30, 10, 40, 20 };
-	std::vector <wxString> dataLabel = { "Done", "Pending", "Missed", "Random" };
-
-	PieChart* pie = new PieChart(noteslist, data, dataLabel, wxString("TASKS THIS WEEK"));
-
 }
 
 Calendar::~Calendar()
@@ -334,5 +326,22 @@ void Calendar::onCalendarText(wxMouseEvent& evt, int pra) {
 	todocheckListBox->Clear();
 	AddSavedTasks(pra);
 
-}
+};
 
+void Calendar::SidebarChange()
+{
+	engdateInfo->SetLabelText(!States::minimizedSidebar ? dt.Format(wxT("%d/%m/%y")) : dt.Format(wxT("%B %d %Y")));
+	if (States::minimizedSidebar) {
+		if (todolist->IsShown() && noteslist->IsShown()) return;
+		todolist->Show();
+		noteslist->Show();
+	}
+	else {
+		if (!todolist->IsShown() || !noteslist->IsShown()) return;
+		todolist->Hide();
+		noteslist->Hide();
+	}
+	panelSizer->Layout();
+	mainSizer->Layout();
+	//Refresh();
+};

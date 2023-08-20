@@ -4,6 +4,7 @@ int States::selectedWindow = 0;
 bool States::minimizedSidebar = true;
 Mainframe* States::mainframe = nullptr;
 SidebarMenu* States::sidebarMenu = nullptr;
+Calendar* States::calendar = nullptr;
 
 wxBitmap States::LoadPNGFromResource(int resourceID, const wxString& resourceType)
 {

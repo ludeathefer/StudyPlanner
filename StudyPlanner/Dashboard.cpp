@@ -83,9 +83,6 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	revisionTitle->SetForegroundColour(wxColour(233, 233, 233));
 	wxStaticText* revisionBlank = new wxStaticText(revisionprog, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
 
-
-
-
 	wxStaticText* todoTitle = new wxStaticText(todoinfo, wxID_STATIC, "To Do", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	todoTitle->SetFont(*boxheadingFont);
 	todoTitle->SetBackgroundColour(SIDEBAR_COLOUR);
@@ -124,9 +121,6 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	todoBlank1->SetBackgroundColour(SIDEBAR_COLOUR);
 	todoBlank2->SetBackgroundColour(SIDEBAR_COLOUR);
 	todoBlank3->SetBackgroundColour(SIDEBAR_COLOUR);
-
-
-
 
 	wxStaticText* assignmentTitle = new wxStaticText(assigninfo, wxID_STATIC, "Assignment", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	assignmentTitle->SetFont(*boxheadingFont);

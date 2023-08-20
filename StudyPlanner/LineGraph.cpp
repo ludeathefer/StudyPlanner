@@ -1,12 +1,13 @@
 #include "LineGraph.h"
 #include "Assets.h"
 
-LineGraph::LineGraph(RoundedRectangle* _parent, std::vector<float> _dataX, std::vector<float> _dataY, wxString _label) :
+LineGraph::LineGraph(RoundedRectangle* _parent, std::vector<int> _dataX, std::vector<double> _dataY, wxString _label, bool oddSem) :
 	parent(_parent), dataX(_dataX), dataY(_dataY), label(_label)
 {
 	SetBackgroundStyle(wxBG_STYLE_PAINT);
 	Create(parent, wxID_ANY, wxDefaultPosition, wxSize(parent->GetSize().GetWidth() - 2*parent->r, parent->GetSize().GetHeight() - 2*parent->r));
 	AddLabel();
+	month = oddSem ? new std::vector<wxString>{ "Bhadra", "Shrawan", "Asar", "Jestha", "Baisakh" } : new std::vector<wxString>{ "Chaitra", "Falgun", "Magh", "Poush", "Mangsir" };
 	Bind(wxEVT_PAINT, &LineGraph::OnPaint, this);
 };
 
@@ -31,16 +32,16 @@ void LineGraph::OnPaint(wxPaintEvent&)
 	wxGraphicsContext* gc = wxGraphicsContext::Create(dc);
 	if (gc)
 	{
-		const double marginX = GetSize().GetWidth() / 20.0;
+		const double marginX = GetSize().GetWidth() / 15.0;
 		const double marginY = GetSize().GetHeight() / 10.0;
 		wxRect2DDouble graphArea(0, 0, wxDouble(GetRect().width), wxDouble(GetRect().height));
-		graphArea.Inset(2*marginX, marginY, marginX, marginY);
+		graphArea.Inset(2.5*marginX, marginY, marginX, 1.5*marginY);
 
 		double xLowValue = *std::min_element(dataX.begin(), dataX.end());
 		double xHighValue = *std::max_element(dataX.begin(), dataX.end());
 		double xValueSpan = xHighValue - xLowValue;
-		double yLowValue = *std::min_element(dataY.begin(), dataY.end());
-		double yHighValue = *std::max_element(dataY.begin(), dataY.end());
+		double yLowValue = 0;
+		double yHighValue = 5;
 		double yValueSpan = yHighValue - yLowValue;
 
 		wxAffineMatrix2D normalizedToYValue{};
@@ -51,22 +52,38 @@ void LineGraph::OnPaint(wxPaintEvent&)
 		wxAffineMatrix2D normalizedToGraphArea{};
 		normalizedToGraphArea.Translate(graphArea.GetLeft(), graphArea.GetTop());
 		normalizedToGraphArea.Scale(graphArea.m_width, graphArea.m_height);
-		const int yLines = 9;
+		const int yLines = 11;
 
 		gc->SetPen(wxPen(TEXT_THEME_COLOUR, 2));
 		gc->SetFont(wxFont(wxFontInfo(8).Family(wxFONTFAMILY_TELETYPE)), TEXT_THEME_COLOUR);
+		int monthCount = 0;
 		for (int i = 0; i < yLines; i++) {
 			double normalizedLineY = (double)i / (yLines - 1);
 			wxPoint2DDouble startPoint = normalizedToGraphArea.TransformPoint({ 0, normalizedLineY });
 			wxPoint2DDouble endPoint = normalizedToGraphArea.TransformPoint({ 1, normalizedLineY });
 			wxPoint2DDouble linePoints[] = { startPoint, endPoint };
 			gc->StrokeLines(2, linePoints);
-			double valueAtY = normalizedToYValue.TransformPoint({ 0, normalizedLineY }).m_y;
-			wxString text = wxString::Format("%.2f", valueAtY);
-			//text = wxControl::Ellipsize(text, dc, wxELLIPSIZE_MIDDLE, graphArea.GetLeft());
+			if (i % 2 == 0) {
+				double tw, th;
+				if (monthCount < (*month).size()) {
+					gc->GetTextExtent((*month)[monthCount], &tw, &th);
+					gc->DrawText((*month)[monthCount++], graphArea.GetLeft() - 5 - tw, startPoint.m_y - th / 2.0);
+				}
+				else {
+					gc->GetTextExtent("CHAPTERS", &tw, &th);
+					gc->DrawText("CHAPTERS", graphArea.GetLeft() - 5 - tw, startPoint.m_y - th / 2.0 + 10);
+				};
+			};
+		};
+
+		for (int i = 1; i < dataX.size(); i++) {
+			double normalizedLineX = (double)i / (dataX.size() - 1);
+			wxPoint2DDouble startPoint = normalizedToGraphArea.TransformPoint({ normalizedLineX, 0 });
+			wxPoint2DDouble endPoint = normalizedToGraphArea.TransformPoint({ normalizedLineX, 1 });
 			double tw, th;
+			wxString text = wxString::Format("%d", dataX[i]);
 			gc->GetTextExtent(text, &tw, &th);
-			gc->DrawText(text, graphArea.GetLeft() - 5 - tw, startPoint.m_y - th / 2.0);
+			gc->DrawText(text, startPoint.m_x - tw / 2.0, graphArea.GetBottom() + th - 5);
 		};
 
 		wxPoint2DDouble leftHLinePoints[] = {

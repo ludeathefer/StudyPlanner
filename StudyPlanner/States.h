@@ -1,6 +1,7 @@
 #pragma once
 #include "Mainframe.h"
 #include "SidebarMenu.h"
+#include "Calendar.h"
 #include "resource.h"
 #include <wx/mstream.h>
 class States
@@ -11,5 +12,5 @@ class States
 	static bool minimizedSidebar;
 	static Mainframe* mainframe;
 	static SidebarMenu* sidebarMenu;
+	static Calendar* calendar;
 };
-

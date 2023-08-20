@@ -23,6 +23,7 @@ void Sidebar::OnClick(wxMouseEvent& evt) {
 	SidebarMenuItem::SizeChange();
 	States::sidebarMenu->SetSizerAndFit(sidebarMenu->sidebarMenuSizer);
 	States::mainframe->ShowSidebar();
+	States::calendar->SidebarChange();
 };
 
 void Sidebar::Initialize()
