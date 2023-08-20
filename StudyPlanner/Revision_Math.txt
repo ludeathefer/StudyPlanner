@@ -1,0 +1,6 @@
+5
+Determinant_and_Matrices 1
+Line,_Surface_and_Volume_Integrals 0
+Laplace_Transform 1
+Fourier_Series 1
+Linear_Programming 0
