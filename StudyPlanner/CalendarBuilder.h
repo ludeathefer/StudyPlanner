@@ -8,7 +8,7 @@ public:
 	std::vector<std::string> getDays();
 	std::vector<std::string> getDates();
 	std::string getMonthName(int num);
-	std::string getEqvNepaliDate(int day, int month, int year);
+	std::string getEqvNepaliDate();
 
 
 };

@@ -40,7 +40,7 @@ std::vector<std::string> CalendarBuilder::getDates()
     return dates;
 }
 
-std::string CalendarBuilder::getEqvNepaliDate(int day, int month, int year)
+std::string CalendarBuilder::getEqvNepaliDate()
 {
 
     nepaliMap[2000] = { 0, 30, 32, 31, 32, 31, 30, 30, 30, 29, 30, 29, 31 };
@@ -143,8 +143,9 @@ std::string CalendarBuilder::getEqvNepaliDate(int day, int month, int year)
     int startingNepMonth = 9;
     int startingNepDay = 17;
     wxDateTime dt1, dt2;
+    dt2 = wxDateTime::Now();
     dt1.ParseFormat("01.01.1944", "%d.%m.%Y");
-    dt2.ParseFormat("08.08.2023", "%d.%m.%Y");
+    dt2.ParseFormat(dt2.Format(wxT("%d.%m.%Y")), "%d.%m.%Y");
     wxTimeSpan ts = dt2.Subtract(dt1); // get the exact difference as a time span
     int days = ts.GetDays(); // get the number of days in the time span
 

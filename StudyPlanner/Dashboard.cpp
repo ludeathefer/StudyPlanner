@@ -24,15 +24,21 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	wxPanel* panel = new wxPanel(this);
 	panel->SetBackgroundColour(wxColor(84, 78, 111));
 
-	RoundedRectangle* assigninfo = new RoundedRectangle(panel, wxSize(220, 148), SIDEBAR_COLOUR, THEME_COLOUR, 30);
-	RoundedRectangle* todoinfo = new RoundedRectangle(panel, wxSize(220, 148), SIDEBAR_COLOUR, THEME_COLOUR, 30);
-	
-	auto classroutine = new wxScrolled<wxPanel>(panel, wxID_ANY, wxDefaultPosition, wxSize(600, 325));
-	classroutine->SetBackgroundColour(wxColor(44, 41, 59));
-	auto revisionprog = new wxScrolled<wxPanel>(panel, wxID_ANY, wxDefaultPosition, wxSize(420, 250));
-	revisionprog->SetBackgroundColour(wxColor(44, 41, 59));
-	auto syllabusprog = new wxScrolled<wxPanel>(panel, wxID_ANY, wxDefaultPosition, wxSize(420, 250));
-	syllabusprog->SetBackgroundColour(wxColor(44, 41, 59));
+	RoundedRectangle* assigninfoContainer = new RoundedRectangle(panel, wxSize(240, 170), SIDEBAR_COLOUR, THEME_COLOUR, 30);
+	RoundedRectangle* todoinfoContainer = new RoundedRectangle(panel, wxSize(240, 170), SIDEBAR_COLOUR, THEME_COLOUR, 30);
+	RoundedRectangle* assigninfo = new RoundedRectangle(assigninfoContainer, wxSize(200, 148), SIDEBAR_COLOUR, THEME_COLOUR, 1);
+	RoundedRectangle* todoinfo = new RoundedRectangle(todoinfoContainer, wxSize(200, 148), SIDEBAR_COLOUR, THEME_COLOUR, 1);
+	RoundedRectangle* classroutineContainer = new RoundedRectangle(panel, wxSize(640, 370), SIDEBAR_COLOUR, THEME_COLOUR, 30);
+	RoundedRectangle* revisionprogContainer = new RoundedRectangle(panel, wxSize(460, 300), SIDEBAR_COLOUR, THEME_COLOUR, 30);
+	RoundedRectangle* syllabusprogContainer = new RoundedRectangle(panel, wxSize(460, 300), SIDEBAR_COLOUR, THEME_COLOUR, 30);
+
+
+	auto classroutine = new wxScrolled<wxPanel>(classroutineContainer, wxID_ANY, wxDefaultPosition, wxSize(600, 325));
+	classroutine->SetBackgroundColour(SIDEBAR_COLOUR);
+	auto revisionprog = new wxScrolled<wxPanel>(revisionprogContainer, wxID_ANY, wxDefaultPosition, wxSize(380, 250));
+	revisionprog->SetBackgroundColour(SIDEBAR_COLOUR);
+	auto syllabusprog = new wxScrolled<wxPanel>(syllabusprogContainer, wxID_ANY, wxDefaultPosition, wxSize(380, 250));
+	syllabusprog->SetBackgroundColour(SIDEBAR_COLOUR);
 
 	classroutine->SetScrollRate(0, FromDIP(10));
 	revisionprog->SetScrollRate(0, FromDIP(10));
@@ -50,8 +56,8 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	wxFont* boxsubheadingFont = new wxFont(12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
 	wxFont* boxtextFont = new wxFont(13, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
 	wxFont* boxnumberFont = new wxFont(15, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
-	wxFont* completednumFont = new wxFont(24, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-	wxFont* pendingnumFont = new wxFont(24, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+	wxFont* completednumFont = new wxFont(22, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+	wxFont* pendingnumFont = new wxFont(22, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 
 	/*FONT INITIALIZATION END*/
 
@@ -80,7 +86,7 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 
 
-	wxStaticText* todoTitle = new wxStaticText(todoinfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
+	wxStaticText* todoTitle = new wxStaticText(todoinfo, wxID_STATIC, "To Do", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	todoTitle->SetFont(*boxheadingFont);
 	todoTitle->SetBackgroundColour(SIDEBAR_COLOUR);
 	todoTitle->SetForegroundColour(wxColour(233, 233, 233));
@@ -122,7 +128,7 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 
 
-	wxStaticText* assignmentTitle = new wxStaticText(assigninfo, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
+	wxStaticText* assignmentTitle = new wxStaticText(assigninfo, wxID_STATIC, "Assignment", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	assignmentTitle->SetFont(*boxheadingFont);
 	assignmentTitle->SetBackgroundColour(SIDEBAR_COLOUR);
 	assignmentTitle->SetForegroundColour(wxColour(233, 233, 233));
@@ -181,7 +187,12 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	auto assigninfoSizer = new wxGridSizer(smallboxRows, cols, FromDIP(2), FromDIP(2));
 	auto todoinfoSizer = new wxGridSizer(smallboxRows, cols, FromDIP(2), FromDIP(2));
 	auto routineSizer = new wxGridSizer(routineRows, cols, 10, 5);
-	auto revisionSizer = new wxGridSizer(revisionRows	, cols, 5, 5);
+	auto assignContainSizer = new wxBoxSizer(wxHORIZONTAL);
+	auto todoContainSizer = new wxBoxSizer(wxHORIZONTAL);
+	auto routineContainSizer = new wxBoxSizer(wxHORIZONTAL);
+	auto revisionContainSizer = new wxBoxSizer(wxHORIZONTAL);
+	auto syllabusContainSizer = new wxBoxSizer(wxHORIZONTAL);
+	auto revisionSizer = new wxGridSizer(revisionRows, cols, 5, 5);
 	/*SIZERS INITIALIZATION END*/
 
 
@@ -192,14 +203,21 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 	infoSizer->Add(pendSizer, 1, wxALL, 15);
 	infoSizer->AddSpacer((20, 0));
-	infoSizer->Add(classroutine, 2.5, wxTOP, 30);
+	infoSizer->Add(classroutineContainer, 2.8, wxTOP, 30);
 
-	pendSizer->Add(assigninfo, 1, wxALL, 15);
-	pendSizer->Add(todoinfo, 1, wxALL, 15);
+	pendSizer->Add(assigninfoContainer, 1, wxALL, 15);
+	pendSizer->Add(todoinfoContainer, 1, wxALL, 15);
+	
+	assignContainSizer->Add(assigninfo, 1, wxALL, 15);
+	todoContainSizer->Add(todoinfo, 1, wxALL, 15);
 
 	progSizer->AddSpacer(16);
-	progSizer->Add(revisionprog, 1, wxALL, 15);
-	progSizer->Add(syllabusprog, 1, wxALL, 15);
+	progSizer->Add(revisionprogContainer, 1, wxALL, 15);
+	progSizer->Add(syllabusprogContainer, 1, wxALL, 15);
+
+	syllabusContainSizer->Add(syllabusprog, 1,  wxALL, 10);
+	revisionContainSizer->Add(revisionprog, 1,  wxALL, 10);
+	routineContainSizer->Add(classroutine, 1, wxEXPAND | wxALL, 15);
 
 	syllabusSizer->Add(syllabusTitle, 1, wxALL | wxLeft, FromDIP(8));
 
@@ -284,10 +302,10 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 		}
 	}
 
-	assignmentTitle->SetLabel("Assignments");
+
 	assigninfoSizer->Add(assignmentTitle, 0, wxEXPAND | wxLeft | wxLEFT, 5);
 	assigninfoSizer->Add(assignBlank, 0, wxEXPAND | wxRight | wxRIGHT, 0);
-	assignmentSubhead->SetLabel("This week");
+	assignmentSubhead->SetLabel("Total");
 	assigninfoSizer->Add(assignmentSubhead, 0, wxEXPAND | wxLeft | wxLEFT, 5);
 	assigninfoSizer->Add(assignBlank1, 0, wxEXPAND | wxRight | wxRIGHT, 5);
 	assigninfoSizer->Add(assignBlank2, 0, wxEXPAND | wxRight | wxRIGHT, 5);
@@ -303,10 +321,10 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 
 
-	todoTitle->SetLabel("To Dos");
+
 	todoinfoSizer->Add(todoTitle, 0, wxEXPAND | wxLeft | wxLEFT, 5);
 	todoinfoSizer->Add(todoBlank, 0, wxEXPAND | wxRight | wxRIGHT, 0);
-	todoSubhead->SetLabel("This week");
+	todoSubhead->SetLabel("Total");
 	todoinfoSizer->Add(todoSubhead, 0, wxEXPAND | wxLeft | wxLEFT, 5);
 	todoinfoSizer->Add(todoBlank1, 0, wxEXPAND | wxRight | wxRIGHT, 5);
 	todoinfoSizer->Add(todoBlank2, 0, wxEXPAND | wxRight | wxRIGHT, 5);
@@ -329,13 +347,18 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	revisionprog->SetSizer(revisionSizer);
 	assigninfo->SetSizer(assigninfoSizer);
 	todoinfo->SetSizer(todoinfoSizer);
-
+	classroutineContainer->SetSizer(routineContainSizer);
+	syllabusprogContainer->SetSizer(syllabusContainSizer);
+	revisionprogContainer->SetSizer(revisionContainSizer);
+	classroutineContainer->SetSizer(routineContainSizer);
+	todoinfoContainer->SetSizer(todoContainSizer);
+	assigninfoContainer->SetSizer(assignContainSizer);
 
 	assigncompNum->SetLabel(std::to_string((a.pendingassignmentsCount("assignments.txt").at(0)) - a.pendingassignmentsCount("assignments.txt").at(1)));
-	assignpendNum->SetLabel(std::to_string((a.pendingassignmentsCount("assignments.txt").at(1))));
+	assignpendNum->SetLabel("    " + std::to_string((a.pendingassignmentsCount("assignments.txt").at(1))));
 
 	todocompNum->SetLabel(std::to_string((pendingtaskCount("tasks.txt").at(0)) - pendingtaskCount("tasks.txt").at(1)));
-	todopendNum->SetLabel(std::to_string((pendingtaskCount("tasks.txt").at(1))));
+	todopendNum->SetLabel("    " + std::to_string((pendingtaskCount("tasks.txt").at(1))));
 
 
 	Hide();

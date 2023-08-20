@@ -13,7 +13,8 @@ public:
 	void LoadSearchResults(const std::vector<IndustryCard>& industrycards);
 	wxScrolled<wxPanel>* searchResult;
 	wxSizer* resultSizer;
-	InternshipCard* resultItem[6];
+	InternshipCard** resultItem = new InternshipCard* [6];
+	
 
 };
 
