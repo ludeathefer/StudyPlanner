@@ -13,14 +13,12 @@ private:
 	wxCheckListBox* todocheckListBox;
 	wxCheckListBox* checkListBox;
 	wxButton** calendardateText = new wxButton* [35];
-<<<<<<< Updated upstream
+
 	wxStaticText* engdateInfo;
-=======
-	
+
 	wxMenu contextMenu;
 	void BuildContextMenu();
 	void onContextMenuEvent(wxContextMenuEvent&);
->>>>>>> Stashed changes
 
 public:
 	Calendar(wxWindow* parent);
