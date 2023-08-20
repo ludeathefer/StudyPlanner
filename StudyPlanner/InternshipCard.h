@@ -5,8 +5,6 @@
 class InternshipCard : public RoundedRectangle
 {
 	wxString label;
-	int imageId;
-	int index;
 	wxHyperlinkCtrl* resultTitleText;
 	wxFont* resultTitleFont;
 	wxFont* resultContentFont;

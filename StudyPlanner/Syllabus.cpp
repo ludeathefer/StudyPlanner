@@ -7,6 +7,9 @@
 #include <algorithm>
 #include "RoundedRectangle.h"
 #include<wx/gbsizer.h>
+#include "Assets.h"
+#include <windows.h>
+
 
 
 /*
@@ -15,26 +18,28 @@ OnClose event halera garna baaki xa. User le tick gareko save hudaina aile
 
 Syllabus::Syllabus(wxWindow* parent) : wxPanel(parent)
 {
-	const auto margin = FromDIP(10);
+	const auto margin = FromDIP(30);
 	auto mainsizer = new wxBoxSizer(wxVERTICAL);
-	wxFont headLineFont(wxFontInfo(wxSize(0, 40)).Bold());
-	auto* panel = new wxScrolled<wxPanel>(this, wxID_ANY, wxDefaultPosition, wxSize(800, 800));// , wxDefaultPosition, wxDefaultSize, wxEXPAND | wxALL);
+	mainsizer->AddSpacer(10);
+	wxFont* headLineFont = new wxFont(32, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+	auto* panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(800, 800));// , wxDefaultPosition, wxDefaultSize, wxEXPAND | wxALL);
 	panel->SetBackgroundColour(wxColor(84, 78, 111));
-	panel->SetScrollRate(0, FromDIP(10));
 	this->SetBackgroundColour(panel->GetBackgroundColour());
 	auto sizer = new wxGridBagSizer(margin, margin);
 
-	auto MainTitle = new wxStaticText(panel, wxID_ANY, "SYLLABUS");
+	auto MainTitle = new wxStaticText(panel, wxID_ANY, "Syllabus");
+	
+	MainTitle->SetForegroundColour(TEXT_THEME_COLOUR);
 	int count = 0;
 	sizer->Add(MainTitle, { 0,0 }, { 1,3 });
 
 	for (int i = 0; i < 4; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (int j = 0; j < 3; j++)
 		{
 			if (count < 7)
 			{
-				auto BoxArray = new RoundedRectangle(panel, wxSize(400, 220), wxColor(84, 78, 50), wxColor(84, 78, 111), 30);
+				auto BoxArray = new RoundedRectangle(panel, wxSize(400, 220), wxColor(44, 41, 59), wxColor(84, 78, 111), 30);
 				sizer->Add(BoxArray, { i + 1,j }, { 1,1 });
 
 				auto MainSizer = new wxBoxSizer(wxVERTICAL);
@@ -71,21 +76,32 @@ Syllabus::Syllabus(wxWindow* parent) : wxPanel(parent)
 				wxFont TitleFont(wxFontInfo(wxSize(0, 20)).Bold());
 				auto TitleDisplay = new wxStaticText(BoxArray, wxID_ANY, DisplaySubject, wxPoint(20, 10), wxSize(200, 30));
 				TitleDisplay->SetFont(TitleFont);
+				TitleDisplay->SetBackgroundColour(wxColor(44, 41, 59));
+				TitleDisplay->SetForegroundColour(*wxWHITE);
 				Title->Add(TitleDisplay);
 
 				/*AddButton[count] = new wxButton(BoxArray, wxID_ANY, "+", wxPoint(355, 10), wxSize(25, 25));
 				AddButton[count]->SetBackgroundColour(wxColor(84, 78, 111));
 				Button->Add(AddButton[count]);*/
 
-				CheckListBox[count] = new wxCheckListBox(BoxArray, wxID_ANY, wxPoint(20, 50), wxSize(360, 150));//, wxALIGN_BOTTOM);// | wxALIGN_CENTER);
+				CheckListBox[count] = new wxCheckListBox(BoxArray, wxID_ANY, wxPoint(20, 50), wxSize(360, 150), 0, NULL, wxNO_BORDER);//, wxALIGN_BOTTOM);// | wxALIGN_CENTER);
+				CheckListBox[count]->SetBackgroundColour(SIDEBAR_COLOUR);
+				CheckListBox[count]->SetForegroundColour(*wxWHITE);	
+				LONG style = GetWindowLong((HWND)CheckListBox[count]->GetHWND(), GWL_STYLE);
+				style &= ~(WS_VSCROLL | WS_HSCROLL);
+				SetWindowLong((HWND)CheckListBox[count]->GetHWND(), GWL_STYLE, style);
+				CheckListBox[count]->Refresh();
+				
 
 				//TitleAndButton->Add(Title);
 				//TitleAndButton->Add(Button);
 
-				CheckBox->Add(CheckListBox[count]);
+				CheckBox->Add(CheckListBox[count], 0, wxSHRINK);
 
 				//MainSizer->Add(TitleAndButton);
-				MainSizer->Add(CheckBox);
+				MainSizer->Add(CheckBox, 0, wxSHRINK);
+
+				
 
 				//BindEventHandlers(count);
 
@@ -95,9 +111,8 @@ Syllabus::Syllabus(wxWindow* parent) : wxPanel(parent)
 		}
 	}
 
-	MainTitle->SetBackgroundColour(wxColor(84, 78, 0));
-	MainTitle->SetForegroundColour(wxColor(10, 100, 200));
-	MainTitle->SetFont(headLineFont);
+
+	MainTitle->SetFont(*headLineFont);
 
 	DisplaySyllabus();
 
@@ -160,6 +175,8 @@ void Syllabus::DisplaySyllabus()//Displays the syllabus
 			int index = CheckListBox[count]->GetCount();
 			CheckListBox[count]->Insert(syllabus.item, index);
 			CheckListBox[count]->Check(index, syllabus.done);
+			CheckListBox[count]->GetItem(index)->SetTextColour(wxColor(255, 255, 255));
+
 		}
 		count++;
 	}

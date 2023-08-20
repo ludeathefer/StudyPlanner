@@ -41,7 +41,7 @@ void MeroJob::RetrieveResults(std::string _searchKey = "Software Engineer")
         std::string name = std::string(reinterpret_cast<char*>(xmlGetProp(name_html_element, (xmlChar*)"title")));
         std::string job_url = std::string(reinterpret_cast<char*>(xmlGetProp(name_html_element, (xmlChar*)"href")));
 
-        xmlNodePtr company_name_html_element = xmlXPathEvalExpression((xmlChar*)"//div/div/div[2]/h3/a", context)->nodesetval->nodeTab[0];
+        xmlNodePtr company_name_html_element = xmlXPathEvalExpression((xmlChar*)".//div[1]/div/div[2]/h3/a", context)->nodesetval->nodeTab[0];
         std::string company_url = std::string(reinterpret_cast<char*>(xmlGetProp(company_name_html_element, (xmlChar*)"href")));
         std::string company = std::string(reinterpret_cast<char*>(xmlNodeGetContent(company_name_html_element)));
 
@@ -53,9 +53,12 @@ void MeroJob::RetrieveResults(std::string _searchKey = "Software Engineer")
         xmlNodePtr deadline_html_element = xmlXPathEvalExpression((xmlChar*)".//div[2]/div/div[1]/p", context)->nodesetval->nodeTab[0];
         std::string deadline = std::string(reinterpret_cast<char*>(xmlNodeGetContent(deadline_html_element)));
 
+        xmlNodePtr location_html_element = xmlXPathEvalExpression((xmlChar*)".//div[1]/div/div[2]/div/div/div[2]/span/span", context)->nodesetval->nodeTab[0];
+        std::string location = std::string(reinterpret_cast<char*>(xmlNodeGetContent(location_html_element)));
 
 
-        IndustryCard industry_card = { name, company, "location", image, job_url, company_url, deadline }; //location is not written for time being cuz "," messes up the csv
+
+        IndustryCard industry_card = { name, company, location, image, job_url, company_url, deadline }; //location is not written for time being cuz "," messes up the csv
 
 
         industry_cards.push_back(industry_card);
