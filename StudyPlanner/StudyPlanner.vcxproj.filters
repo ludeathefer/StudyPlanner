@@ -47,7 +47,7 @@
     <ClInclude Include="Internships.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Settings.h">
+    <ClInclude Include="Graphs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="States.h">
@@ -127,7 +127,7 @@
     <ClCompile Include="Internships.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Settings.cpp">
+    <ClCompile Include="Graphs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="States.cpp">
@@ -186,13 +186,13 @@
     <Image Include="assets\img\revision.png">
       <Filter>Resource FIles</Filter>
     </Image>
-    <Image Include="assets\img\settings.png">
-      <Filter>Resource FIles</Filter>
-    </Image>
     <Image Include="assets\img\syllabus.png">
       <Filter>Resource FIles</Filter>
     </Image>
     <Image Include="assets\img\logoImg.ico">
+      <Filter>Resource FIles</Filter>
+    </Image>
+    <Image Include="assets\img\graphs.png">
       <Filter>Resource FIles</Filter>
     </Image>
   </ItemGroup>

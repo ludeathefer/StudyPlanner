@@ -37,7 +37,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="Revision.h" />
     <ClInclude Include="RoundedRectangle.h" />
-    <ClInclude Include="Settings.h" />
+    <ClInclude Include="Graphs.h" />
     <ClInclude Include="Sidebar.h" />
     <ClInclude Include="SidebarMenu.h" />
     <ClInclude Include="SidebarMenuItem.h" />
@@ -63,7 +63,7 @@
     <ClCompile Include="ProgressBar.cpp" />
     <ClCompile Include="Revision.cpp" />
     <ClCompile Include="RoundedRectangle.cpp" />
-    <ClCompile Include="Settings.cpp" />
+    <ClCompile Include="Graphs.cpp" />
     <ClCompile Include="Sidebar.cpp" />
     <ClCompile Include="SidebarMenu.cpp" />
     <ClCompile Include="SidebarMenuItem.cpp" />
@@ -84,11 +84,11 @@
     <Image Include="assets\img\assignment.png" />
     <Image Include="assets\img\calander.png" />
     <Image Include="assets\img\dashboard.png" />
+    <Image Include="assets\img\graphs.png" />
     <Image Include="assets\img\internships.png" />
     <Image Include="assets\img\logoImg.ico" />
     <Image Include="assets\img\logoImg.png" />
     <Image Include="assets\img\revision.png" />
-    <Image Include="assets\img\settings.png" />
     <Image Include="assets\img\syllabus.png" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

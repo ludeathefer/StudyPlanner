@@ -11,46 +11,11 @@
 #include "Assets.h"
 
 
-/*
-OnClose event halera garna baaki xa. User le tick gareko save hudaina aile
-*/
-
-Assignment_b::Assignment_b()
-{
-
-}
-
-Assignment_b::Assignment_b(wxWindow* parent):wxPanel(parent)
-{
-}
-void Assignment_b::Initialize()
-{
-	wxPanel* panel_main = new wxPanel();
-	wxBoxSizer* mainBox;
-	wxBoxSizer* mainBox2;
-	Assignment_b dummy;
-	mainBox2 = new wxBoxSizer(wxHORIZONTAL);
-	Assignment* assignment_a_a;
-	mainBox = new wxBoxSizer(wxVERTICAL);
-	SetBackgroundColour(wxColour(84, 78, 111));
-	assignment_a_a = new Assignment(this);
-	//panel_main
-	//mainBox2->Add(assignment_a_a);
-	mainBox2->Add(assignment_a_a,1,wxEXPAND);
-	mainBox->Add(mainBox2,1,wxEXPAND);
-	//assignment_a_a->Initialize();
-	this->SetSizerAndFit(mainBox);
-	Hide();
-
-}
+//OnClose event halera garna baaki xa. User le tick gareko save hudaina aile
 
 Assignment::Assignment() {};
 
-void Assignment::Initialize()
-{
-	Hide();
-};
-
+void Assignment::Initialize() { Hide(); }
 Assignment::Assignment(wxWindow* parent) : wxPanel(parent)
 {
 	const auto margin = FromDIP(30);
@@ -73,7 +38,7 @@ Assignment::Assignment(wxWindow* parent) : wxPanel(parent)
 	for (int i = 0; i < 4; i++) 
 	{
 		for (int j = 0; j < 3; j++) 
-			{
+		{
 			if (count < 7)
 			{
 				auto BoxArray = new RoundedRectangle(panel, wxSize(400, 220), wxColor(44, 41, 59), wxColor(84, 78, 111), 30);
@@ -125,37 +90,27 @@ Assignment::Assignment(wxWindow* parent) : wxPanel(parent)
 				CheckListBox[count] = new wxCheckListBox(BoxArray, wxID_ANY, wxPoint(20,50), wxSize(360,150), 0, NULL, wxNO_BORDER);//, wxALIGN_BOTTOM);// | wxALIGN_CENTER);
 				CheckListBox[count]->SetBackgroundColour(SIDEBAR_COLOUR);
 				CheckListBox[count]->SetForegroundColour(*wxWHITE);
-						TitleAndButton->Add(Title);
-						TitleAndButton->Add(Button);
+				TitleAndButton->Add(Title);
+				TitleAndButton->Add(Button);
 
-						CheckBox->Add(CheckListBox[count]);
+				CheckBox->Add(CheckListBox[count]);
 
-						MainSizer->Add(TitleAndButton);
-						MainSizer->Add(CheckBox);
+				MainSizer->Add(TitleAndButton);
+				MainSizer->Add(CheckBox);
 
-						//BoxArray->SetSizer(MainSizer);
-
-						BindEventHandlers(count);
-
-						count++;
-
-					}
+				//BoxArray->SetSizer(MainSizer);
+				BindEventHandlers(count);
+				count++;
 			}
+		}
 	}
-
-	
 	MainTitle->SetFont(*headLineFont);
 
 	AddSavedTasks();
-
-
-	
-
 	
 	panel->SetSizer(sizer);
 	mainsizer->Add(panel,0, wxEXPAND | wxALL, margin);
 	this->SetSizerAndFit(mainsizer);
-	//Hide();
 }
 
 
@@ -171,7 +126,6 @@ Assignment::Assignment(wxWindow* parent) : wxPanel(parent)
 			SetBackgroundColour(wxColour(84,78,111));	
 			wxFont headLineFont(wxFontInfo(wxSize(0, 40)).Bold());
 	
-
 			auto panel = new wxScrolled<wxPanel>(this, wxID_ANY,wxDefaultPosition,wxSize(400,100));
 			panel->SetScrollRate(0, FromDIP(10));
 			auto sizer = new wxBoxSizer(wxVERTICAL);
@@ -207,10 +161,6 @@ Assignment::Assignment(wxWindow* parent) : wxPanel(parent)
 			*/
 //		}
 		
-		
-
-
-
 void Assignment::BindEventHandlers(int a)
 {
 	int j = a;
@@ -221,19 +171,14 @@ void Assignment::BindEventHandlers(int a)
 		OnAddButtonClicked(evt, pra);
 		});
 	//AddAssignmentDialog AddDialog;
-	/*
-	AddButton[j]->Bind(wxEVT_BUTTON, [this,pra](wxCommandEvent& evt) {_OnAddButtonClicked(evt, pra); });//, AddButton[j]->GetId());
-	*/
-	CheckListBox[j]->Bind(wxEVT_KEY_DOWN, [this, j](wxKeyEvent& evt) {OnListKeyDown(evt,j); });
+	//AddButton[j]->Bind(wxEVT_BUTTON, [this,pra](wxCommandEvent& evt) {_OnAddButtonClicked(evt, pra); });//, AddButton[j]->GetId());
+
+	CheckListBox[j]->Bind(wxEVT_KEY_DOWN, [this, j](wxKeyEvent& evt) {OnListKeyDown(evt, j); });
 	RemoveInputFields();
-}
+};
 
 
-void Assignment::OnAddButtonClicked(wxCommandEvent& evt, int pra)
-{
-	CallInputFields(pra);
-}
-
+void Assignment::OnAddButtonClicked(wxCommandEvent& evt, int pra) { CallInputFields(pra); }
 
 void Assignment::OnListKeyDown(wxKeyEvent& evt, int j)
 {
@@ -247,25 +192,22 @@ void Assignment::OnListKeyDown(wxKeyEvent& evt, int j)
 	case WXK_DOWN:
 		MoveSelectedTasks(j, 1);
 		break;
-	}
-}
+	};
+};
 
 void Assignment::DeleteSelectedTask(int m)
 {
 	int selectedIndex = CheckListBox[m]->GetSelection();
 	if (selectedIndex == wxNOT_FOUND) {
 		return;
-	}
+	};
 	CheckListBox[m]->Delete(selectedIndex);
-}
+};
 
 void Assignment::AddItemFromInput(int p, wxString Input)
 {
 	//Assignment_b dummy;
-
-
 	wxString item = Input;// InputFields->GetValue();
-	
 	if (!item.IsEmpty()) {
 		CheckListBox[p]->Insert(item, CheckListBox[p]->GetCount());
 //		InputFields->Clear();
@@ -389,6 +331,8 @@ void Assignment::AddSavedTasks()//This function Adds the saved tasks to the vect
 			break;
 		case 6:
 			FileName = "Assignment_EM.txt";
+			break;
+		default:
 			break;
 		}
 		std::vector<Assignment_a> assignments = LoadItem(FileName);

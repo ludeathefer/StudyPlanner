@@ -41,7 +41,6 @@ std::vector<AssignmentData> AssignmentData::loadAssignmentsFromFile(const std::s
 		}
 
 	}
-
 	return assignments;
 }
 

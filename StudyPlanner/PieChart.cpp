@@ -5,20 +5,22 @@ PieChart::PieChart(RoundedRectangle* _parent, std::vector<float> _data, std::vec
 	wxPanel(), parent(_parent), r(0.27*_parent->GetSize().GetWidth()), data(_data), dataLabel(_dataLabel), label(_label)
 {
 	SetBackgroundStyle(wxBG_STYLE_PAINT);
-	Create(_parent, wxID_ANY,wxDefaultPosition, wxSize(2*(r+5), 2*(r+5)));
 	AddLabel();
+	Create(_parent, wxID_ANY,wxDefaultPosition, wxSize(2*(r+5), 2*(r+5)));
 	Bind(wxEVT_PAINT, &PieChart::OnPaint, this);
 };
 
 void PieChart::AddLabel() {
 	srand(time(0));
-	for (double value : data) colors.push_back(wxColour(rand() % 200 - 100, rand() % 200 - 100, rand() % 200 - 130));
+	for (double value : data) {
+		colors.push_back(wxColour(rand() % 200 - 100, rand() % 200 - 100, rand() % 200 - 130));
+	}
 	std::sort(colors.begin(), colors.end(), [](const wxColour& a, const wxColour& b) {
 		return a.GetRed() + a.GetGreen() + a.GetBlue() < b.GetRed() + b.GetGreen() + b.GetBlue();
 	});
-	wxPanel* labelPanel = new wxPanel(parent);
+	wxPanel* labelPanel = new wxPanel(parent, wxID_ANY, wxDefaultPosition, wxSize(20, 80));
 	labelPanel->SetBackgroundColour(parent->color);
-	wxGridSizer* labelSizer = new wxGridSizer(2, 5, 90);
+	wxGridSizer* labelSizer = new wxGridSizer(1, 0, 5, 30);
 
 	std::vector<wxPanel*> labelPanels;
 	std::vector<wxBoxSizer*> labelSizers;
@@ -35,11 +37,11 @@ void PieChart::AddLabel() {
 		labelText[i]->SetForegroundColour(TEXT_THEME_COLOUR);
 		labelSizers[i]->Add(labelIndex[i], 0, wxALIGN_CENTER_VERTICAL);
 		labelSizers[i]->Add(labelText[i], 1, wxLEFT | wxALIGN_CENTER_VERTICAL, 5);
-		labelPanels[i]->SetSizerAndFit(labelSizers[i]);
+		labelPanels[i]->SetSizer(labelSizers[i]);
 		labelSizer->Add(labelPanels[i]);
 	};
-	labelPanel->SetSizerAndFit(labelSizer);
 
+	labelPanel->SetSizerAndFit(labelSizer);
 	wxFont* roundFont = new wxFont(16, wxFONTFAMILY_TELETYPE, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 	wxStaticText* roundText = new wxStaticText(parent, wxID_STATIC, label);
 	roundText->SetBackgroundColour(parent->color);
@@ -52,7 +54,7 @@ void PieChart::AddLabel() {
 	roundSizer->Add(pieSizer, 1, wxALIGN_CENTER);
 	roundSizer->Add(labelPanel, 0, wxBOTTOM | wxALIGN_CENTER_HORIZONTAL, parent->GetSize().GetHeight() / 20.0);
 	parent->SetSizer(roundSizer);
-}
+};
 
 void PieChart::OnPaint(wxPaintEvent&)
 {

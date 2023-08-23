@@ -22,8 +22,8 @@ void SidebarMenu::Initialize()
 		{"Syllabus", SYLLABUS_PNG},
 		{"Assignment", ASSIGNMENT_PNG},
 		{"Revision", REVISION_PNG},
+		{"Progress", GRAPHS_PNG},
 		{"Internships", INTERNSHIPS_PNG},
-		{"Settings", SETTINGS_PNG}
 		
 	};
 

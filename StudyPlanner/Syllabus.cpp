@@ -113,12 +113,7 @@ Syllabus::Syllabus(wxWindow* parent) : wxPanel(parent)
 
 
 	MainTitle->SetFont(*headLineFont);
-
 	DisplaySyllabus();
-
-
-
-
 	panel->SetSizer(sizer);
 	mainsizer->Add(panel, 0, wxEXPAND | wxALL, margin);
 	this->SetSizerAndFit(mainsizer);
@@ -176,13 +171,10 @@ void Syllabus::DisplaySyllabus()//Displays the syllabus
 			CheckListBox[count]->Insert(syllabus.item, index);
 			CheckListBox[count]->Check(index, syllabus.done);
 			CheckListBox[count]->GetItem(index)->SetTextColour(wxColor(255, 255, 255));
-
 		}
 		count++;
 	}
 }
-
-
 
 void Syllabus::UpdateCurrentSyllabus(wxCloseEvent& evt)//Updated changes of checklistbox
 {

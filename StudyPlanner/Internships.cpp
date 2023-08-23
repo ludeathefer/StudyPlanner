@@ -8,7 +8,6 @@
 Internships::Internships(wxWindow* parent) : wxPanel(parent)
 {
 	
-
 }
 
 void Internships::Initialize()
@@ -24,14 +23,11 @@ void Internships::Initialize()
 	searchResult->SetDoubleBuffered(true);
 	searchResult->SetScrollRate(0, 50);
 
-	
-
 	wxFont* titleFont = new wxFont(32, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 
 	wxStaticText* titleText = new wxStaticText(panel, wxID_STATIC, "Internships", wxDefaultPosition, wxDefaultSize, wxALIGN_LEFT);
 	titleText->SetFont(*titleFont);
 	titleText->SetForegroundColour(wxColour(233, 233, 233));
-
 
 	wxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
 	mainSizer->Add(panel, 2, wxEXPAND | wxTOP, 25);
@@ -39,14 +35,12 @@ void Internships::Initialize()
 	wxSizer* searchBarSizer = new wxBoxSizer(wxVERTICAL);
 	resultSizer = new wxWrapSizer(wxHORIZONTAL);
 
-
 	panelSizer->AddSpacer(50);
 	panelSizer->Add(titleText, 0, wxEXPAND | wxALL, 20);
 	panelSizer->Add(searchBar, 0, wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM, 20);
 	panelSizer->Add(searchResult, 4, wxEXPAND | wxLEFT | wxTOP| wxBOTTOM, 20);
 
 	searchBarSizer->Add(searchbox, 1, wxEXPAND | wxALL , 15);
-
 
 	//for (unsigned i = 0; i < 10; i++) {
 		//InternshipCard* resultItem = new InternshipCard(searchResult);
@@ -59,9 +53,7 @@ void Internships::Initialize()
 	searchResult->Layout();
 	searchBar->SetSizer(searchBarSizer);
 
-
 	searchbox->Connect(wxEVT_COMMAND_SEARCHCTRL_SEARCH_BTN, wxCommandEventHandler(Internships::OnSearchButton), NULL, this);
-
 
 	Hide();
 }

@@ -6,17 +6,6 @@
 #include<wx/datectrl.h>
 
 class AddAssignmentDialog;
-
-class Assignment_b : public wxPanel
-{
-public:
-	Assignment_b();
-	Assignment_b(wxWindow* parent);
-	void Initialize();
-
-	//Assignment* assignment_a_a;
-
-};
 	
 class Assignment : public wxPanel//, public Assignment_b/* public Assignment_b*/
 {
@@ -79,7 +68,6 @@ public:
 
 
 struct Assignment_a {
-	//wxString item;
 	std::string item;
 	bool done;
 };
