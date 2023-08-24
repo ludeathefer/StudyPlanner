@@ -1,7 +1,7 @@
 11
-Introduction 0
-Digital_Logic 0
-Combinational_Logic_Circuits 0
+Introduction 1
+Digital_Logic 1
+Combinational_Logic_Circuits 1
 Data_Processing_Circuits 0
 Arithmetic_Circuits 0
 Flip_Flops 0

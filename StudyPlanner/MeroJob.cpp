@@ -19,7 +19,7 @@ void MeroJob::RetrieveResults(std::string _searchKey = "Software Engineer")
     cpr::Response response = cpr::Get(url, headers);
 
     // parse the HTML document returned by the server
-    htmlDocPtr doc = htmlReadMemory(response.text.c_str(), response.text.length(), nullptr, nullptr, HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
+    htmlDocPtr doc = htmlReadMemory(response.text.c_str(), (int) response.text.length(), nullptr, nullptr, HTML_PARSE_NOWARNING | HTML_PARSE_NOERROR);
 
  
  

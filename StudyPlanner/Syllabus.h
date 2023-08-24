@@ -12,13 +12,14 @@ public:
 	std::string DisplaySubject;
 	void UpdateCurrentSyllabus(wxCloseEvent& evt);
 	wxCheckListBox* CheckListBox[7];
+	struct Syllabus_a;
 
 };
 
-struct Syllabus_a {
+struct Syllabus::Syllabus_a {
 	std::string item;
 	bool done;
 };
 
-std::vector<Syllabus_a> LoadSyllabus(const std::string& filename);
-void UpdateSyllabus(const std::vector<Syllabus_a>& Syllabus, const std::string& filename);
+std::vector<Syllabus::Syllabus_a> LoadSyllabus(const std::string& filename);
+void UpdateSyllabus(const std::vector<Syllabus::Syllabus_a>& Syllabus, const std::string& filename);

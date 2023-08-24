@@ -224,14 +224,14 @@ void Syllabus::UpdateCurrentSyllabus(wxCloseEvent& evt)//Updated changes of chec
 	
 }
 
-std::vector<Syllabus_a> LoadSyllabus(const std::string& filename)//loads syllabus in vector
+std::vector<Syllabus::Syllabus_a> LoadSyllabus(const std::string& filename)//loads syllabus in vector
 {
 	if (!std::filesystem::exists(filename))
 	{
-		return std::vector<Syllabus_a>();
+		return std::vector<Syllabus::Syllabus_a>();
 	}
 
-	std::vector<Syllabus_a> _Syllabus;
+	std::vector<Syllabus::Syllabus_a> _Syllabus;
 	std::ifstream istream(filename);
 	int n;
 	istream >> n;
@@ -242,16 +242,16 @@ std::vector<Syllabus_a> LoadSyllabus(const std::string& filename)//loads syllabu
 		bool done;
 		istream >> item >> done;
 		std::replace(item.begin(), item.end(), '_', ' ');
-		_Syllabus.push_back(Syllabus_a{ item, done });
+		_Syllabus.push_back(Syllabus::Syllabus_a{ item, done });
 	}
 	return _Syllabus;
 }
 
-void UpdateSyllabus(const std::vector<Syllabus_a>& Syllabus, const std::string& filename)//saves syllabus in file(updates it)
+void UpdateSyllabus(const std::vector<Syllabus::Syllabus_a>& Syllabus, const std::string& filename)//saves syllabus in file(updates it)
 {
 	std::ofstream ostream(filename);
 	ostream << Syllabus.size();
-	for (const Syllabus_a& _syllabus : Syllabus) {
+	for (const Syllabus::Syllabus_a& _syllabus : Syllabus) {
 		wxString item = _syllabus.item;
 		std::replace(item.begin(), item.end(), ' ', '_');
 		ostream << '\n' << item << ' ' << _syllabus.done;

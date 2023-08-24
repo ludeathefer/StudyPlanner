@@ -10,16 +10,17 @@ public:
 	void DisplayRevision();
 	std::string FileName;
 	std::string DisplaySubject;
-	//void BindEventHandlers(int f);
 
 	void UpdateCurrentRevision(wxCloseEvent& evt);
 	wxCheckListBox* CheckListBox[7];
+
+	struct Revision_a;
 };
 
-struct Revision_a {
+struct Revision::Revision_a {
 	std::string item;
 	bool done;
 };
 
-std::vector<Revision_a> LoadRevision(const std::string& filename);
-void UpdateRevision(const std::vector<Revision_a>& Revision, const std::string& filename);
+std::vector<Revision::Revision_a> LoadRevision(const std::string& filename);
+void UpdateRevision(const std::vector<Revision::Revision_a>& Revision, const std::string& filename);

@@ -1,5 +1,5 @@
 11
-Introduction_To_Object_Oriented_Programming 0
+Introduction_To_Object_Oriented_Programming 1
 Introduction_To_C++ 0
 Constructs_From_ANSI_C 0
 C++_Language_Constructs 1
@@ -7,6 +7,6 @@ Objects_and_Classes 0
 Operator_Overloading 0
 Inheritance 0
 Polymorphism_and_Dynammic_Binding 0
-Steam_Computation 0
+Steam_Computation 1
 Templates 0
 Exception_Handling 0
