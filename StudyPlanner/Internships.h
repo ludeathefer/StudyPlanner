@@ -1,19 +1,25 @@
 #pragma once
 #include <wx/wx.h>
-#include "MeroJob.h"
-#include "InternshipCard.h"
+#include "InternshipMoreDetails.h"
+#include "InternshipSearch.h"
+#include "InternshipCompanyDetails.h"
+
 
 class Internships : public wxPanel
 {
+	
 public:
+	static int page;
+	wxBoxSizer* sizerMain;
+	InternshipMoreDetails* IMD;
+	InternshipSearch* IS;
+	InternshipCompany* ICD;
+	MeroJob m;
+
 	Internships(wxWindow* parent);
 	void Initialize();
-	void OnSearchButton(wxCommandEvent& event);
-	MeroJob m;
-	void LoadSearchResults(const std::vector<IndustryCard>& industrycards);
-	wxScrolled<wxPanel>* searchResult;
-	wxSizer* resultSizer;
-	InternshipCard** resultItem = new InternshipCard* [6];
+
+	
 	
 
 };

@@ -44,9 +44,12 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	classroutine->SetScrollRate(0, FromDIP(10));
 	revisionprog->SetScrollRate(0, FromDIP(10));
 	revisionprog->ShowScrollbars(wxSHOW_SB_NEVER, wxSHOW_SB_NEVER);
-	syllabusprog->SetScrollRate(0, 10);
+	syllabusprog->SetWindowStyleFlag(wxHSCROLL | wxVSCROLL);
+	syllabusprog->SetScrollRate(0, FromDIP(10));
 	classroutine->ShowScrollbars(wxSHOW_SB_NEVER, wxSHOW_SB_NEVER);
 	
+	
+
 
 	/*PANEL INITIALIZATION END*/
 
@@ -173,7 +176,7 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	wxSizer* infoSizer = new wxBoxSizer(wxHORIZONTAL);
 	wxSizer* progSizer = new wxBoxSizer(wxHORIZONTAL);
 	wxSizer* pendSizer = new wxBoxSizer(wxVERTICAL);
-	wxSizer* syllabusSizer = new wxGridSizer(8, 2, 10, 10);
+	wxSizer* syllabusSizer = new wxBoxSizer(wxVERTICAL);
 
 	const int cols = 2;
 	const int routineRows = 9;
@@ -190,6 +193,7 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	auto syllabusContainSizer = new wxBoxSizer(wxHORIZONTAL);
 	auto revisionSizer = new wxGridSizer(revisionRows, cols, 5, 5);
 	/*SIZERS INITIALIZATION END*/
+
 
 
 	panelSizer->AddSpacer((0, 30));
@@ -217,8 +221,8 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 	syllabusSizer->Add(syllabusTitle, 1, wxALL | wxLeft, FromDIP(8));
 	wxStaticText* syllabusBlank = new wxStaticText(syllabusprog, wxID_STATIC, "", wxDefaultPosition, wxDefaultSize, wxALIGN_CENTER);
-	syllabusSizer->Add(syllabusBlank, 1, wxALL | wxRight, FromDIP(8));
 
+	syllabusprog->ShowScrollbars(wxSHOW_SB_DEFAULT, wxSHOW_SB_DEFAULT);
 
 	int count = 0;
 	for (int i = 5; i < 12; i++) {
@@ -226,13 +230,17 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 		bodytext->SetFont(*boxtextFont);
 		bodytext->SetForegroundColour(wxColor(255, 255, 255));
 		ProgressBar* pb = new ProgressBar(syllabusprog, wxSize(100, 20), *wxWHITE, SIDEBAR_COLOUR, 8, s.completion[count]);
-		syllabusSizer->Add(bodytext, 1, wxLEFT | wxLeft, 10);
-		syllabusSizer->Add(pb, 1, wxEXPAND | wxLEFT | wxLeft, 10);
+		syllabusSizer->Add(bodytext, 0, wxALL, 5);
+		syllabusSizer->Add(pb, 0,  wxEXPAND |wxALL, 5);
+	
 		if (count == 6) count = 0;
 		count++;
 
 	}
 
+
+	
+	
 
 	wxDateTime* dt = new wxDateTime();
 	*dt = wxDateTime::Now();
@@ -338,9 +346,21 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 
 
 
+
+	assigncompNum->SetLabel(std::to_string((a.pendingassignmentsCount("assignments.txt").at(0)) - a.pendingassignmentsCount("assignments.txt").at(1)));
+	assignpendNum->SetLabel("    " + std::to_string((a.pendingassignmentsCount("assignments.txt").at(1))));
+
+	todocompNum->SetLabel(std::to_string((pendingtaskCount("tasks.txt").at(0)) - pendingtaskCount("tasks.txt").at(1)));
+	todopendNum->SetLabel("    " + std::to_string((pendingtaskCount("tasks.txt").at(1))));
+
+
+	syllabusprog->SetVirtualSize(wxSize(380, 500));
+	
+
 	this->SetSizer(mainSizer);
 	panel->SetSizerAndFit(panelSizer);
 	syllabusprog->SetSizer(syllabusSizer);
+	syllabusprog->Fit();
 	classroutine->SetSizer(routineSizer);
 	revisionprog->SetSizer(revisionSizer);
 	assigninfo->SetSizer(assigninfoSizer);
@@ -352,15 +372,9 @@ Dashboard::Dashboard(wxWindow* parent) : wxPanel(parent)
 	todoinfoContainer->SetSizer(todoContainSizer);
 	assigninfoContainer->SetSizer(assignContainSizer);
 
-	assigncompNum->SetLabel(std::to_string((a.pendingassignmentsCount("assignments.txt").at(0)) - a.pendingassignmentsCount("assignments.txt").at(1)));
-	assignpendNum->SetLabel("    " + std::to_string((a.pendingassignmentsCount("assignments.txt").at(1))));
-
-	todocompNum->SetLabel(std::to_string((pendingtaskCount("tasks.txt").at(0)) - pendingtaskCount("tasks.txt").at(1)));
-	todopendNum->SetLabel("    " + std::to_string((pendingtaskCount("tasks.txt").at(1))));
-
 
 	Hide();
-
+	
 
 }
 

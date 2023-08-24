@@ -4,6 +4,7 @@
 #include "Calendar.h"
 #include "resource.h"
 #include <wx/mstream.h>
+#include "Internships.h"
 class States
 {
 	public:
@@ -13,4 +14,6 @@ class States
 	static Mainframe* mainframe;
 	static SidebarMenu* sidebarMenu;
 	static Calendar* calendar;
+	static Internships* internships;
+	static int selectedPage;
 };

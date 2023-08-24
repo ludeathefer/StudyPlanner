@@ -4,7 +4,6 @@
 class Calendar : public wxPanel
 {
 private:
-	typedef std::vector<wxPanel*> CPanelList;
 
 	void AddSavedTasks();
 	void AddSavedTasks(int pra);
