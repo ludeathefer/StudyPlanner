@@ -211,5 +211,7 @@ std::string CalendarBuilder::getMonthName(int num)
         return "Falgun";
     case 12:
         return "Chaitra";
+    default:
+        return "";
     }
 }

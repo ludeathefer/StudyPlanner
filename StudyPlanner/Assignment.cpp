@@ -6,23 +6,20 @@
 #include <fstream>
 #include <algorithm>
 #include "RoundedRectangle.h"
-#include<wx/gbsizer.h>
-#include<wx/datectrl.h>
+#include <wx/gbsizer.h>
+#include <wx/datectrl.h>
 #include "Assets.h"
 
+wxDateTime dt = wxDateTime::Today();
+wxDateTime dt2 = wxDateTime::Today() + wxDateSpan::Days(1);
 
-//OnClose event halera garna baaki xa. User le tick gareko save hudaina aile
-
-Assignment::Assignment() {};
-
-void Assignment::Initialize() { Hide(); }
 Assignment::Assignment(wxWindow* parent) : wxPanel(parent)
 {
 	const auto margin = FromDIP(30);
 	auto mainsizer = new wxBoxSizer(wxVERTICAL);
 	mainsizer->AddSpacer(10);
 	wxFont* headLineFont = new wxFont(32, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-	auto* panel = new wxPanel(this, wxID_ANY,wxDefaultPosition, wxSize(800,800));// , wxDefaultPosition, wxDefaultSize, wxEXPAND | wxALL);
+	auto* panel = new wxPanel(this, wxID_ANY,wxDefaultPosition, wxSize(800,800)); // , wxDefaultPosition, wxDefaultSize, wxEXPAND | wxALL);
 	panel->SetBackgroundColour(wxColor(84, 78, 111));
 	
 	this->SetBackgroundColour(panel->GetBackgroundColour());
@@ -42,7 +39,6 @@ Assignment::Assignment(wxWindow* parent) : wxPanel(parent)
 			if (count < 7)
 			{
 				auto BoxArray = new RoundedRectangle(panel, wxSize(400, 220), wxColor(44, 41, 59), wxColor(84, 78, 111), 30);
-				//auto DialogPanel = new wxPanel(BoxArray);
 				sizer->Add(BoxArray, { i + 1,j }, { 1,1 });
 
 				auto MainSizer = new wxBoxSizer(wxVERTICAL);
@@ -98,7 +94,6 @@ Assignment::Assignment(wxWindow* parent) : wxPanel(parent)
 				MainSizer->Add(TitleAndButton);
 				MainSizer->Add(CheckBox);
 
-				//BoxArray->SetSizer(MainSizer);
 				BindEventHandlers(count);
 				count++;
 			}
@@ -111,68 +106,18 @@ Assignment::Assignment(wxWindow* parent) : wxPanel(parent)
 	panel->SetSizer(sizer);
 	mainsizer->Add(panel,0, wxEXPAND | wxALL, margin);
 	this->SetSizerAndFit(mainsizer);
+	Hide();
 }
-
-
-//		void Assignment::Initialize()
-//		{
-//			Hide();
-	
-
-
-
-			/* 
-			ElementsVisible = true;
-			SetBackgroundColour(wxColour(84,78,111));	
-			wxFont headLineFont(wxFontInfo(wxSize(0, 40)).Bold());
-	
-			auto panel = new wxScrolled<wxPanel>(this, wxID_ANY,wxDefaultPosition,wxSize(400,100));
-			panel->SetScrollRate(0, FromDIP(10));
-			auto sizer = new wxBoxSizer(wxVERTICAL);
-			panel->SetSizer(sizer);
-			//wxSizer* Cotainer = new wxGridSizer(4, 2, 0, 0);
-
-
-			//SetScrollbar(wxVERTICAL, 0, 16, 100);
-
-	
-			//wxPanel* panel1 = new wxPanel(this,wxEXPAND);
-		//	RoundedRectangle* boxx = new RoundedRectangle(panel1, wxSize(200, 200), *wxRED, *wxBLUE, 30);
-			TitleText = new wxStaticText(panel, wxID_ANY, "Assignments",
-				wxPoint(40, 30), wxSize(800, 50));// , wxALIGN_LEFT);
-	
-			TitleText->SetFont(headLineFont);
-			TitleText->SetForegroundColour(*wxBLUE);
-
-		//	wxBoxSizer* box = new wxBoxSizer(wxHORIZONTAL);
-			//wxBoxSizer* box2 = new wxBoxSizer(wxVERTICAL);
-			//box2->Add(this, 1, wxEXPAND);
-			//box->Add(box2, 0, wxEXPAND);
-			//boxx-> SetSizerAndFit(box);
-
-			CreateControls();
-			AddSavedTasks();
-			Hide();
-			//panel1->SetSizer(box);
-			//panel1->SetSizer(box);
-
-			//wxPanel* contents = new wxPanel(this, wxID_ANY);
-
-			*/
-//		}
 		
 void Assignment::BindEventHandlers(int a)
 {
 	int j = a;
 	int pra = j;
-	//AddAssignmentDialog AddDialog(parent);
 
 	AddButton[j]->Bind(wxEVT_BUTTON, [this, pra](wxCommandEvent& evt) {
 		OnAddButtonClicked(evt, pra);
 		});
-	//AddAssignmentDialog AddDialog;
-	//AddButton[j]->Bind(wxEVT_BUTTON, [this,pra](wxCommandEvent& evt) {_OnAddButtonClicked(evt, pra); });//, AddButton[j]->GetId());
-
+	
 	CheckListBox[j]->Bind(wxEVT_KEY_DOWN, [this, j](wxKeyEvent& evt) {OnListKeyDown(evt, j); });
 	RemoveInputFields();
 };
@@ -204,67 +149,64 @@ void Assignment::DeleteSelectedTask(int m)
 	CheckListBox[m]->Delete(selectedIndex);
 };
 
-void Assignment::AddItemFromInput(int p, wxString Input)
+void Assignment::AddItemFromInput(int p, wxString Input, wxString Time)
 {
-	//Assignment_b dummy;
-	wxString item = Input;// InputFields->GetValue();
-	if (!item.IsEmpty()) {
+
+	wxString date;
+	wxString item = Input;
+	wxString time = Time;
+
+	wxDateTime dt3;
+
+	if (dt3.ParseISODate(time)) {
+		if (dt3.IsEqualTo(dt)) {
+			date = "Due Today";
+		}
+		else if (dt3.IsEqualTo(dt2)) {
+			date = "Due Tomorrow";
+		}
+		else if (dt3.IsEarlierThan(dt)) {
+			date = "Now Overdue";
+		}
+		else {
+			date = time;
+		}
+	}
+
+	item = date + wxString(30 - date.Length(), ' ') + item;
+	if (!item.IsEmpty() && !time.IsEmpty() && time.Length() <= 10 && dt3.ParseISODate(time)) {
 		CheckListBox[p]->Insert(item, CheckListBox[p]->GetCount());
-//		InputFields->Clear();
-		//RemoveInputFields();
 	}
-	if (item.IsEmpty() ){
-		//RemoveInputFields();
-	}
-} 
+}
 
 void Assignment::CallInputFields(int f)
 {
-	//wxBoxSizer* inputField = new wxBoxSizer(wxVERTICAL);
-	//wxBoxSizer* inputField_contain = new wxBoxSizer(wxHORIZONTAL);
-	////Assignment_b dummy;
 
-	////this->Hide();
-	////wxPanel* panel_input = new wxPanel();
-	//InputFields = new wxTextCtrl(this/* panel_input*/, wxID_ANY, "", wxPoint(400, 400), wxSize(300, 35), wxTE_PROCESS_ENTER);//wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER );// wxPoint(40, 140), wxSize(300, 35), wxTE_PROCESS_ENTER);
-	//InputFields->Bind(wxEVT_COMMAND_TEXT_ENTER, [this, f](wxCommandEvent&) {AddItemFromInput(f); });
-	// InputFields->SetFocus();
-	// InputFields->Show();
-	// InputFields->SetBackgroundColour(*wxBLUE);
-	//inputField_contain->Add( InputFields,0, wxALIGN_CENTER);
-	//inputField->Add(inputField_contain,1, wxALIGN_CENTER);
-	////InputFields->Show();
-	////inputField->Show();
-	//InputValue=Input;
-	//Input->Bind()
-	//TextView->SetLabel(result);
-	
-	
-	/*Input = wxGetTextFromUser(" ", "Input Assignment", "");
-	SetBackgroundColour(wxColor(84, 78, 111));
-	AddItemFromInput(f,Input);*/
-
-	wxTextEntryDialog* InputBoxNew = new wxTextEntryDialog(this, "Haiyaa","Fuiyooh");
+	wxTextEntryDialog* InputBoxNew = new wxTextEntryDialog(this, "Enter your assignment here:", "Assignment");
 	InputBoxNew->SetBackgroundColour(wxColor(84, 78, 111));
-	
+
 	if (InputBoxNew->ShowModal() == wxID_OK) {
 		Input = InputBoxNew->GetValue();
 	}
-	
-	//DatePicker(f);
+	if (!Input.IsEmpty()) {
 
-	AddItemFromInput(f, Input);
+		wxTextEntryDialog* InputBoxNewTime = new wxTextEntryDialog(this, "Enter submission date in YYYY-MM-DD format here:", "Date of Submission");
+		InputBoxNewTime->SetBackgroundColour(wxColor(84, 78, 111));
 
-}
+		if (InputBoxNewTime->ShowModal() == wxID_OK) {
+			InputTime = InputBoxNewTime->GetValue();
+		}
+	}
 
-void Assignment::DatePicker(int f)
-{
-	wxDatePickerCtrl* DatePick = new wxDatePickerCtrl(this, wxID_ANY, wxDefaultDateTime, wxPoint(800,300), wxDefaultSize, wxDP_DEFAULT);
+	if (!Input.IsEmpty() && !InputTime.IsEmpty()) {
+		AddItemFromInput(f, Input, InputTime);
+	}
+
+
 }
 
 void Assignment::RemoveInputFields()
 {
-	//Assignment_b dummy;
 
 	if ( InputFields!=nullptr &&  InputFields->IsShown()) {
 		 InputFields->Hide();
@@ -275,7 +217,6 @@ void Assignment::RemoveInputFields()
 			 TitleText_[i]->Show();
 		 }
 	}
-	//this->Show();
 }
 
 void Assignment::MoveSelectedTasks(int f, int offset)
@@ -289,7 +230,6 @@ void Assignment::MoveSelectedTasks(int f, int offset)
 	if (newIndex >= 0 && newIndex < CheckListBox[f]->GetCount()) {
 		SwapTasks(f, selectedIndex, newIndex);
 		CheckListBox[f]->SetSelection(newIndex, true);
-
 	}
 }
 
@@ -337,10 +277,37 @@ void Assignment::AddSavedTasks()//This function Adds the saved tasks to the vect
 		}
 		std::vector<Assignment_a> assignments = LoadItem(FileName);
 		for (const Assignment_a& assignment : assignments) {
+			bool check = false;
 			int index = CheckListBox[count]->GetCount();
-			CheckListBox[count]->Insert(assignment.item, index);
-			CheckListBox[count]->Check(index,assignment.done);
-			CheckListBox[count]->GetItem(index)->SetTextColour(wxColor(255, 255, 255));
+			std::string Data;
+			wxDateTime dt3;
+			if (assignment.time == dt.Format("%Y-%m-%d")) {
+				Data = "Due Today " + assignment.item;
+			}
+			else if (assignment.time == dt2.Format("%Y-%m-%d")) {
+				Data = "Due Tomorrow " + assignment.item;
+			}
+			else if (dt3.ParseISODate(assignment.time) && dt3.IsEarlierThan(dt)) {
+				Data = "Now Overdue" + assignment.item;
+				if (assignment.done) {
+					check = true;
+				}
+			}
+			else if (
+				((dt3.ParseISODate(assignment.time) && dt3.IsEarlierThan(dt))
+					|| assignment.time == "Now Overdue")
+				&& assignment.done) {
+				check = true;
+			}
+			else
+			{
+				Data = assignment.time + assignment.item;
+			}
+			if (!check) {
+				CheckListBox[count]->Insert(Data, index);
+				CheckListBox[count]->Check(index, assignment.done);
+				CheckListBox[count]->GetItem(index)->SetTextColour(wxColor(255, 255, 255));
+			}
 		}
 		count++;
 	}
@@ -351,108 +318,123 @@ void Assignment::OnWindowClosedAssignment(wxCloseEvent& evt)// , int i)
 	for (int i = 0; i < 7; i++) {
 		std::vector<Assignment_a> assignments;
 
-			int k = CheckListBox[i]->GetCount();
-			for (int j = 0; j < k; j++)
+		int k = CheckListBox[i]->GetCount();
+		for (int j = 0; j < k; j++)
+		{
+			Assignment_a assignment;
+			assignment.item = CheckListBox[i]->GetString(j);
+			std::string data = assignment.item;
+			int k = 0;
+			bool Continue = true;
+			int count = 0;
+			std::string word;
+			int index = 0;
+			while (Continue)
 			{
-				//CheckListBox[i]->GetCount();
-				Assignment_a assignment;
-				assignment.item = CheckListBox[i]->GetString(j);
-				assignment.done = CheckListBox[i]->IsChecked(j);
+				word = data.substr(index, data.find(" "));
+				if (count == 0)
+				{
+					if (word.length() == 10 || word.length() == 9 || word.length() == 8)
+					{
+						assignment.time = word;
+						assignment.item = data.substr(word.length(), data.length());
+						Continue = false;
+					}
+					else if (word.length() == 3)
+					{
+						assignment.time = word + ' ';
+						data = data.substr(4, data.length());
+					}
+				}
+				if (count == 1)
+				{
+					assignment.time = assignment.time + word;
+					if (assignment.time == "Now Overdue") {
 
-				assignments.push_back(Assignment_a{ assignment.item , assignment.done });
+						assignment.item = ' ' + data.substr(word.length() + 1, data.length());
+					}
+					else {
+						assignment.item = data.substr(word.length() + 1, data.length());
+					}
+					Continue = false;
+				}
+
+				count++;
 			}
 
-			switch (i)
-			{
-			case 0:
-				SaveItem(assignments, "Assignment_DL.txt");
-				break;
-			case 1:
-				SaveItem(assignments, "Assignment_OOP.txt");
-				break;
-			case 2:
-				SaveItem(assignments, "Assignment_EDC.txt");
-				break;
-			case 3:
-				SaveItem(assignments, "Assignment_ECT.txt");
-				break;
-			case 4:
-				SaveItem(assignments, "Assignment_TOC.txt");
-				break;
-			case 5:
-				SaveItem(assignments, "Assignment_Math.txt");
-				break;
-			case 6:
-				SaveItem(assignments, "Assignment_EM.txt");
-				break;
+			if (assignment.time == "Due Today") {
+				assignment.time = dt.Format("%Y-%m-%d");
 			}
-			evt.Skip();
+			else if (assignment.time == "Due Tomorrow") {
+				assignment.time = dt2.Format("%Y-%m-%d");
+			}
 
+			assignment.done = CheckListBox[i]->IsChecked(j);
+
+			assignments.push_back(Assignment_a{ assignment.item , assignment.done, assignment.time });
+		}
+
+		switch (i)
+		{
+		case 0:
+			SaveItem(assignments, "Assignment_DL.txt");
+			break;
+		case 1:
+			SaveItem(assignments, "Assignment_OOP.txt");
+			break;
+		case 2:
+			SaveItem(assignments, "Assignment_EDC.txt");
+			break;
+		case 3:
+			SaveItem(assignments, "Assignment_ECT.txt");
+			break;
+		case 4:
+			SaveItem(assignments, "Assignment_TOC.txt");
+			break;
+		case 5:
+			SaveItem(assignments, "Assignment_Math.txt");
+			break;
+		case 6:
+			SaveItem(assignments, "Assignment_EM.txt");
+			break;
+		}
+		evt.Skip();
 	}
-
-	//SaveItem(assignments, )
 }
-void SaveItem(const std::vector<Assignment_a>& Assignments,const std::string& filename)
+
+void SaveItem(const std::vector<Assignment::Assignment_a>& Assignments,const std::string& filename)//Saves item in the file
 {
 	std::ofstream ostream(filename);
 	ostream << Assignments.size();
-	for (const Assignment_a& _assignment : Assignments) {
+	for (const Assignment::Assignment_a& _assignment : Assignments) {
 		wxString item = _assignment.item;
+		wxString date = _assignment.time;
 		std::replace(item.begin(), item.end(), ' ', '_');
-		ostream << '\n' << item << ' ' << _assignment.done;
+		std::replace(date.begin(), date.end(), ' ', '_');
+		ostream << '\n' << date << ' ' << item << ' ' << _assignment.done;
 	}
 }
 
-std::vector<Assignment_a> LoadItem(const std::string& filename)//Loads the items in the vector and returns the vector
+std::vector<Assignment::Assignment_a> LoadItem(const std::string& filename)//Loads the items in the vector and returns the vector
 {
 	if (!std::filesystem::exists(filename))
 	{
-		return std::vector<Assignment_a>();
+		return std::vector<Assignment::Assignment_a>();
 	}
 
-	std::vector<Assignment_a> Assignments;
+	std::vector<Assignment::Assignment_a> Assignments;
 	std::ifstream istream(filename);
 	int n;
 	istream >> n;
 	for(int i = 0; i < n; i++){
-		//wxString item;
+		std::string date;
 		std::string item;
-		//std::string s1 = (std::string)item;
 		bool done;
-		istream >> item >> done;
+		istream >> date >> item >> done;
+		std::replace(date.begin(), date.end(), '_', ' ');
 		std::replace(item.begin(), item.end(), '_', ' ');
-		Assignments.push_back(Assignment_a{ item, done });
+		Assignments.push_back(Assignment::Assignment_a{ item, done, date });
 	}
 	return Assignments;
 }
 
-void Assignment::DialogBoxDisplay(wxWindow* parent) {
-	wxDialog dialog(parent, wxID_ANY, "ASSIGNMENT INPUT",  wxPoint(400,400),  wxSize(800,800));
-	wxBoxSizer* DialogSizer = new wxBoxSizer(wxVERTICAL);
-
-	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
-
-	//auto* panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(400, 400));
-	//panel->SetBackgroundColour(*wxBLUE);
-
-	for (int i = 0; i < 5; i++) {
-		auto button = new wxButton(&dialog, wxID_ANY);
-		
-		sizer->Add(button);
-	}
-
-	SetSizerAndFit(sizer);
-}
-
-//void Assignment::OnAddButtonClicked(wxCommandEvent* evt, int f)//, wxWindow* parent)
-//{
-	//AddAssignmentDialog Dialog;// = new AddAssignmentDialog(m_parent);//Note add parameters
-//			DialogBoxDisplay(this);
-	/*if (DialogBoxDisplay->ShowModal() == wxID_OK) {
-
-	}*/
-//}
-void Assignment::_OnAddButtonClicked(wxCommandEvent& evt, int f)//, wxWindow* parent)
-{
-//	OnAddButtonClicked(&evt, f);//, parent);
-}

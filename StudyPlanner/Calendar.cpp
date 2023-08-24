@@ -19,7 +19,7 @@ CalendarBuilder cr;
 
 
 wxString engdate;
-wxDateTime dt;
+wxDateTime dt0;
 std::vector<std::string> dates;
 RoundedRectangle* todolist;
 RoundedRectangle* noteslist;
@@ -91,10 +91,10 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 	nepdateInfo->SetForegroundColour(wxColour(233, 233, 233));
 
 	wxString* engdate = new wxString();
-	dt = wxDateTime::Now();
-	*engdate = dt.Format(wxT("%B %d %Y"));
+	dt0 = wxDateTime::Now();
+	*engdate = dt0.Format(wxT("%B %d %Y"));
 
-	engdateInfo = new wxStaticText(dayinfo, wxID_ANY, !States::minimizedSidebar ? dt.Format(wxT("%d/%m/%y")) : *engdate, wxPoint(10, 10), wxDefaultSize);
+	engdateInfo = new wxStaticText(dayinfo, wxID_ANY, !States::minimizedSidebar ? dt0.Format(wxT("%d/%m/%y")) : *engdate, wxPoint(10, 10), wxDefaultSize);
 	engdateInfo->SetFont(*engdateFont);
 	engdateInfo->SetBackgroundColour(wxColor(44, 41, 59));
 	engdateInfo->SetForegroundColour(wxColour(233, 233, 233));
@@ -217,7 +217,7 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 			calendardateText[count]->SetFont(*calendarnumberFont);
 			(j == 6) ? calendardateText[count]->SetForegroundColour(wxColor("#dd403a")) : calendardateText[count]->SetForegroundColour(*wxWHITE);
 
-			(strcmp(dt.Format(std::string("%d")).c_str(), cr.getDates()[count].c_str()) == 0)
+			(strcmp(dt0.Format(std::string("%d")).c_str(), cr.getDates()[count].c_str()) == 0)
 				? calendardateText[count]->SetBackgroundColour(wxColor(178, 80, 34))
 				: calendardateText[count]->SetBackgroundColour(wxColor(84, 78, 111));
 
@@ -271,7 +271,7 @@ void Calendar::Initialize()
 void Calendar::AddSavedTasks()
 {
 	Task t;
-	std::vector<Task> tasks = loadTasksFromFile("tasks.txt", dt.Format(wxT("%d/%m/%y")).ToStdString());
+	std::vector<Task> tasks = loadTasksFromFile("tasks.txt", dt0.Format(wxT("%d/%m/%y")).ToStdString());
 
 	for (const Task& task : tasks) {
 		int index = todocheckListBox->GetCount();
@@ -294,7 +294,7 @@ void Calendar::AddSavedTasks()
 void Calendar::AddSavedTasks(int pra)
 {
 
-	std::vector<Task> tasks = loadTasksFromFile("tasks.txt", (calendardateText[pra]->GetLabelText().ToStdString() + dt.Format(wxT("/%m/%y")).ToStdString()));
+	std::vector<Task> tasks = loadTasksFromFile("tasks.txt", (calendardateText[pra]->GetLabelText().ToStdString() + dt0.Format(wxT("/%m/%y")).ToStdString()));
 
 	//int index = todocheckListBox->GetCount();
 	todocheckListBox->Clear();
@@ -326,7 +326,7 @@ void Calendar::onCalendarText(wxMouseEvent& evt, int pra) {
 	for (int i = 0; i < 35; i++) {
 		calendardateText[i]->SetBackgroundColour(wxColor(84, 78, 111));
 		calendardateText[i]->SetForegroundColour(*wxWHITE);
-		(strcmp(dt.Format(std::string("%d")).c_str(), cr.getDates()[i].c_str()) == 0) ? calendardateText[i]->SetBackgroundColour(wxColor(178, 80, 34)) : calendardateText[i]->SetBackgroundColour(wxColor(84, 78, 111));
+		(strcmp(dt0.Format(std::string("%d")).c_str(), cr.getDates()[i].c_str()) == 0) ? calendardateText[i]->SetBackgroundColour(wxColor(178, 80, 34)) : calendardateText[i]->SetBackgroundColour(wxColor(84, 78, 111));
 		(!((i + 1) % 7)) ? calendardateText[i]->SetForegroundColour(wxColor("#dd403a")) : calendardateText[i]->SetForegroundColour(*wxWHITE);
 
 	}
@@ -339,7 +339,7 @@ void Calendar::onCalendarText(wxMouseEvent& evt, int pra) {
 
 void Calendar::SidebarChange()
 {
-	engdateInfo->SetLabelText(!States::minimizedSidebar ? dt.Format(wxT("%d/%m/%y")) : dt.Format(wxT("%B %d %Y")));
+	engdateInfo->SetLabelText(!States::minimizedSidebar ? dt0.Format(wxT("%d/%m/%y")) : dt0.Format(wxT("%B %d %Y")));
 	if (States::minimizedSidebar) {
 		if (todolist->IsShown() && noteslist->IsShown()) return;
 		todolist->Show();

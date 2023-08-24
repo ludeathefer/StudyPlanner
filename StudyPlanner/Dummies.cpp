@@ -19,9 +19,6 @@ RevisionData::RevisionData()
 	completion.push_back("38%");
 }
 
-
-
-
 SyllabusData::SyllabusData()
 {
 	subjects.push_back("ECT");

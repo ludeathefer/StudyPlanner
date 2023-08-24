@@ -12,5 +12,4 @@
 #define SATURDAY_COLOR wxColour("#dd403a")
 #define SELECTED_DAY_COLOR wxColour("#a4303f")
 #define FOCUS_COLOR wxColour("#FF5E03")
-
 #define TITLEBAR_MINIMIZE_COLOUR wxColour("#683D77")

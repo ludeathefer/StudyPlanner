@@ -10,7 +10,7 @@
 #include "Graphs.h"
 #include "Internships.h"
 
-Mainframe::Mainframe(const wxString& title): wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxCAPTION))
+Mainframe::Mainframe(const wxString& title) : wxFrame(nullptr, wxID_ANY, title, wxDefaultPosition, wxDefaultSize, wxDEFAULT_FRAME_STYLE & ~(wxRESIZE_BORDER | wxCAPTION))
 {
 
 }
@@ -48,15 +48,17 @@ void Mainframe::Initialize() {
 
 	dashboard->Initialize();
 	calendar->Initialize();
-	syllabus->Initialize();
-	assignment->Initialize();
-	revision->Initialize();
 	graphs->Initialize();
 	internships->Initialize();
 
 	sizer->Add(sidebar, States::minimizedSidebar ? 1 : 4, wxEXPAND | wxALL, 0);
 	ChangePage();
 	SetSizer(sizer);
+	this->Bind(wxEVT_CLOSE_WINDOW, [this](wxCloseEvent& evt) {
+		assignment->OnWindowClosedAssignment(evt);
+		syllabus->UpdateCurrentSyllabus(evt);
+		revision->UpdateCurrentRevision(evt);
+		});
 }
 
 void Mainframe::ShowSidebar() {
@@ -72,7 +74,7 @@ void Mainframe::ChangePage() {
 		if (sizer->GetItemCount() > 1) { sizer->Hide(1); sizer->Remove(1); }
 		sizer->Add(dashboard, 16, wxEXPAND | wxALL, 0);
 		dashboard->Show();
-		break;	
+		break;
 	case 1:
 		if (sizer->GetItemCount() > 1) { sizer->Hide(1); sizer->Remove(1); }
 		sizer->Add(calendar, 16, wxEXPAND | wxALL, 0);

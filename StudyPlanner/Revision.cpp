@@ -6,24 +6,25 @@
 #include <fstream>
 #include <algorithm>
 #include "RoundedRectangle.h"
-#include<wx/gbsizer.h>
+#include <wx/gbsizer.h>
 #include "Assets.h"
+#include <sstream>
+
+std::vector<std::vector<std::string>> _DateHolder;
+wxDateTime Date = wxDateTime::Today();
 
 Revision::Revision(wxWindow* parent) : wxPanel(parent)
 {
-
-
 	const auto margin = FromDIP(30);
 	auto mainsizer = new wxBoxSizer(wxVERTICAL);
 	mainsizer->AddSpacer(10);
 	wxFont* headLineFont = new wxFont(32, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-	auto* panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(800, 800));// , wxDefaultPosition, wxDefaultSize, wxEXPAND | wxALL);
+	auto* panel = new wxPanel(this, wxID_ANY, wxDefaultPosition, wxSize(800, 800)); // ,wxDefaultPosition, wxDefaultSize, wxEXPAND | wxALL);
 	panel->SetBackgroundColour(wxColor(84, 78, 111));
 	this->SetBackgroundColour(panel->GetBackgroundColour());
 	auto sizer = new wxGridBagSizer(margin, margin);
 
 	auto MainTitle = new wxStaticText(panel, wxID_ANY, "Revision");
-
 	MainTitle->SetForegroundColour(TEXT_THEME_COLOUR);
 	int count = 0;
 	sizer->Add(MainTitle, { 0,0 }, { 1,3 });
@@ -38,9 +39,7 @@ Revision::Revision(wxWindow* parent) : wxPanel(parent)
 				sizer->Add(BoxArray, { i + 1,j }, { 1,1 });
 
 				auto MainSizer = new wxBoxSizer(wxVERTICAL);
-				//auto TitleAndButton = new wxBoxSizer(wxVERTICAL);
 				auto Title = new wxBoxSizer(wxHORIZONTAL);
-				//	auto Button = new wxBoxSizer(wxHORIZONTAL);
 				auto CheckBox = new wxBoxSizer(wxHORIZONTAL);
 
 				switch (count)
@@ -75,10 +74,6 @@ Revision::Revision(wxWindow* parent) : wxPanel(parent)
 				TitleDisplay->SetForegroundColour(*wxWHITE);
 				Title->Add(TitleDisplay);
 
-				/*AddButton[count] = new wxButton(BoxArray, wxID_ANY, "+", wxPoint(355, 10), wxSize(25, 25));
-				AddButton[count]->SetBackgroundColour(wxColor(84, 78, 111));
-				Button->Add(AddButton[count]);*/
-
 				CheckListBox[count] = new wxCheckListBox(BoxArray, wxID_ANY, wxPoint(20, 50), wxSize(360, 150), 0, NULL, wxNO_BORDER);//, wxALIGN_BOTTOM);// | wxALIGN_CENTER);
 				CheckListBox[count]->SetBackgroundColour(SIDEBAR_COLOUR);
 				CheckListBox[count]->SetForegroundColour(*wxWHITE);
@@ -92,9 +87,7 @@ Revision::Revision(wxWindow* parent) : wxPanel(parent)
 				MainSizer->Add(CheckBox);
 
 				//BindEventHandlers(count);
-
 				count++;
-
 			}
 		}
 	}
@@ -116,20 +109,10 @@ Revision::Revision(wxWindow* parent) : wxPanel(parent)
 
 void Revision::Initialize()
 {
-	//SetBackgroundColour(wxColour(84, 78, 111));
-	//wxBoxSizer* revisionSizer = new wxBoxSizer(wxVERTICAL);
-	//wxStaticText* revisionText = new wxStaticText(this, wxID_STATIC, wxT("Revision"));
-	//wxFont* revisionFont = new wxFont(72, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_SEMIBOLD);
-	//revisionText->SetFont(*revisionFont);
-	//revisionText->SetForegroundColour(wxColour(200, 200, 200));
-	//wxBoxSizer* tempSizer = new wxBoxSizer(wxHORIZONTAL);
-	//tempSizer->Add(revisionText, 0, wxALIGN_CENTER);
-	//revisionSizer->Add(tempSizer, 1, wxALIGN_CENTER);
-	//SetSizer(revisionSizer);
 	Hide();
 }
 
-void Revision::DisplayRevision()//displays revision
+void Revision::DisplayRevision() //displays revision
 {
 	int count = 0;
 	while (count < 7) {
@@ -169,21 +152,30 @@ void Revision::DisplayRevision()//displays revision
 	}
 }
 
-void Revision::UpdateCurrentRevision(wxCloseEvent& evt)//updates changes on revision
+void Revision::UpdateCurrentRevision(wxCloseEvent& evt) //updates changes on revision
 {
-
-
+	std::ofstream UpdateDate("DateHolder.txt");
 	for (int i = 0; i < 7; i++) {
 		std::vector<Revision_a> _Revision;
 		int k = CheckListBox[i]->GetCount();
 		for (int j = 0; j < k; j++)
 		{
-			//CheckListBox[i]->GetCount();
 			Revision_a revision;
 			revision.item = CheckListBox[i]->GetString(j);
 			revision.done = CheckListBox[i]->IsChecked(j);
 
 			_Revision.push_back(Revision_a{ revision.item , revision.done });
+
+			if (_DateHolder[i][j] == "0000-00-00" && revision.done) {
+				UpdateDate << Date.Format("%Y-%m-%d") << ' ';
+			}
+			else if (_DateHolder[i][j] != "0000-00-00" && !revision.done) {
+				UpdateDate << "0000-00-00" << ' ';
+			}
+			else
+			{
+				UpdateDate << _DateHolder[i][j] << ' ';
+			}
 		}
 
 		switch (i)
@@ -211,41 +203,54 @@ void Revision::UpdateCurrentRevision(wxCloseEvent& evt)//updates changes on revi
 			break;
 		}
 		evt.Skip();
-
 	}
-
 }
 
-
-
-std::vector<Revision_a> LoadRevision(const std::string& filename)//loads revision in vector
+std::vector<Revision::Revision_a> LoadRevision(const std::string& filename) //loads revision in vector
 {
 	if (!std::filesystem::exists(filename))
 	{
-		return std::vector<Revision_a>();
+		return std::vector<Revision::Revision_a>();
 	}
 
-	std::vector<Revision_a> _Revision;
+	std::vector<Revision::Revision_a> _Revision;
 	std::ifstream istream(filename);
 	int n;
 	istream >> n;
 	for (int i = 0; i < n; i++) {
-		//wxString item;
 		std::string item;
-		//std::string s1 = (std::string)item;
 		bool done;
 		istream >> item >> done;
 		std::replace(item.begin(), item.end(), '_', ' ');
-		_Revision.push_back(Revision_a{ item, done });
+		_Revision.push_back(Revision::Revision_a{ item, done });
 	}
+	std::ifstream DateFile("DateHolder.txt");
+	if (!std::filesystem::exists("DateHolder.txt")) {
+		for (int i = 0; i < 7; i++) {
+			std::vector<std::string> Line;
+			for (int j = 0; j < 12; j++) {
+				Line.push_back("0000-00-00");
+			}
+			_DateHolder.push_back(Line);
+		}
+	}
+	std::string DateLine;
+	while (std::getline(DateFile, DateLine)) {
+		std::vector<std::string> DateRow;
+		std::istringstream iss(DateLine);
+		std::string DateValue;
+		while (iss >> DateValue) { DateRow.push_back(DateValue); }
+		_DateHolder.push_back(DateRow);
+	}
+	DateFile.close();
 	return _Revision;
 }
 
-void UpdateRevision(const std::vector<Revision_a>& Revision, const std::string& filename)//Saves revision in file(updates it)
+void UpdateRevision(const std::vector<Revision::Revision_a>& Revision, const std::string& filename) //Saves revision in file (updates it)
 {
 	std::ofstream ostream(filename);
 	ostream << Revision.size();
-	for (const Revision_a& _revision : Revision) {
+	for (const Revision::Revision_a& _revision : Revision) {
 		wxString item = _revision.item;
 		std::replace(item.begin(), item.end(), ' ', '_');
 		ostream << '\n' << item << ' ' << _revision.done;
