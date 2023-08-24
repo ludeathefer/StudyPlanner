@@ -13,9 +13,8 @@ Internships::Internships(wxWindow* parent) : wxPanel(parent)
 	sizerMain = new wxBoxSizer(wxHORIZONTAL);
 	IS = new InternshipSearch(this);
 	IMD = new InternshipMoreDetails(this);
-	ICD = new InternshipCompany(this, m);
+	ICD = new InternshipCompany(this);
 	
-	;
 
 
 	this->SetSizer(sizerMain);	
@@ -53,7 +52,7 @@ void Internships::Initialize()
 		break;
 	case 3:
 		sizerMain->Remove(0);
-		ICD->Initialize();
+		ICD->Initialize(m);
 		sizerMain->Add(ICD, 1, wxEXPAND, 0);
 		IS->Hide();
 		ICD->Show();

@@ -2,9 +2,14 @@
 #include "Assets.h"
 #include "RoundedButton.h"
 #include "InternshipSearch.h"
-InternshipCompany::InternshipCompany(wxPanel* parent, MeroJob &m) : wxPanel(parent)
+InternshipCompany::InternshipCompany(wxPanel* parent ) : wxPanel(parent)
 {
 
+	
+}
+
+void InternshipCompany::Initialize(MeroJob& m)
+{
 	wxFont* titleFont = new wxFont(28, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 	wxFont* headingFont = new wxFont(18, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_MEDIUM);
 	wxFont* bodyFont = new wxFont(13, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
@@ -32,7 +37,7 @@ InternshipCompany::InternshipCompany(wxPanel* parent, MeroJob &m) : wxPanel(pare
 
 	searchResult->SetScrollRate(10, 0);
 
-	
+
 	m.RetrieveCompanyDetails("https://merojob.com/employer/cedar-gate-services-pvt-ltd/");
 
 	wxStaticText* companyTitle = new wxStaticText(mainDetailPage, wxID_ANY, "Cedar Gate Services");
@@ -58,7 +63,7 @@ InternshipCompany::InternshipCompany(wxPanel* parent, MeroJob &m) : wxPanel(pare
 
 	wxStaticText* companyLocationValue = new wxStaticText(CompanyInfoContainer, wxID_ANY, m.GetCompanyDetails().location);
 	companyLocationValue->SetBackgroundColour(SIDEBAR_COLOUR);
-	
+
 	wxStaticText* jobPosted = new wxStaticText(mainDetailPage, wxID_ANY, "Job Posted by this Company");
 	jobPosted->SetFont(*headingFont);
 
@@ -72,9 +77,9 @@ InternshipCompany::InternshipCompany(wxPanel* parent, MeroJob &m) : wxPanel(pare
 	ICDSizer->Add(companyInfo, 0, wxLEFT | wxTOP, 25);
 	ICDSizer->Add(CompanyInfoContainer, 0, wxLEFT | wxTOP, 25);
 	ICDSizer->Add(jobPosted, 0, wxLEFT | wxTOP, 25);
-	ICDSizer->Add(searchResult, 1, wxEXPAND|wxLEFT | wxTOP, 25);
+	ICDSizer->Add(searchResult, 1, wxEXPAND | wxLEFT | wxTOP, 25);
 
-	
+
 	companyInfoSizer->Add(industry, 0, wxLEFT | wxTOP, 15);
 	companyInfoSizer->Add(industryValue, 0, wxLEFT | wxTOP, 15);
 	companyInfoSizer->Add(companySize, 0, wxLEFT | wxTOP, 15);
@@ -88,7 +93,7 @@ InternshipCompany::InternshipCompany(wxPanel* parent, MeroJob &m) : wxPanel(pare
 		companyItem[i]->setData(industrycard.name,
 			"https://merojob.com" + industrycard.job_url, industrycard.company, "https://merojob.com" + industrycard.company_url,
 			industrycard.location, industrycard.image, industrycard.deadline);
-		resultSizer->Add(companyItem[i], 0,  wxALL, 20);
+		resultSizer->Add(companyItem[i], 0, wxALL, 20);
 		i++;
 	}
 
@@ -100,8 +105,4 @@ InternshipCompany::InternshipCompany(wxPanel* parent, MeroJob &m) : wxPanel(pare
 	CompanyInfoContainer->SetSizer(companyInfoSizer);
 	searchResult->SetSizer(resultSizer);
 	Hide();
-}
-
-void InternshipCompany::Initialize()
-{
 }

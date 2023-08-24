@@ -8,8 +8,8 @@ class InternshipCompany : public wxPanel
 	InternshipCard** companyItem = new InternshipCard * [5];
 
 public:
-	InternshipCompany(wxPanel*, MeroJob &m);
-	void Initialize();
+	InternshipCompany(wxPanel*);
+	void Initialize(MeroJob& m);
 
 };
 

@@ -11,8 +11,8 @@ RoundedButton::RoundedButton(wxWindow* parent, wxSize buttonSize, std::string la
 	buttonText->SetBackgroundColour(FOCUS_COLOR);
 	wxFont* buttonTextFont = new wxFont(12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
 	buttonText->SetFont(*buttonTextFont);
-	wxBoxSizer* sizer2 = new wxBoxSizer(wxHORIZONTAL);
-	wxBoxSizer* sizer = new wxBoxSizer(wxVERTICAL);
+	sizer2 = new wxBoxSizer(wxHORIZONTAL);
+	sizer = new wxBoxSizer(wxVERTICAL);
 	sizer->Add(sizer2, 0, wxALIGN_CENTER);
 	sizer2->Add(buttonText, 0, wxALIGN_BOTTOM);
 

@@ -16,19 +16,11 @@ private:
 	wxStaticText* companyLocation;
 	wxStaticText* deadline;
 	wxBoxSizer* textSizer;
-
-
-
-public:
-
-	enum {
-		ID_MORE_DETAILS = 1,
-		ID_COMPANY_DETAILS = 2
-	};
-
-	InternshipCard(wxWindow* parent);
 	RoundedButton* MoreDetails;
 	RoundedButton* CompanyDetails;
+
+public:
+	InternshipCard(wxWindow* parent);
 	void setData(std::string jobTitle = "N/A", std::string jobLink = "N/A",
 		std::string companyTitle = "N/A", std::string companyLink = "N/A",
 		std::string location = "N/A", std::string image = "N/A", std::string appdeadline = "N/A");

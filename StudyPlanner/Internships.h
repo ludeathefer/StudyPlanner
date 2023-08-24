@@ -6,8 +6,7 @@
 
 
 class Internships : public wxPanel
-{
-	
+{	
 public:
 	static int page;
 	wxBoxSizer* sizerMain;
@@ -15,12 +14,7 @@ public:
 	InternshipSearch* IS;
 	InternshipCompany* ICD;
 	MeroJob m;
-
 	Internships(wxWindow* parent);
 	void Initialize();
-
-	
-	
-
 };
 

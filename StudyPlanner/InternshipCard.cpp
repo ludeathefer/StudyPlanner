@@ -25,8 +25,7 @@ InternshipCard::InternshipCard(wxWindow* parent) : RoundedRectangle(parent, wxSi
 	
 	MoreDetails = new RoundedButton(buttonContainer, wxSize(180, 40), "More Details", 1);
 	CompanyDetails = new RoundedButton(buttonContainer, wxSize(180, 40), "Company Page", 2);
-	MoreDetails->buttonText->SetId(ID_MORE_DETAILS);
-	CompanyDetails->buttonText->SetId(ID_COMPANY_DETAILS);
+
 	MoreDetails->buttonText->Bind(wxEVT_BUTTON, &InternshipCard::onButtonClick, this);
 	CompanyDetails->buttonText->Bind(wxEVT_BUTTON, &InternshipCard::onButtonClick, this);
 

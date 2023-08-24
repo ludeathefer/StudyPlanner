@@ -39,19 +39,14 @@ struct JobDetailCard {
 
 };
 
-
-
 class MeroJob
 {
- 
-private: 
+ private: 
     std::string searchKey;
     std::vector<JobCard> job_cards;
     CompanyPageCard c1;
     JobDetailCard j1;
    
-
-
 public:
     void RetrieveResults( std::string _searchKey);
     std::vector<JobCard> GetResults();

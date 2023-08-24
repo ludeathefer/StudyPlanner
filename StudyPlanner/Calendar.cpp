@@ -34,7 +34,7 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 {
 	States::calendar = this;
 
-	BuildContextMenu();
+
 
 	
 	/*PANELS INITIALIZATIONS START*/
@@ -224,7 +224,7 @@ Calendar::Calendar(wxWindow* parent) : wxPanel(parent)
 			calendardateText[count]->Bind(wxEVT_LEFT_DOWN, [this, count](wxMouseEvent& evt) {
 				onCalendarText(evt, count);
 				});
-			calendardateText[count]->Bind(wxEVT_CONTEXT_MENU, &Calendar::onContextMenuEvent, this);
+			
 			calendarcontentSizer->Add(calendardateText[count], 0, wxEXPAND | wxALL, 10);
 			count++;
 
@@ -270,8 +270,7 @@ void Calendar::Initialize()
 
 void Calendar::AddSavedTasks()
 {
-	Task t;
-	std::vector<Task> tasks = loadTasksFromFile("tasks.txt", dt0.Format(wxT("%d/%m/%y")).ToStdString());
+	std::vector<Task> tasks = loadTasksFromFile("tasks.txt", dt.Format(wxT("%d/%m/%y")).ToStdString());
 
 	for (const Task& task : tasks) {
 		int index = todocheckListBox->GetCount();
@@ -296,13 +295,9 @@ void Calendar::AddSavedTasks(int pra)
 
 	std::vector<Task> tasks = loadTasksFromFile("tasks.txt", (calendardateText[pra]->GetLabelText().ToStdString() + dt0.Format(wxT("/%m/%y")).ToStdString()));
 
-	//int index = todocheckListBox->GetCount();
 	todocheckListBox->Clear();
 	int index = 0;
 	for (const Task& task : tasks) {
-
-		//int index = todocheckListBox->GetCount();
-
 		engdate = task.date;
 		wxFont* boxtextFont = new wxFont(11, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
 		todocheckListBox->Insert(task.description, index);
@@ -311,10 +306,7 @@ void Calendar::AddSavedTasks(int pra)
 		todocheckListBox->GetItem(index)->SetFont(*boxtextFont);
 		index = index + 1;
 		todocheckListBox->Layout();
-
 	}
-
-
 }
 
 
@@ -326,7 +318,9 @@ void Calendar::onCalendarText(wxMouseEvent& evt, int pra) {
 	for (int i = 0; i < 35; i++) {
 		calendardateText[i]->SetBackgroundColour(wxColor(84, 78, 111));
 		calendardateText[i]->SetForegroundColour(*wxWHITE);
-		(strcmp(dt0.Format(std::string("%d")).c_str(), cr.getDates()[i].c_str()) == 0) ? calendardateText[i]->SetBackgroundColour(wxColor(178, 80, 34)) : calendardateText[i]->SetBackgroundColour(wxColor(84, 78, 111));
+		(strcmp(dt.Format(std::string("%d")).c_str(), cr.getDates()[i].c_str()) == 0) ?
+			calendardateText[i]->SetBackgroundColour(wxColor(178, 80, 34)) :
+			calendardateText[i]->SetBackgroundColour(wxColor(84, 78, 111));
 		(!((i + 1) % 7)) ? calendardateText[i]->SetForegroundColour(wxColor("#dd403a")) : calendardateText[i]->SetForegroundColour(*wxWHITE);
 
 	}
@@ -354,22 +348,3 @@ void Calendar::SidebarChange()
 	mainSizer->Layout();
 	//Refresh();
 };
-
-
-void Calendar::BuildContextMenu()
-{
-	auto addTask = contextMenu.Append(wxID_ANY, "Add Task");
-	auto clearTask = contextMenu.Append(wxID_ANY, "Clear All tasks for this date");
-	auto selectItem = contextMenu.Append(wxID_ANY, "Select");
-	
-
-}
-
-void Calendar::onContextMenuEvent(wxContextMenuEvent &e)
-{
-	auto clientPos = e.GetPosition() == wxDefaultPosition
-		? wxPoint(this->GetSize().GetWidth() / 2,  this->GetSize().GetWidth() / 2)
-		: this->ScreenToClient(e.GetPosition());
-	PopupMenu(&this->contextMenu, clientPos);
-
-}

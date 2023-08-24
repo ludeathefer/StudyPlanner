@@ -94,17 +94,13 @@ void InternshipSearch::OnSearchButton(wxCommandEvent & event, MeroJob &m)
 
 void InternshipSearch::LoadSearchResults(const std::vector<JobCard>&industrycards, MeroJob &m)
 {
-
 	int i = 0;
 	for (const JobCard& industrycard : industrycards) {
 		resultItem[i]->setData(industrycard.name,
 			"https://merojob.com" + industrycard.job_url, industrycard.company, "https://merojob.com" + industrycard.company_url,
 			industrycard.location, industrycard.image, industrycard.deadline);
-
-		
 		i++;
 	}
-
 	m.ClearElements();
 	searchResult->GetParent()->GetSizer()->Show(searchResult);
 	searchResult->Layout();

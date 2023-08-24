@@ -22,7 +22,7 @@ void InternshipMoreDetails::Initialize(MeroJob &m)
 	JobInfoContainer->SetForegroundColour(TEXT_THEME_COLOUR);
 
 
-	RoundedButton* backButton = new RoundedButton(mainDetailPage, wxSize(180, 80), "Back", 1);
+	RoundedButton* backButton = new RoundedButton(mainDetailPage, wxSize(180, 80), "Back", 15);
 
 
 	wxFont* titleFont = new wxFont(28, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);

@@ -28,7 +28,6 @@ void MeroJob::RetrieveResults(std::string _searchKey = "Software Engineer")
     // with an XPath selector
     xmlXPathObjectPtr job_card_html_elements = xmlXPathEvalExpression((xmlChar*)"//div[contains(@id, 'search_job')]//div[contains(@class, 'card mt-3')]", context);
 
-    // iterate over the list of industry card elements
     for (int i = 0; i < job_card_html_elements->nodesetval->nodeNr; ++i)
     {
 
