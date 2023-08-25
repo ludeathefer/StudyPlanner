@@ -1,10 +1,14 @@
 #include "States.h"
 
 int States::selectedWindow = 0;
+int States::selectedPage = 0;
 bool States::minimizedSidebar = true;
 Mainframe* States::mainframe = nullptr;
 SidebarMenu* States::sidebarMenu = nullptr;
 Calendar* States::calendar = nullptr;
+Internships* States::internships = nullptr;
+std::string States::jobName = "Senior Software Engineer";
+
 
 wxBitmap States::LoadPNGFromResource(int resourceID, const wxString& resourceType)
 {
