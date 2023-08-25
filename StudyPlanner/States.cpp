@@ -7,6 +7,7 @@ Mainframe* States::mainframe = nullptr;
 SidebarMenu* States::sidebarMenu = nullptr;
 Calendar* States::calendar = nullptr;
 Internships* States::internships = nullptr;
+std::string States::jobName = "Senior Software Engineer";
 
 
 wxBitmap States::LoadPNGFromResource(int resourceID, const wxString& resourceType)

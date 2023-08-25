@@ -55,6 +55,7 @@ public:
     void ClearElements();
     void RetrieveCompanyDetails(std::string _key);  
     void RetrieveJobDetails(std::string _url);
+    void ClearCompanyDetails();
 
 };
 

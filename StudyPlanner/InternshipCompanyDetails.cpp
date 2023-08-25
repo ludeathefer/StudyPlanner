@@ -1,7 +1,9 @@
 #include "InternshipCompanyDetails.h"
 #include "Assets.h"
 #include "RoundedButton.h"
+#include "States.h"
 #include "InternshipSearch.h"
+
 InternshipCompany::InternshipCompany(wxPanel* parent ) : wxPanel(parent)
 {
 
@@ -38,9 +40,8 @@ void InternshipCompany::Initialize(MeroJob& m)
 	searchResult->SetScrollRate(10, 0);
 
 
-	m.RetrieveCompanyDetails("https://merojob.com/employer/cedar-gate-services-pvt-ltd/");
-
-	wxStaticText* companyTitle = new wxStaticText(mainDetailPage, wxID_ANY, "Cedar Gate Services");
+	
+	wxStaticText* companyTitle = new wxStaticText(mainDetailPage, wxID_ANY, m.GetCompanyDetails().companyjob_cards[0].company);
 	companyTitle->SetFont(*titleFont);
 
 	wxStaticText* companyInfo = new wxStaticText(mainDetailPage, wxID_ANY, "Company Info");
@@ -89,13 +90,14 @@ void InternshipCompany::Initialize(MeroJob& m)
 
 	int i = 0;
 	for (const JobCard& industrycard : m.GetCompanyDetails().companyjob_cards) {
-		companyItem[i] = new InternshipCard(searchResult);
+		companyItem[i] = new InternshipCard(searchResult, m);
 		companyItem[i]->setData(industrycard.name,
 			"https://merojob.com" + industrycard.job_url, industrycard.company, "https://merojob.com" + industrycard.company_url,
 			industrycard.location, industrycard.image, industrycard.deadline);
 		resultSizer->Add(companyItem[i], 0, wxALL, 20);
 		i++;
 	}
+	m.ClearCompanyDetails();
 
 
 	SetSizer(mainSizer);

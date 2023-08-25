@@ -4,6 +4,7 @@
 #include "InternshipSearch.h"
 #include "RoundedButton.h"
 #include "SimilarJobs.h"
+#include "States.h"
 
 InternshipMoreDetails::InternshipMoreDetails(wxPanel* parent) : wxPanel(parent)
 {
@@ -32,7 +33,6 @@ void InternshipMoreDetails::Initialize(MeroJob &m)
 
 	JobInfoContainer->SetFont(*bodyFont);
 
-	m.RetrieveJobDetails("https://merojob.com/software-engineer-laravel-reactjs-full-stack/");
 
 	wxBoxSizer* IMDSizer = new wxBoxSizer(wxHORIZONTAL);
 	wxBoxSizer* JobsDetailSizer = new wxBoxSizer(wxVERTICAL);
@@ -40,7 +40,7 @@ void InternshipMoreDetails::Initialize(MeroJob &m)
 	wxBoxSizer* MoreJobSizer = new wxBoxSizer(wxVERTICAL);
 	wxGridSizer* JobInfoSizer = new wxGridSizer(2, 5, 5);
 
-	wxStaticText* JobTitle = new wxStaticText(mainDetailPage, wxID_ANY, "Senior Software Engineer");
+	wxStaticText* JobTitle = new wxStaticText(mainDetailPage, wxID_ANY, States::jobName);
 	JobTitle->SetFont(*titleFont);
 
 	wxStaticText* SimilarJob = new wxStaticText(mainDetailPage, wxID_ANY, "Simiilar Jobs");

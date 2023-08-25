@@ -11,7 +11,7 @@
 
 
 
-InternshipCard::InternshipCard(wxWindow* parent) : RoundedRectangle(parent, wxSize(425, 240), SIDEBAR_COLOUR, THEME_COLOUR, 30)
+InternshipCard::InternshipCard(wxWindow* parent, MeroJob &m) : RoundedRectangle(parent, wxSize(425, 240), SIDEBAR_COLOUR, THEME_COLOUR, 30)
 {
 	
 	auto panel = new RoundedRectangle(this, wxSize(400, 235), SIDEBAR_COLOUR, THEME_COLOUR, 1);
@@ -26,9 +26,11 @@ InternshipCard::InternshipCard(wxWindow* parent) : RoundedRectangle(parent, wxSi
 	MoreDetails = new RoundedButton(buttonContainer, wxSize(180, 40), "More Details", 1);
 	CompanyDetails = new RoundedButton(buttonContainer, wxSize(180, 40), "Company Page", 2);
 
-	MoreDetails->buttonText->Bind(wxEVT_BUTTON, &InternshipCard::onButtonClick, this);
-	CompanyDetails->buttonText->Bind(wxEVT_BUTTON, &InternshipCard::onButtonClick, this);
-
+	MoreDetails->buttonText->Bind(wxEVT_BUTTON, [this, &m](wxCommandEvent& event) {
+		this->onButtonClick(event, m);
+		});	CompanyDetails->buttonText->Bind(wxEVT_BUTTON, [this, &m](wxCommandEvent& event) {
+		this->onButtonClick(event, m);
+		});
 
 
 	resultTitleFont = new wxFont(12, wxFONTFAMILY_SWISS, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_NORMAL);
@@ -40,7 +42,7 @@ InternshipCard::InternshipCard(wxWindow* parent) : RoundedRectangle(parent, wxSi
 	resultTitleText->SetForegroundColour(*wxWHITE);
 	resultTitleText->SetBackgroundColour(SIDEBAR_COLOUR);
 
-	companyName = new wxHyperlinkCtrl(textcontentContainer, wxID_STATIC, "", "");
+	companyName = new wxHyperlinkCtrl(textcontentContainer, wxID_STATIC, "", "https://merojob.com/employer/cyberarrow-2/");
 	companyName->SetFont(*resultContentFont);
 	companyName->SetForegroundColour(*wxWHITE);
 	companyName->SetBackgroundColour(SIDEBAR_COLOUR);
@@ -93,25 +95,30 @@ InternshipCard::InternshipCard(wxWindow* parent) : RoundedRectangle(parent, wxSi
 void InternshipCard::setData(std::string jobTitle, std::string jobLink, std::string companyTitle, std::string companyLink, std::string location, std::string image, std::string appdeadline)
 {
 	this->companyName->SetLabel(companyTitle);
-	this->companyName->SetURL(companyTitle);
+	this->companyName->SetURL(companyLink);
 	this->resultTitleText->SetLabel(jobTitle);
 	this->resultTitleText->SetURL(jobLink);
 	this->deadline->SetLabel(appdeadline);
 	this->companyLocation->SetLabel(location);
+
 	textSizer->Layout();
 }
 
-void InternshipCard::onButtonClick(wxCommandEvent& event)
+void InternshipCard::onButtonClick(wxCommandEvent& event, MeroJob &m)
 {
 	wxButton* button = (wxButton*)event.GetEventObject();
 	if (button == MoreDetails->buttonText) {
 		Internships::page = 2;
+		States::jobName = resultTitleText->GetLabelText();
+		m.RetrieveJobDetails(resultTitleText->GetURL().ToStdString().c_str());
 		States::internships->Initialize();
 		States::selectedPage = 1;
 	}
 	else if (button == CompanyDetails->buttonText) {
 		Internships::page = 3;
+		m.RetrieveCompanyDetails(companyName->GetURL().ToStdString().c_str());
 		States::internships->Initialize();
 		States::selectedPage = 1;
+	
 	}
 }

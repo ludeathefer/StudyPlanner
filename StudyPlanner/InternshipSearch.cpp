@@ -50,7 +50,7 @@ void InternshipSearch::Initialize(MeroJob &mero)
 
 
 	for (int i = 0; i < 6; i++) {
-		resultItem[i] = new InternshipCard(searchResult);
+		resultItem[i] = new InternshipCard(searchResult, mero);
 		resultSizer->Add(resultItem[i], 1, wxEXPAND | wxALL, 20);
 
 	}

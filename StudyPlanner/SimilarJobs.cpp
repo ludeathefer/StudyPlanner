@@ -30,14 +30,14 @@ SimilarJobs::SimilarJobs(wxWindow* parent) : RoundedRectangle(parent, wxSize(300
 	deadline->SetBackgroundColour(SIDEBAR_COLOUR);
 
 	wxSizer* mainSizer = new wxBoxSizer(wxVERTICAL);
-	mainSizer->Add(panel, 2, wxEXPAND | wxALL, 8);
+	mainSizer->Add(panel, 2, wxEXPAND | wxALL, 2);
 	wxSizer* panelSizer = new wxBoxSizer(wxVERTICAL);
 	textSizer = new wxBoxSizer(wxVERTICAL);
-	panelSizer->Add(textcontentContainer, 3, wxEXPAND | wxALL, 12);
+	panelSizer->Add(textcontentContainer, 3, wxEXPAND | wxALL, 8);
 
-	textSizer->Add(resultTitleText, 0, wxALL, 4);
-	textSizer->Add(companyName, 0, wxALL, 4);
-	textSizer->Add(deadline, 0, wxALL, 4);
+	textSizer->Add(resultTitleText, 0, wxALL, 1);
+	textSizer->Add(companyName, 0, wxALL, 1);
+	textSizer->Add(deadline, 0, wxALL, 1);
 
 	this->SetSizerAndFit(mainSizer);
 	panel->SetSizer(panelSizer);

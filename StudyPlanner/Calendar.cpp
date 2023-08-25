@@ -270,7 +270,7 @@ void Calendar::Initialize()
 
 void Calendar::AddSavedTasks()
 {
-	std::vector<Task> tasks = loadTasksFromFile("tasks.txt", dt.Format(wxT("%d/%m/%y")).ToStdString());
+	std::vector<Task> tasks = loadTasksFromFile("tasks.txt", dt0.Format(wxT("%d/%m/%y")).ToStdString());
 
 	for (const Task& task : tasks) {
 		int index = todocheckListBox->GetCount();
@@ -318,7 +318,7 @@ void Calendar::onCalendarText(wxMouseEvent& evt, int pra) {
 	for (int i = 0; i < 35; i++) {
 		calendardateText[i]->SetBackgroundColour(wxColor(84, 78, 111));
 		calendardateText[i]->SetForegroundColour(*wxWHITE);
-		(strcmp(dt.Format(std::string("%d")).c_str(), cr.getDates()[i].c_str()) == 0) ?
+		(strcmp(dt0	.Format(std::string("%d")).c_str(), cr.getDates()[i].c_str()) == 0) ?
 			calendardateText[i]->SetBackgroundColour(wxColor(178, 80, 34)) :
 			calendardateText[i]->SetBackgroundColour(wxColor(84, 78, 111));
 		(!((i + 1) % 7)) ? calendardateText[i]->SetForegroundColour(wxColor("#dd403a")) : calendardateText[i]->SetForegroundColour(*wxWHITE);
