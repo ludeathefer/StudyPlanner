@@ -35,9 +35,9 @@ SimilarJobs::SimilarJobs(wxWindow* parent) : RoundedRectangle(parent, wxSize(300
 	textSizer = new wxBoxSizer(wxVERTICAL);
 	panelSizer->Add(textcontentContainer, 3, wxEXPAND | wxALL, 8);
 
-	textSizer->Add(resultTitleText, 0, wxALL, 3);
-	textSizer->Add(companyName, 0, wxALL, 3);
-	textSizer->Add(deadline, 0, wxALL, 3);
+	textSizer->Add(resultTitleText, 0, wxALL, 1);
+	textSizer->Add(companyName, 0, wxALL, 1);
+	textSizer->Add(deadline, 0, wxALL, 1);
 
 	this->SetSizerAndFit(mainSizer);
 	panel->SetSizer(panelSizer);
