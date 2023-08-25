@@ -15,9 +15,16 @@ public:
 	wxCheckListBox* CheckListBox[7];
 
 	struct Revision_a;
+	struct RProgress;
+	std::vector<Revision::RProgress> GetRevisionVector();
 };
-
-struct Revision::Revision_a {
+struct Revision::RProgress
+{
+	float percentage;
+	std::string Name;
+};
+struct Revision::Revision_a
+{
 	std::string item;
 	bool done;
 };

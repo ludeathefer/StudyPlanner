@@ -13,10 +13,16 @@ public:
 	void UpdateCurrentSyllabus(wxCloseEvent& evt);
 	wxCheckListBox* CheckListBox[7];
 	struct Syllabus_a;
-
+	struct Progress;
+	std::vector<Syllabus::Progress> GetSyllabusVector();
 };
-
-struct Syllabus::Syllabus_a {
+struct Syllabus::Progress
+{
+	float percentage;
+	std::string Name;
+};
+struct Syllabus::Syllabus_a
+{
 	std::string item;
 	bool done;
 };
